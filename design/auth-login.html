@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Entra · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+</head>
+<body class="d-flex flex-column">
+  <!-- Language and theme -->
+  <div class="d-flex justify-content-end align-items-center gap-1 p-3">
+    <div class="btn-group" role="group" aria-label="Idioma">
+      <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
+      <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
+    </div>
+    <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+  </div>
+
+  <main class="page page-center">
+    <div class="container container-tight py-4">
+      <div class="text-center mb-4">
+        <script>document.write(Estalvia.logo({href:'landing.html', size:'lg'}))</script>
+      </div>
+      <div class="card card-md">
+        <div class="card-body">
+          <h1 class="h2 text-center mb-1">Entra al teu compte</h1>
+          <p class="text-secondary text-center mb-4">Et donem la benvinguda de nou.</p>
+          <form action="auth-2fa.html" method="get" autocomplete="on" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="login-email">Correu electrònic</label>
+              <input type="email" class="form-control" id="login-email" name="email" value="marta.vila@exemple.cat" placeholder="nom@exemple.cat" autocomplete="username" inputmode="email" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="login-password">
+                Contrasenya
+                <span class="form-label-description"><a href="#">He oblidat la contrasenya</a></span>
+              </label>
+              <!-- Example of the inline validation error state -->
+              <div class="input-group input-group-flat">
+                <input type="password" class="form-control is-invalid" id="login-password" name="password" value="contrasenya" autocomplete="current-password" aria-invalid="true" aria-describedby="login-password-error" required>
+                <span class="input-group-text">
+                  <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary border-0" data-toggle-password="login-password" aria-label="Mostra la contrasenya" aria-pressed="false"><i class="ti ti-eye" aria-hidden="true"></i></button>
+                </span>
+              </div>
+              <div class="invalid-feedback d-block" id="login-password-error" role="alert"><i class="ti ti-alert-circle me-1" aria-hidden="true"></i>El correu o la contrasenya no són correctes</div>
+            </div>
+            <div class="mb-2">
+              <label class="form-check">
+                <input type="checkbox" class="form-check-input" name="remember">
+                <span class="form-check-label">Recorda'm en aquest dispositiu</span>
+              </label>
+            </div>
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary w-100" style="min-height:2.75rem">Entra</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="text-center text-secondary mt-3">Encara no tens compte? <a href="auth-register.html">Crea'n un de gratuït</a></div>
+      <div class="text-center text-secondary small mt-4"><i class="ti ti-lock me-1" aria-hidden="true"></i>Connexió xifrada · Dades allotjades a la UE<br><a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+    </div>
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Show / hide password.
+  document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = document.getElementById(btn.getAttribute('data-toggle-password'));
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.setAttribute('aria-pressed', String(show));
+      btn.setAttribute('aria-label', show ? 'Amaga la contrasenya' : 'Mostra la contrasenya');
+      btn.querySelector('.ti').className = 'ti ' + (show ? 'ti-eye-off' : 'ti-eye');
+    });
+  });
+</script>
+</body>
+</html>

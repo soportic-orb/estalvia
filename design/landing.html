@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Estalvia · Sàpigues on van els teus diners i com estalviar</title>
+  <meta name="description" content="Estalvia analitza els teus extractes bancaris, calcula el teu índex de salut financera i et dona un pla d'acció concret amb l'impacte en euros.">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific layout for the public landing (theme variables only). */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    .lp-section { padding: 3.5rem 0; scroll-margin-top: 4rem; }
+    .lp-section-surface { background: var(--tblr-bg-surface); border-block: 1px solid var(--tblr-border-color); }
+    .lp-hero { padding: 3rem 0 3.5rem; }
+    .lp-hero h1 { font-size: clamp(2rem, 6vw, 3.25rem); line-height: 1.12; letter-spacing: -0.03em; font-weight: 700; text-wrap: balance; }
+    .lp-lead { font-size: 1.125rem; line-height: 1.6; color: var(--tblr-secondary); max-width: 34rem; }
+    .lp-h2 { font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; letter-spacing: -0.02em; font-weight: 700; text-wrap: balance; }
+    .lp-intro { max-width: 40rem; }
+    .lp-preview { max-width: 27rem; margin-inline: auto; }
+    .lp-preview .card { box-shadow: 0 1.5rem 3rem -1.5rem rgba(var(--tblr-primary-rgb), 0.28); }
+    .lp-step-num { width: 2.5rem; height: 2.5rem; border-radius: 999px; display: grid; place-items: center; font-weight: 600;
+      background: var(--tblr-primary-lt); color: var(--tblr-primary); }
+    .lp-btn-lg { min-height: 3rem; padding-inline: 1.5rem; font-size: 1rem; }
+    .lp-nav-link { min-height: 2.75rem; }
+    @media (min-width: 992px) {
+      .lp-section { padding: 5.5rem 0; }
+      .lp-hero { padding: 5.5rem 0 6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <a href="#content" class="visually-hidden-focusable btn btn-primary m-2">Salta al contingut</a>
+
+  <!-- Top navigation -->
+  <header class="navbar navbar-expand-lg sticky-top d-print-none">
+    <div class="container-xl">
+      <div class="navbar-brand me-3"><script>document.write(Estalvia.logo({href:'landing.html'}))</script></div>
+      <div class="d-flex align-items-center gap-1 order-lg-last ms-auto">
+        <div class="btn-group d-none d-sm-inline-flex me-1" role="group" aria-label="Idioma">
+          <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
+          <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
+        </div>
+        <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+        <a href="auth-login.html" class="btn btn-ghost-secondary d-none d-sm-inline-flex">Entra</a>
+        <a href="auth-register.html" class="btn btn-primary d-none d-md-inline-flex">Comença gratis</a>
+        <button class="navbar-toggler ms-1" type="button" data-bs-toggle="collapse" data-bs-target="#lp-menu" aria-controls="lp-menu" aria-expanded="false" aria-label="Obre el menú"><span class="navbar-toggler-icon"></span></button>
+      </div>
+      <nav class="collapse navbar-collapse" id="lp-menu" aria-label="Seccions">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link lp-nav-link" href="#com-funciona">Com funciona</a></li>
+          <li class="nav-item"><a class="nav-link lp-nav-link" href="#funcionalitats">Funcionalitats</a></li>
+          <li class="nav-item"><a class="nav-link lp-nav-link" href="#preus">Preus</a></li>
+          <li class="nav-item"><a class="nav-link lp-nav-link" href="#faq">FAQ</a></li>
+        </ul>
+        <div class="d-md-none py-3 border-top mt-2">
+          <div class="d-flex gap-2 mb-3 d-sm-none">
+            <div class="btn-group" role="group" aria-label="Idioma">
+              <a href="#" class="btn active" aria-current="true" lang="ca">Català</a>
+              <a href="#" class="btn" lang="es">Castellano</a>
+            </div>
+          </div>
+          <div class="d-grid gap-2">
+            <a href="auth-register.html" class="btn btn-primary lp-btn-lg">Comença gratis</a>
+            <a href="auth-login.html" class="btn lp-btn-lg">Entra</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- Hero -->
+    <section class="lp-hero">
+      <div class="container-xl">
+        <div class="row g-5 align-items-center">
+          <div class="col-12 col-lg-6">
+            <span class="badge bg-primary-lt mb-3"><i class="ti ti-map-pin" aria-hidden="true"></i> Pensat per a qui viu a Espanya</span>
+            <h1>Sàpigues on van els teus diners. I tingues un pla concret per estalviar.</h1>
+            <p class="lp-lead mt-3">Importa els extractes del teu banc i Estalvia et diu com estàs, què pots millorar i quants euros guanyes amb cada pas. Sense connectar el banc i sense lletra petita.</p>
+            <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+              <a href="auth-register.html" class="btn btn-primary lp-btn-lg">Comença gratis <i class="ti ti-arrow-right icon icon-end ms-2 me-0" aria-hidden="true"></i></a>
+              <a href="#com-funciona" class="btn lp-btn-lg">Mira com funciona</a>
+            </div>
+            <p class="text-secondary mt-3 mb-0"><i class="ti ti-gift me-1" aria-hidden="true"></i>14 dies de Premium sense targeta. Després, tria tu.</p>
+          </div>
+
+          <!-- Product preview built in HTML (illustrative data) -->
+          <div class="col-12 col-lg-6">
+            <div class="lp-preview" role="group" aria-label="Exemple del que veuràs a Estalvia">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="subheader">Índex de salut financera</div>
+                    <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                  </div>
+                  <div class="d-flex align-items-baseline gap-2">
+                    <div class="est-figure est-figure-xl">62</div>
+                    <div class="text-secondary">de 100</div>
+                    <div class="ms-auto text-success small fw-medium"><i class="ti ti-trending-up" aria-hidden="true"></i> +4 punts</div>
+                  </div>
+                  <div class="est-meter est-meter-lg est-meter-warning mt-3" role="img" aria-label="62 de 100"><span style="width:62%"></span></div>
+                  <div class="vstack gap-3 mt-4">
+                    <div>
+                      <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-droplet text-secondary me-1" aria-hidden="true"></i>Liquiditat</span><span class="num fw-semibold">71</span></div>
+                      <div class="est-meter est-meter-success"><span style="width:71%"></span></div>
+                    </div>
+                    <div>
+                      <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-scale text-secondary me-1" aria-hidden="true"></i>Deute</span><span class="num fw-semibold">48</span></div>
+                      <div class="est-meter est-meter-warning"><span style="width:48%"></span></div>
+                    </div>
+                    <div>
+                      <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-shield text-secondary me-1" aria-hidden="true"></i>Resiliència</span><span class="num fw-semibold">44</span></div>
+                      <div class="est-meter est-meter-danger"><span style="width:44%"></span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="subheader mb-2">La teva propera acció</div>
+                  <div class="row g-2 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-primary-lt"><i class="ti ti-credit-card-off" aria-hidden="true"></i></span></div>
+                    <div class="col" style="min-width:0">
+                      <div class="fw-medium">Liquida la targeta revolving</div>
+                      <div class="text-secondary small">Al 21,84 % TAE, és el teu deute més car</div>
+                    </div>
+                    <div class="col-auto text-end"><div class="num fw-semibold text-success">+43 €/mes</div><div class="num small text-secondary">511 €/any</div></div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-secondary small text-center mt-3 mb-0">Exemple il·lustratiu amb dades fictícies.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="lp-section lp-section-surface" id="com-funciona" aria-labelledby="h-com-funciona">
+      <div class="container-xl">
+        <div class="lp-intro mb-5">
+          <div class="subheader mb-2">Com funciona</div>
+          <h2 class="lp-h2" id="h-com-funciona">Del teu extracte a un pla, en quatre passos</h2>
+          <p class="text-secondary fs-3 mb-0">No cal donar les claus del banc a ningú. Tu puges els fitxers i decideixes què s'analitza.</p>
+        </div>
+        <ol class="row g-4 list-unstyled mb-0">
+          <li class="col-12 col-sm-6 col-lg-3">
+            <div class="lp-step-num num mb-3" aria-hidden="true">1</div>
+            <h3 class="h3 mb-2">Importa els extractes</h3>
+            <p class="text-secondary mb-0">Puja els fitxers del teu banc en CSV, Excel, Norma 43 o PDF. Detectem el format i evitem duplicats.</p>
+          </li>
+          <li class="col-12 col-sm-6 col-lg-3">
+            <div class="lp-step-num num mb-3" aria-hidden="true">2</div>
+            <h3 class="h3 mb-2">Rep el diagnòstic</h3>
+            <p class="text-secondary mb-0">Categoritzem els moviments i calculem el teu índex de salut financera, de 0 a 100, en cinc dimensions.</p>
+          </li>
+          <li class="col-12 col-sm-6 col-lg-3">
+            <div class="lp-step-num num mb-3" aria-hidden="true">3</div>
+            <h3 class="h3 mb-2">Segueix el pla d'acció</h3>
+            <p class="text-secondary mb-0">Accions ordenades per prioritat, cadascuna amb el seu impacte en euros al mes i a l'any.</p>
+          </li>
+          <li class="col-12 col-sm-6 col-lg-3">
+            <div class="lp-step-num num mb-3" aria-hidden="true">4</div>
+            <h3 class="h3 mb-2">Fes-ne el seguiment</h3>
+            <p class="text-secondary mb-0">Cada mes importes el nou extracte i veus com evolucionen l'índex, l'estalvi i els objectius.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="lp-section" id="funcionalitats" aria-labelledby="h-funcionalitats">
+      <div class="container-xl">
+        <div class="lp-intro mb-5">
+          <div class="subheader mb-2">Funcionalitats</div>
+          <h2 class="lp-h2" id="h-funcionalitats">Tot el que cal per posar ordre, i res més</h2>
+        </div>
+        <div class="row row-cards">
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-file-import" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Importació de fitxers i PDF amb IA</h3>
+              <p class="text-secondary mb-0">CSV, Excel, Norma 43 i OFX. I si només tens el PDF, la IA n'extreu els moviments.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-tags" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Categorització automàtica</h3>
+              <p class="text-secondary mb-0">Mercadona, Endesa, Netflix… cada moviment a la seva categoria. Si corregeixes, n'aprèn.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-heart-rate-monitor" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Índex de salut financera</h3>
+              <p class="text-secondary mb-0">Una sola xifra per saber com estàs, amb liquiditat, deute, estalvi, resiliència i control.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-pyramid" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Piràmide de l'estalvi</h3>
+              <p class="text-secondary mb-0">Sis etapes, de l'estabilitat al llarg termini. Sempre saps quin és el teu pas següent.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-message-chatbot" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Assessor IA amb xifres reals</h3>
+              <p class="text-secondary mb-0">Pregunta-li el que vulguis. Respon amb les teves dades, calculades pel nostre motor, no inventades.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-target-arrow" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Pressupostos i objectius</h3>
+              <p class="text-secondary mb-0">Posa límits per categoria i objectius amb data. Veus el progrés sense fulls de càlcul.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-calculator" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Simuladors</h3>
+              <p class="text-secondary mb-0">Amortitzar deute, fons d'emergència, interès compost: prova escenaris abans de decidir.</p>
+            </div></div>
+          </div>
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="card h-100"><div class="card-body">
+              <span class="avatar bg-primary-lt mb-3"><i class="ti ti-bell" aria-hidden="true"></i></span>
+              <h3 class="h3 mb-2">Alertes</h3>
+              <p class="text-secondary mb-0">Comissions, pujades de preu en subscripcions i saldo previst negatiu, abans que passin.</p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust and privacy -->
+    <section class="lp-section lp-section-surface" id="privacitat" aria-labelledby="h-privacitat">
+      <div class="container-xl">
+        <div class="row g-5">
+          <div class="col-12 col-lg-4">
+            <div class="subheader mb-2">Confiança i privacitat</div>
+            <h2 class="lp-h2" id="h-privacitat">Les teves dades són teves. I prou.</h2>
+            <p class="text-secondary fs-3 mb-0">Parlem de diners, així que comencem pel que no farem mai.</p>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class="row g-4">
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-lock" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">Dades xifrades</h3><p class="text-secondary mb-0">En trànsit i en repòs. Els IBAN es desen xifrats i mai es mostren sencers.</p></div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-server" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">Servidors a la UE</h3><p class="text-secondary mb-0">Tota la informació s'allotja i es processa dins de la Unió Europea.</p></div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-shield-check" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">Complim l'RGPD</h3><p class="text-secondary mb-0">Consentiments separats, exportació de dades i esborrat del compte quan vulguis.</p></div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-eye-off" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">La IA no rep noms ni IBAN</h3><p class="text-secondary mb-0">Abans d'enviar res al model, eliminem les dades que t'identifiquen. I pots desactivar la IA.</p></div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-ban" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">No venem dades</h3><p class="text-secondary mb-0">Vivim de les subscripcions, no de la publicitat ni de les teves dades.</p></div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-scale" aria-hidden="true"></i></span>
+                  <div><h3 class="h4 mb-1">No recomanem productes financers</h3><p class="text-secondary mb-0">Cap comissió de bancs ni asseguradores. Els consells només depenen dels teus números.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="lp-section" id="preus" aria-labelledby="h-preus">
+      <div class="container-xl">
+        <div class="text-center mb-4">
+          <div class="subheader mb-2">Preus</div>
+          <h2 class="lp-h2" id="h-preus">Comença gratis. Passa a Premium si et compensa.</h2>
+          <p class="text-secondary fs-3">IVA inclòs. Prova Premium 14 dies sense targeta.</p>
+          <div class="btn-group mt-2" role="group" aria-label="Període de facturació">
+            <input type="radio" class="btn-check" name="lp-billing" id="lp-billing-month" value="month" autocomplete="off" checked>
+            <label class="btn" for="lp-billing-month">Mensual</label>
+            <input type="radio" class="btn-check" name="lp-billing" id="lp-billing-year" value="year" autocomplete="off">
+            <label class="btn" for="lp-billing-year">Anual <span class="badge bg-green-lt ms-2">2 mesos de franc</span></label>
+          </div>
+        </div>
+
+        <div class="row row-cards justify-content-center">
+          <!-- Free -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column">
+                <h3 class="h2 mb-1">Gratuït</h3>
+                <p class="text-secondary">Per veure on van els diners.</p>
+                <div class="est-figure est-figure-lg my-2">0 <span class="unit">€</span></div>
+                <div class="text-secondary small mb-3">Per sempre</div>
+                <ul class="list-unstyled vstack gap-2 mb-4">
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Fins a <strong class="num">3</strong> comptes</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span><strong class="num">2</strong> PDF amb IA al mes</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Diagnòstic mensual bàsic</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Resum del pla (<span class="num">1</span> acció)</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span><strong class="num">1</strong> simulador</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Alertes bàsiques · historial de <span class="num">12</span> mesos</span></li>
+                  <li class="d-flex gap-2 text-secondary"><i class="ti ti-minus mt-1" aria-hidden="true"></i><span>Sense xat amb l'assessor</span></li>
+                </ul>
+                <a href="auth-register.html" class="btn lp-btn-lg w-100 mt-auto">Crea un compte gratuït</a>
+              </div>
+            </div>
+          </div>
+          <!-- Premium (recommended) -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100 border-primary">
+              <div class="card-status-top bg-primary"></div>
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <h3 class="h2 mb-0">Premium</h3>
+                  <span class="badge bg-primary-lt"><i class="ti ti-star" aria-hidden="true"></i> Recomanat</span>
+                </div>
+                <p class="text-secondary">Per tenir el pla complet i l'assessor.</p>
+                <div class="est-figure est-figure-lg my-2"><span data-price-month="4,99" data-price-year="49,90">4,99</span> <span class="unit">€/<span data-period>mes</span></span></div>
+                <div class="text-secondary small mb-3" data-note-month="O bé 49,90 € a l'any" data-note-year="Equival a 4,16 €/mes · estalvies 9,98 €">O bé 49,90 € a l'any</div>
+                <ul class="list-unstyled vstack gap-2 mb-4">
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Comptes <strong>il·limitats</strong></span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span><strong class="num">30</strong> PDF amb IA al mes</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Diagnòstic complet i a demanda</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Pla d'acció <strong>complet</strong></span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span><strong>Tots</strong> els simuladors</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Totes les alertes · historial il·limitat</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Xat amb l'assessor: <strong class="num">100</strong> missatges al mes</span></li>
+                </ul>
+                <a href="auth-register.html" class="btn btn-primary lp-btn-lg w-100 mt-auto">Prova 14 dies gratis</a>
+                <div class="text-secondary small text-center mt-2">Sense targeta. Cancel·la quan vulguis.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Family -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+              <div class="card-body d-flex flex-column">
+                <h3 class="h2 mb-1">Família</h3>
+                <p class="text-secondary">Per portar els comptes de casa plegats.</p>
+                <div class="est-figure est-figure-lg my-2"><span data-price-month="7,99" data-price-year="79,90">7,99</span> <span class="unit">€/<span data-period>mes</span></span></div>
+                <div class="text-secondary small mb-3" data-note-month="O bé 79,90 € a l'any" data-note-year="Equival a 6,66 €/mes · estalvies 15,98 €">O bé 79,90 € a l'any</div>
+                <ul class="list-unstyled vstack gap-2 mb-4">
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Tot el que inclou Premium</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Fins a <strong class="num">5</strong> membres de la llar</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span><strong class="num">60</strong> PDF amb IA al mes</span></li>
+                  <li class="d-flex gap-2"><i class="ti ti-check text-success mt-1" aria-hidden="true"></i><span>Xat amb l'assessor: <strong class="num">200</strong> missatges al mes</span></li>
+                </ul>
+                <a href="auth-register.html" class="btn lp-btn-lg w-100 mt-auto">Prova 14 dies gratis</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full comparison (tablet and up; on phones the plan cards carry the limits) -->
+        <div class="card mt-4 d-none d-md-block">
+          <div class="card-header"><h3 class="card-title">Comparació de límits</h3></div>
+          <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+              <thead>
+                <tr><th scope="col">Què inclou</th><th scope="col" class="text-center">Gratuït</th><th scope="col" class="text-center">Premium</th><th scope="col" class="text-center">Família</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row" class="fw-normal">Comptes</th><td class="text-center">3</td><td class="text-center">Il·limitats</td><td class="text-center">Il·limitats</td></tr>
+                <tr><th scope="row" class="fw-normal">PDF amb IA al mes</th><td class="text-center">2</td><td class="text-center">30</td><td class="text-center">60</td></tr>
+                <tr><th scope="row" class="fw-normal">Xat amb l'assessor (missatges al mes)</th><td class="text-center text-secondary"><span aria-hidden="true">—</span><span class="visually-hidden">No inclòs</span></td><td class="text-center">100</td><td class="text-center">200</td></tr>
+                <tr><th scope="row" class="fw-normal">Pla d'acció</th><td class="text-center">Resum (1 acció)</td><td class="text-center">Complet</td><td class="text-center">Complet</td></tr>
+                <tr><th scope="row" class="fw-normal">Diagnòstic</th><td class="text-center">Mensual bàsic</td><td class="text-center">Complet i a demanda</td><td class="text-center">Complet i a demanda</td></tr>
+                <tr><th scope="row" class="fw-normal">Simuladors</th><td class="text-center">1</td><td class="text-center">Tots</td><td class="text-center">Tots</td></tr>
+                <tr><th scope="row" class="fw-normal">Alertes</th><td class="text-center">Bàsiques</td><td class="text-center">Totes</td><td class="text-center">Totes</td></tr>
+                <tr><th scope="row" class="fw-normal">Membres de la llar</th><td class="text-center">1</td><td class="text-center">1</td><td class="text-center">Fins a 5</td></tr>
+                <tr><th scope="row" class="fw-normal">Historial</th><td class="text-center">12 mesos</td><td class="text-center">Il·limitat</td><td class="text-center">Il·limitat</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="lp-section lp-section-surface" id="faq" aria-labelledby="h-faq">
+      <div class="container-xl">
+        <div class="row g-5">
+          <div class="col-12 col-lg-4">
+            <div class="subheader mb-2">Preguntes freqüents</div>
+            <h2 class="lp-h2" id="h-faq">El que la gent ens pregunta abans de començar</h2>
+            <p class="text-secondary mb-0">No hi trobes la teva? Escriu-nos a <a href="mailto:hola@estalvia.app">hola@estalvia.app</a>.</p>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class="accordion" id="lp-faq">
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-1" aria-expanded="true" aria-controls="faq-1">Cal connectar el meu banc?</button></h3>
+                <div id="faq-1" class="accordion-collapse collapse show" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">No. Estalvia no et demana mai les claus del banc ni s'hi connecta. Tu descarregues l'extracte des de la banca en línia i l'importes com a fitxer (CSV, Excel, Norma 43, OFX o PDF). També pots introduir moviments a mà.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-2" aria-expanded="false" aria-controls="faq-2">Les meves dades estan segures?</button></h3>
+                <div id="faq-2" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">Les dades viatgen i es desen xifrades, en servidors dins de la Unió Europea. Pots protegir el compte amb verificació en dos passos, exportar les teves dades i esborrar el compte quan vulguis. No venem dades ni les cedim per a publicitat.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-3" aria-expanded="false" aria-controls="faq-3">Què fa exactament la IA?</button></h3>
+                <div id="faq-3" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">Tres coses: llegeix extractes en PDF, ajuda a categoritzar moviments i t'explica el diagnòstic en llenguatge planer al xat de l'assessor. Totes les xifres les calcula el nostre motor, no la IA. El model no rep el teu nom ni els teus IBAN, i sempre veuràs l'avís «Estàs parlant amb una IA». Si no dones el consentiment, la plataforma funciona igualment sense IA.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-4" aria-expanded="false" aria-controls="faq-4">És assessorament d'inversió?</button></h3>
+                <div id="faq-4" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">No. Estalvia t'ajuda a entendre les teves finances i a estalviar: reduir deute car, retallar despeses, construir un fons d'emergència. No recomanem productes financers ni inversions concretes, i no cobrem comissions de cap entitat.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-5" aria-expanded="false" aria-controls="faq-5">Amb quins bancs funciona?</button></h3>
+                <div id="faq-5" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">
+                  <p>Reconeixem automàticament els extractes de:</p>
+                  <div class="d-flex flex-wrap gap-2 mb-3">
+                    <span class="badge bg-secondary-lt">CaixaBank</span><span class="badge bg-secondary-lt">BBVA</span><span class="badge bg-secondary-lt">Santander</span><span class="badge bg-secondary-lt">Sabadell</span><span class="badge bg-secondary-lt">ING</span><span class="badge bg-secondary-lt">Openbank</span><span class="badge bg-secondary-lt">Bankinter</span><span class="badge bg-secondary-lt">Unicaja</span><span class="badge bg-secondary-lt">Kutxabank</span><span class="badge bg-secondary-lt">Abanca</span><span class="badge bg-secondary-lt">Revolut</span>
+                  </div>
+                  <p class="mb-0">Si el teu banc no hi és, pots importar qualsevol CSV o Excel indicant quina columna és cada cosa, o fer servir el PDF.</p>
+                </div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-6" aria-expanded="false" aria-controls="faq-6">Què passa quan s'acaben els 14 dies de prova?</button></h3>
+                <div id="faq-6" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">Res que no hagis decidit tu. Com que no demanem targeta, no hi ha cap càrrec automàtic: el compte passa al pla Gratuït i conserves les teves dades. Si vols continuar amb Premium, el contractes en aquell moment.</div></div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-7" aria-expanded="false" aria-controls="faq-7">Puc cancel·lar quan vulgui?</button></h3>
+                <div id="faq-7" class="accordion-collapse collapse" data-bs-parent="#lp-faq"><div class="accordion-body pt-0 text-secondary">Sí, des de l'apartat Subscripció i en dos clics, sense trucades ni formularis. Mantens Premium fins al final del període pagat i després passes al pla Gratuït. També pots esborrar el compte i totes les dades.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final call to action -->
+    <section class="lp-section" aria-labelledby="h-cta">
+      <div class="container-xl">
+        <div class="card bg-primary-lt border-0">
+          <div class="card-body text-center py-5 px-3">
+            <h2 class="lp-h2 mx-auto" id="h-cta" style="max-width:36rem">El primer diagnòstic el tens en menys de deu minuts</h2>
+            <p class="fs-3 mx-auto mb-4" style="max-width:32rem">Importa un extracte i mira què et diuen els teus números.</p>
+            <a href="auth-register.html" class="btn btn-primary lp-btn-lg">Comença gratis <i class="ti ti-arrow-right icon icon-end ms-2 me-0" aria-hidden="true"></i></a>
+            <div class="small mt-3">14 dies de Premium sense targeta</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Legal footer -->
+  <footer class="lp-section-surface py-5 d-print-none" id="legal">
+    <div class="container-xl">
+      <div class="row g-4">
+        <div class="col-12 col-lg-5">
+          <script>document.write(Estalvia.logo({href:'landing.html'}))</script>
+          <p class="text-secondary small mt-3 mb-0" style="max-width:28rem">Estalvia no presta assessorament en matèria d'inversió ni recomana productes financers concrets. La informació que ofereix és orientativa, es basa en les dades que tu importes i no substitueix el consell d'un professional.</p>
+        </div>
+        <nav class="col-6 col-lg-2" aria-label="Producte">
+          <h2 class="subheader mb-3">Producte</h2>
+          <ul class="list-unstyled vstack gap-2 mb-0">
+            <li><a href="#com-funciona" class="link-secondary">Com funciona</a></li>
+            <li><a href="#funcionalitats" class="link-secondary">Funcionalitats</a></li>
+            <li><a href="#preus" class="link-secondary">Preus</a></li>
+            <li><a href="#faq" class="link-secondary">Preguntes freqüents</a></li>
+          </ul>
+        </nav>
+        <nav class="col-6 col-lg-2" aria-label="Legal">
+          <h2 class="subheader mb-3">Legal</h2>
+          <ul class="list-unstyled vstack gap-2 mb-0">
+            <li><a href="#legal" class="link-secondary">Avís legal</a></li>
+            <li><a href="#legal" class="link-secondary">Política de privacitat</a></li>
+            <li><a href="#legal" class="link-secondary">Política de cookies</a></li>
+            <li><a href="#legal" class="link-secondary">Condicions del servei</a></li>
+          </ul>
+        </nav>
+        <div class="col-12 col-lg-3">
+          <h2 class="subheader mb-3">Contacte</h2>
+          <ul class="list-unstyled vstack gap-2 mb-0">
+            <li><a href="mailto:hola@estalvia.app" class="link-secondary"><i class="ti ti-mail me-1" aria-hidden="true"></i>hola@estalvia.app</a></li>
+            <li><a href="mailto:privacitat@estalvia.app" class="link-secondary"><i class="ti ti-shield-lock me-1" aria-hidden="true"></i>privacitat@estalvia.app</a></li>
+            <li class="text-secondary"><i class="ti ti-language me-1" aria-hidden="true"></i><a href="#" class="link-secondary fw-medium" lang="ca" aria-current="true">Català</a> · <a href="#" class="link-secondary" lang="es">Castellano</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-top mt-4 pt-3 d-flex flex-column flex-sm-row justify-content-between gap-2 small text-secondary">
+        <div>© 2026 Estalvia · estalvia.app</div>
+        <div>Fet a Catalunya · Dades allotjades a la UE</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Monthly / annual pricing toggle.
+  (function () {
+    function setPeriod(period) {
+      document.querySelectorAll('[data-price-month]').forEach(function (el) { el.textContent = el.getAttribute('data-price-' + period); });
+      document.querySelectorAll('[data-period]').forEach(function (el) { el.textContent = period === 'year' ? 'any' : 'mes'; });
+      document.querySelectorAll('[data-note-month]').forEach(function (el) { el.textContent = el.getAttribute('data-note-' + period); });
+    }
+    document.querySelectorAll('input[name="lp-billing"]').forEach(function (input) {
+      input.addEventListener('change', function () { if (input.checked) { setPeriod(input.value); } });
+    });
+    // Close the mobile menu after picking a section.
+    document.querySelectorAll('#lp-menu a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var menu = document.getElementById('lp-menu');
+        if (menu.classList.contains('show') && window.bootstrap) { window.bootstrap.Collapse.getOrCreateInstance(menu).hide(); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
