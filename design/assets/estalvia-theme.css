@@ -1,0 +1,456 @@
+/*!
+ * Estalvia theme for Tabler (@tabler/core 1.x)
+ *
+ * Single source of truth for the Estalvia look. It customises Tabler's CSS
+ * variables only; component classes are never overridden one by one.
+ * Load AFTER tabler.min.css. Reused as-is by the application
+ * (resources/css/estalvia-theme.css).
+ *
+ * Contrast (WCAG 2.1 AA) of every text/background pair defined here is
+ * listed and computed live in design/style-guide.html.
+ */
+
+/* ------------------------------------------------------------------ */
+/* 1. Light mode (default)                                             */
+/* ------------------------------------------------------------------ */
+:root,
+[data-bs-theme="light"] {
+  /* Brand */
+  --tblr-brand: #421b8f;
+  --tblr-primary: #421b8f;
+  --tblr-primary-rgb: 66, 27, 143;
+  --tblr-primary-fg: #ffffff;
+  --tblr-primary-darken: #35167a;
+  --tblr-primary-lt: #ece8f4;
+  --tblr-primary-lt-rgb: 236, 232, 244;
+  --tblr-primary-text-emphasis: #2a1160;
+  --tblr-primary-bg-subtle: #ece8f4;
+  --tblr-primary-border-subtle: #c6bade;
+
+  --tblr-link-color: #421b8f;
+  --tblr-link-color-rgb: 66, 27, 143;
+  --tblr-link-hover-color: #35167a;
+  --tblr-link-hover-color-rgb: 53, 22, 122;
+  --tblr-focus-ring-color: rgba(66, 27, 143, 0.3);
+
+  /* Text: Tabler's default secondary (#6b7280) drops below 4.5:1 on tinted
+     backgrounds, so it is one step darker here. */
+  --tblr-secondary: #5f6877;
+  --tblr-secondary-rgb: 95, 104, 119;
+  --tblr-muted: #5f6877;
+  --tblr-muted-rgb: 95, 104, 119;
+
+  /* Semantic colours, tuned so that they pass AA both as text on
+     white/-lt backgrounds and as solid fills with their -fg colour. */
+  --tblr-success: #177a33;
+  --tblr-success-rgb: 23, 122, 51;
+  --tblr-success-fg: #ffffff;
+  --tblr-success-darken: #12662a;
+  --tblr-success-lt: #e8f2eb;
+  --tblr-success-lt-rgb: 232, 242, 235;
+  --tblr-green: #177a33;
+  --tblr-green-rgb: 23, 122, 51;
+  --tblr-green-fg: #ffffff;
+  --tblr-green-darken: #12662a;
+  --tblr-green-lt: #e8f2eb;
+  --tblr-green-lt-rgb: 232, 242, 235;
+
+  --tblr-warning: #9a5b00;
+  --tblr-warning-rgb: 154, 91, 0;
+  --tblr-warning-fg: #ffffff;
+  --tblr-warning-darken: #804b00;
+  --tblr-warning-lt: #f8f0e2;
+  --tblr-warning-lt-rgb: 248, 240, 226;
+  --tblr-yellow: #9a5b00;
+  --tblr-yellow-rgb: 154, 91, 0;
+  --tblr-yellow-fg: #ffffff;
+  --tblr-yellow-darken: #804b00;
+  --tblr-yellow-lt: #f8f0e2;
+  --tblr-yellow-lt-rgb: 248, 240, 226;
+
+  --tblr-danger: #c92a2a;
+  --tblr-danger-rgb: 201, 42, 42;
+  --tblr-danger-fg: #ffffff;
+  --tblr-danger-darken: #a82222;
+  --tblr-danger-lt: #faeaea;
+  --tblr-danger-lt-rgb: 250, 234, 234;
+  --tblr-red: #c92a2a;
+  --tblr-red-rgb: 201, 42, 42;
+  --tblr-red-fg: #ffffff;
+  --tblr-red-darken: #a82222;
+  --tblr-red-lt: #faeaea;
+  --tblr-red-lt-rgb: 250, 234, 234;
+
+  --tblr-info: #1f6fb2;
+  --tblr-info-rgb: 31, 111, 178;
+  --tblr-info-fg: #ffffff;
+  --tblr-info-darken: #195c94;
+  --tblr-info-lt: #e9f1f7;
+  --tblr-info-lt-rgb: 233, 241, 247;
+  --tblr-azure: #1f6fb2;
+  --tblr-azure-rgb: 31, 111, 178;
+  --tblr-azure-fg: #ffffff;
+  --tblr-azure-darken: #195c94;
+  --tblr-azure-lt: #e9f1f7;
+  --tblr-azure-lt-rgb: 233, 241, 247;
+  --tblr-blue: #1f6fb2;
+  --tblr-blue-rgb: 31, 111, 178;
+  --tblr-blue-fg: #ffffff;
+  --tblr-blue-darken: #195c94;
+  --tblr-blue-lt: #e9f1f7;
+  --tblr-blue-lt-rgb: 233, 241, 247;
+
+  /* Shape */
+  --tblr-border-radius: 8px;
+  --tblr-border-radius-lg: 12px;
+
+  /* Chart palette (categorical, fixed order; validated for CVD separation
+     and >= 3:1 against the card surface). Slot 1 is the brand hue. */
+  --est-chart-1: #5b34b8;
+  --est-chart-2: #078f89;
+  --est-chart-3: #c2590a;
+  --est-chart-4: #2b74c9;
+  --est-chart-5: #b5357e;
+  --est-chart-6: #6b7f12;
+  --est-chart-neutral: #9ca3af;
+  --est-chart-grid: #e5e7eb;
+  --est-chart-text: #5f6877;
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. Dark mode (optional, data-bs-theme="dark" on <html>)             */
+/* ------------------------------------------------------------------ */
+[data-bs-theme="dark"] {
+  /* #421B8F has no contrast on dark surfaces: use the light variant and
+     flip the on-primary text to dark. */
+  --tblr-primary: #ac95e8;
+  --tblr-primary-rgb: 172, 149, 232;
+  --tblr-primary-fg: #140833;
+  --tblr-primary-darken: #bca9ee;
+  --tblr-primary-lt: #2e3049;
+  --tblr-primary-lt-rgb: 46, 48, 73;
+  --tblr-primary-text-emphasis: #cfc2f3;
+  --tblr-primary-bg-subtle: #2e3049;
+  --tblr-primary-border-subtle: #5a4b8f;
+
+  --tblr-link-color: #ac95e8;
+  --tblr-link-color-rgb: 172, 149, 232;
+  --tblr-link-hover-color: #cfc2f3;
+  --tblr-link-hover-color-rgb: 207, 194, 243;
+  --tblr-focus-ring-color: rgba(172, 149, 232, 0.4);
+
+  --tblr-secondary: #a3aab6;
+  --tblr-secondary-rgb: 163, 170, 182;
+  --tblr-muted: #a3aab6;
+  --tblr-muted-rgb: 163, 170, 182;
+
+  --tblr-success: #5fd075;
+  --tblr-success-rgb: 95, 208, 117;
+  --tblr-success-fg: #0b1f10;
+  --tblr-success-darken: #7fda91;
+  --tblr-success-lt: #253a3d;
+  --tblr-success-lt-rgb: 37, 58, 61;
+  --tblr-green: #5fd075;
+  --tblr-green-rgb: 95, 208, 117;
+  --tblr-green-fg: #0b1f10;
+  --tblr-green-darken: #7fda91;
+  --tblr-green-lt: #253a3d;
+  --tblr-green-lt-rgb: 37, 58, 61;
+
+  --tblr-warning: #f7b84a;
+  --tblr-warning-rgb: 247, 184, 74;
+  --tblr-warning-fg: #241700;
+  --tblr-warning-darken: #f9c76f;
+  --tblr-warning-lt: #353739;
+  --tblr-warning-lt-rgb: 53, 55, 57;
+  --tblr-yellow: #f7b84a;
+  --tblr-yellow-rgb: 247, 184, 74;
+  --tblr-yellow-fg: #241700;
+  --tblr-yellow-darken: #f9c76f;
+  --tblr-yellow-lt: #353739;
+  --tblr-yellow-lt-rgb: 53, 55, 57;
+
+  --tblr-danger: #f58a8a;
+  --tblr-danger-rgb: 245, 138, 138;
+  --tblr-danger-fg: #2b0a0a;
+  --tblr-danger-darken: #f8a5a5;
+  --tblr-danger-lt: #34313e;
+  --tblr-danger-lt-rgb: 52, 49, 62;
+  --tblr-red: #f58a8a;
+  --tblr-red-rgb: 245, 138, 138;
+  --tblr-red-fg: #2b0a0a;
+  --tblr-red-darken: #f8a5a5;
+  --tblr-red-lt: #34313e;
+  --tblr-red-lt-rgb: 52, 49, 62;
+
+  --tblr-info: #6fb4ee;
+  --tblr-info-rgb: 111, 180, 238;
+  --tblr-info-fg: #071a2b;
+  --tblr-info-darken: #8fc5f2;
+  --tblr-info-lt: #273749;
+  --tblr-info-lt-rgb: 39, 55, 73;
+  --tblr-azure: #6fb4ee;
+  --tblr-azure-rgb: 111, 180, 238;
+  --tblr-azure-fg: #071a2b;
+  --tblr-azure-darken: #8fc5f2;
+  --tblr-azure-lt: #273749;
+  --tblr-azure-lt-rgb: 39, 55, 73;
+  --tblr-blue: #6fb4ee;
+  --tblr-blue-rgb: 111, 180, 238;
+  --tblr-blue-fg: #071a2b;
+  --tblr-blue-darken: #8fc5f2;
+  --tblr-blue-lt: #273749;
+  --tblr-blue-lt-rgb: 39, 55, 73;
+
+  --est-chart-1: #9378e0;
+  --est-chart-2: #1fa39c;
+  --est-chart-3: #cc7022;
+  --est-chart-4: #4c90dc;
+  --est-chart-5: #d65c9e;
+  --est-chart-6: #849626;
+  --est-chart-neutral: #6b7280;
+  --est-chart-grid: #374151;
+  --est-chart-text: #a3aab6;
+}
+
+/* Tabler hard-codes the status-* colours; point them at the theme. */
+.status-success, .status-green { --tblr-status-color: var(--tblr-success); --tblr-status-color-rgb: var(--tblr-success-rgb); }
+.status-warning, .status-yellow { --tblr-status-color: var(--tblr-warning); --tblr-status-color-rgb: var(--tblr-warning-rgb); }
+.status-danger, .status-red { --tblr-status-color: var(--tblr-danger); --tblr-status-color-rgb: var(--tblr-danger-rgb); }
+.status-info, .status-azure, .status-blue { --tblr-status-color: var(--tblr-info); --tblr-status-color-rgb: var(--tblr-info-rgb); }
+.status-primary { --tblr-status-color: var(--tblr-primary); --tblr-status-color-rgb: var(--tblr-primary-rgb); }
+
+/* ------------------------------------------------------------------ */
+/* 3. Typography                                                       */
+/* ------------------------------------------------------------------ */
+body {
+  font-feature-settings: "cv03", "cv04", "cv11";
+}
+
+/* Every figure lines up in columns. */
+.num,
+.table td,
+.table th,
+.est-figure,
+.apexcharts-canvas {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Large, readable key figures. */
+.est-figure {
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-size: 1.75rem;
+  color: var(--tblr-body-color);
+}
+.est-figure-lg { font-size: 2.5rem; }
+.est-figure-xl { font-size: 3.5rem; }
+.est-figure small,
+.est-figure .unit {
+  font-size: 0.5em;
+  font-weight: 500;
+  color: var(--tblr-secondary);
+  letter-spacing: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Estalvia components (the few things Tabler does not ship)        */
+/* ------------------------------------------------------------------ */
+
+/* 4.1 Wordmark */
+.est-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.375rem;
+  letter-spacing: -0.03em;
+  color: var(--tblr-body-color);
+  text-decoration: none;
+}
+.est-logo:hover { text-decoration: none; color: var(--tblr-body-color); }
+.est-logo svg { width: 1.45em; height: 1.45em; flex: none; }
+.est-logo .est-logo-mark-bg { fill: var(--tblr-primary); }
+.est-logo .est-logo-mark-fg { fill: var(--tblr-primary-fg); }
+.est-logo-lg { font-size: 2rem; }
+
+/* 4.2 Meter (single ratio against a limit) */
+.est-meter {
+  --est-meter-color: var(--tblr-primary);
+  height: 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--est-meter-color) 16%, var(--tblr-bg-surface));
+  overflow: hidden;
+  position: relative;
+}
+.est-meter > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--est-meter-color);
+}
+.est-meter-lg { height: 0.75rem; }
+.est-meter-success { --est-meter-color: var(--tblr-success); }
+.est-meter-warning { --est-meter-color: var(--tblr-warning); }
+.est-meter-danger { --est-meter-color: var(--tblr-danger); }
+.est-meter-info { --est-meter-color: var(--tblr-info); }
+
+/* 4.3 Savings pyramid (stage 0 at the base) */
+.est-pyramid {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 3px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.est-pyramid li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-align: center;
+  background: var(--tblr-bg-surface-secondary);
+  color: var(--tblr-secondary);
+  border: 1px solid var(--tblr-border-color);
+}
+.est-pyramid li:nth-child(1) { width: 100%; }
+.est-pyramid li:nth-child(2) { width: 90%; }
+.est-pyramid li:nth-child(3) { width: 80%; }
+.est-pyramid li:nth-child(4) { width: 70%; }
+.est-pyramid li:nth-child(5) { width: 60%; }
+.est-pyramid li:nth-child(6) { width: 50%; }
+.est-pyramid li.is-done {
+  background: var(--tblr-success-lt);
+  color: var(--tblr-success);
+  border-color: transparent;
+}
+.est-pyramid li.is-current {
+  background: var(--tblr-primary);
+  color: var(--tblr-primary-fg);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* 4.4 Mobile bottom navigation */
+.est-bottom-nav {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 1030;
+  display: flex;
+  background: var(--tblr-bg-surface);
+  border-top: 1px solid var(--tblr-border-color);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.est-bottom-nav a,
+.est-bottom-nav button {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  border: 0;
+  background: none;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--tblr-secondary);
+  text-decoration: none;
+}
+.est-bottom-nav .ti { font-size: 1.375rem; }
+.est-bottom-nav .is-active { color: var(--tblr-primary); }
+.est-bottom-nav .est-bottom-nav-main .ti {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: -1rem;
+  border-radius: 999px;
+  background: var(--tblr-primary);
+  color: var(--tblr-primary-fg);
+  box-shadow: 0 2px 8px rgba(var(--tblr-primary-rgb), 0.35);
+}
+@media (min-width: 992px) {
+  .est-bottom-nav { display: none; }
+}
+@media (max-width: 991.98px) {
+  body.est-has-bottom-nav { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); }
+}
+
+/* 4.5 Chart frame: every chart has a title and units */
+.est-chart-unit {
+  font-size: 0.75rem;
+  color: var(--tblr-secondary);
+  font-weight: 400;
+}
+
+/* 4.5b Bar list: magnitude across named rows (one hue, sorted, labelled) */
+.est-bars { display: grid; gap: 0.75rem; }
+.est-bars-row {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+.est-bars-track { height: 0.75rem; }
+.est-bars-track > span {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--est-bars-color, var(--est-chart-1));
+}
+.est-bars-value { font-weight: 500; min-width: 4.5rem; text-align: right; }
+@media (max-width: 575.98px) {
+  .est-bars-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .est-bars-label { grid-column: 1; }
+  .est-bars-value { grid-column: 2; grid-row: 1; }
+  .est-bars-track { grid-column: 1 / -1; }
+}
+
+/* 4.6 Permanent AI notice (AI Act art. 50) */
+.est-ai-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--tblr-border-radius);
+  background: var(--tblr-info-lt);
+  color: var(--tblr-info);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* 4.7 Chat bubbles */
+.est-bubble {
+  max-width: min(42rem, 88%);
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: var(--tblr-bg-surface-secondary);
+  border: 1px solid var(--tblr-border-color);
+}
+.est-bubble-user {
+  margin-left: auto;
+  background: var(--tblr-primary);
+  color: var(--tblr-primary-fg);
+  border-color: transparent;
+}
+.est-bubble p:last-child { margin-bottom: 0; }
+
+/* 4.8 Calm spacing on larger screens */
+@media (min-width: 992px) {
+  .page-body { margin-top: 1.75rem; }
+  .row-cards { --tblr-gutter-x: 1.25rem; --tblr-gutter-y: 1.25rem; }
+}
+
+/* Amount colouring: only income is tinted; expenses stay in body ink. */
+.est-amount-in { color: var(--tblr-success); font-weight: 500; }

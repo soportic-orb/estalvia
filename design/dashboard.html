@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Inici · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+</head>
+<body data-page="dashboard">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Novembre de 2026</div>
+            <h1 class="page-title">Bon dia, Marta</h1>
+          </div>
+          <div class="col-auto ms-auto d-flex gap-2">
+            <a href="import.html" class="btn btn-primary"><i class="ti ti-file-import icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Importa moviments</span><span class="d-sm-none">Importa</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- Alerts -->
+        <div class="alert alert-warning alert-dismissible mb-3" role="alert">
+          <div class="d-flex">
+            <div><i class="ti ti-alert-triangle icon alert-icon" aria-hidden="true"></i></div>
+            <div>
+              <h4 class="alert-title">Saldo previst negatiu abans de la propera nòmina</h4>
+              <div class="text-secondary">Amb els rebuts previstos, el compte CaixaBank quedaria a <span class="num fw-medium">−84,20 €</span> el 27/11/2026. <a href="transactions.html" class="alert-link">Veure els càrrecs previstos</a></div>
+            </div>
+          </div>
+          <a class="btn-close" data-bs-dismiss="alert" aria-label="Tanca l'alerta"></a>
+        </div>
+
+        <div class="row row-deck row-cards">
+
+          <!-- Health score -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Índex de salut financera</h2>
+                  <div class="card-subtitle mt-1">Puntuació de 0 a 100 · agost–octubre de 2026</div>
+                </div>
+                <div class="card-actions"><a href="diagnosis.html" class="btn btn-sm">Diagnòstic complet</a></div>
+              </div>
+              <div class="card-body">
+                <div class="row g-4 align-items-center">
+                  <div class="col-12 col-sm-5">
+                    <div class="d-flex align-items-baseline gap-2">
+                      <div class="est-figure est-figure-xl">62</div>
+                      <div class="text-secondary">de 100</div>
+                    </div>
+                    <div class="mt-2 d-flex align-items-center gap-2 flex-wrap">
+                      <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                      <span class="text-success small fw-medium"><i class="ti ti-trending-up" aria-hidden="true"></i> +4 punts vs. trimestre anterior</span>
+                    </div>
+                    <div class="est-meter est-meter-lg est-meter-warning mt-3" role="img" aria-label="62 de 100"><span style="width:62%"></span></div>
+                    <div class="d-flex justify-content-between small text-secondary mt-1 num"><span>0</span><span>50</span><span>100</span></div>
+                  </div>
+                  <div class="col-12 col-sm-7">
+                    <h3 class="subheader mb-3">Les 5 dimensions</h3>
+                    <div class="vstack gap-3">
+                      <div>
+                        <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-droplet text-secondary me-1" aria-hidden="true"></i>Liquiditat</span><span class="num fw-semibold">71</span></div>
+                        <div class="est-meter est-meter-success"><span style="width:71%"></span></div>
+                      </div>
+                      <div>
+                        <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-scale text-secondary me-1" aria-hidden="true"></i>Deute</span><span class="num fw-semibold">48</span></div>
+                        <div class="est-meter est-meter-warning"><span style="width:48%"></span></div>
+                      </div>
+                      <div>
+                        <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-pig-money text-secondary me-1" aria-hidden="true"></i>Estalvi</span><span class="num fw-semibold">66</span></div>
+                        <div class="est-meter est-meter-warning"><span style="width:66%"></span></div>
+                      </div>
+                      <div>
+                        <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-shield text-secondary me-1" aria-hidden="true"></i>Resiliència</span><span class="num fw-semibold">44</span></div>
+                        <div class="est-meter est-meter-danger"><span style="width:44%"></span></div>
+                      </div>
+                      <div>
+                        <div class="d-flex justify-content-between mb-1"><span><i class="ti ti-adjustments text-secondary me-1" aria-hidden="true"></i>Control de despesa</span><span class="num fw-semibold">78</span></div>
+                        <div class="est-meter est-meter-success"><span style="width:78%"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pyramid stage -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">La teva etapa a la piràmide de l'estalvi</h2>
+                  <div class="card-subtitle mt-1">Etapa 2 de 5 · Eliminar el deute car</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <ol class="est-pyramid" aria-label="Etapes de la piràmide de l'estalvi">
+                  <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>0 · Estabilitzar <span class="visually-hidden">(completada)</span></li>
+                  <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>1 · Coixí inicial <span class="visually-hidden">(completada)</span></li>
+                  <li class="is-current" aria-current="step"><i class="ti ti-map-pin" aria-hidden="true"></i>2 · Deute car <span class="visually-hidden">(etapa actual)</span></li>
+                  <li>3 · Fons d'emergència</li>
+                  <li>4 · Objectius</li>
+                  <li>5 · Llarg termini</li>
+                </ol>
+                <p class="text-secondary mt-3 mb-0">Tens <span class="num fw-medium text-body">2.340,00 €</span> a la targeta revolving al 21,84 % TAE. Liquidar-la és ara l'estalvi més rendible: <span class="num fw-medium text-body">≈ 511 €</span> d'interessos a l'any.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI row -->
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Taxa d'estalvi</div>
+                <div class="est-figure mt-2">11,4 <span class="unit">%</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-arrow-up" aria-hidden="true"></i> +2,1 pp</span> <span class="text-secondary d-block d-sm-inline">objectiu 20 %</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Fons d'emergència</div>
+                <div class="est-figure mt-2">1,8 <span class="unit">mesos</span></div>
+                <div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Curt</span> <span class="text-secondary d-block d-sm-inline">objectiu 3 mesos</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Ràtio d'endeutament</div>
+                <div class="est-figure mt-2">11,6 <span class="unit">%</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Correcte</span> <span class="text-secondary d-block d-sm-inline">recomanat &lt; 30 %</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Flux de caixa mensual</div>
+                <div class="est-figure mt-2">+365 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Positiu</span> <span class="text-secondary d-block d-sm-inline">mitjana 3 mesos</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Income vs expenses -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Ingressos i despeses</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Euros per mes · últims 6 mesos · sense transferències internes</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="chart-income-expenses" style="min-height:280px"></div>
+                <details class="mt-2">
+                  <summary class="small text-secondary">Veure les dades en taula</summary>
+                  <div class="table-responsive mt-2">
+                    <table class="table table-sm table-vcenter">
+                      <thead><tr><th>Mes</th><th class="text-end">Ingressos</th><th class="text-end">Despeses</th><th class="text-end">Flux</th></tr></thead>
+                      <tbody>
+                        <tr><td>Maig</td><td class="text-end">3.180 €</td><td class="text-end">2.905 €</td><td class="text-end">+275 €</td></tr>
+                        <tr><td>Juny</td><td class="text-end">4.420 €</td><td class="text-end">3.310 €</td><td class="text-end">+1.110 €</td></tr>
+                        <tr><td>Juliol</td><td class="text-end">3.180 €</td><td class="text-end">3.240 €</td><td class="text-end">−60 €</td></tr>
+                        <tr><td>Agost</td><td class="text-end">3.180 €</td><td class="text-end">3.065 €</td><td class="text-end">+115 €</td></tr>
+                        <tr><td>Setembre</td><td class="text-end">3.215 €</td><td class="text-end">2.790 €</td><td class="text-end">+425 €</td></tr>
+                        <tr><td>Octubre</td><td class="text-end">3.215 €</td><td class="text-end">2.660 €</td><td class="text-end">+555 €</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spending by category -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Despesa per categoria</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Euros · octubre de 2026 · total 2.660 €</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="est-bars" role="list">
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Habitatge</span><span class="est-bars-track"><span style="width:100.0%"></span></span><span class="est-bars-value num">870 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Alimentació</span><span class="est-bars-track"><span style="width:55.7%"></span></span><span class="est-bars-value num">485 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Deutes i finançament</span><span class="est-bars-track"><span style="width:35.9%"></span></span><span class="est-bars-value num">312 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Subministraments</span><span class="est-bars-track"><span style="width:30.8%"></span></span><span class="est-bars-value num">268 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Transport</span><span class="est-bars-track"><span style="width:24.7%"></span></span><span class="est-bars-value num">215 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Oci i restauració</span><span class="est-bars-track"><span style="width:19.8%"></span></span><span class="est-bars-value num">172 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Subscripcions</span><span class="est-bars-track"><span style="width:17.0%"></span></span><span class="est-bars-value num">148 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Altres</span><span class="est-bars-track"><span style="width:21.8%"></span></span><span class="est-bars-value num">190 €</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next actions -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Properes accions del teu pla</h2>
+                  <div class="card-subtitle mt-1">Estalvi potencial: <span class="num">214 €/mes</span> · <span class="num">2.563 €/any</span></div>
+                </div>
+                <div class="card-actions"><a href="advisor-plan.html" class="btn btn-sm">Veure el pla</a></div>
+              </div>
+              <div class="list-group list-group-flush">
+                <a href="advisor-plan.html" class="list-group-item list-group-item-action">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-primary-lt"><i class="ti ti-credit-card-off" aria-hidden="true"></i></span></div>
+                    <div class="col text-truncate">
+                      <div class="fw-medium text-truncate">Liquida la targeta revolving amb el mètode allau</div>
+                      <div class="text-secondary small">Dificultat mitjana · <span class="badge bg-azure-lt">En curs</span></div>
+                    </div>
+                    <div class="col-auto text-end"><div class="num fw-semibold">43 €/mes</div><div class="num small text-secondary">511 €/any</div></div>
+                  </div>
+                </a>
+                <a href="advisor-plan.html" class="list-group-item list-group-item-action">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-primary-lt"><i class="ti ti-device-tv" aria-hidden="true"></i></span></div>
+                    <div class="col text-truncate">
+                      <div class="fw-medium text-truncate">Revisa 3 subscripcions de vídeo solapades</div>
+                      <div class="text-secondary small">Dificultat baixa · <span class="badge bg-secondary-lt">Pendent</span></div>
+                    </div>
+                    <div class="col-auto text-end"><div class="num fw-semibold">26 €/mes</div><div class="num small text-secondary">312 €/any</div></div>
+                  </div>
+                </a>
+                <a href="advisor-plan.html" class="list-group-item list-group-item-action">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-primary-lt"><i class="ti ti-bolt" aria-hidden="true"></i></span></div>
+                    <div class="col text-truncate">
+                      <div class="fw-medium text-truncate">Compara la tarifa de llum amb el PVPC</div>
+                      <div class="text-secondary small">Dificultat baixa · <span class="badge bg-secondary-lt">Pendent</span></div>
+                    </div>
+                    <div class="col-auto text-end"><div class="num fw-semibold">18 €/mes</div><div class="num small text-secondary">216 €/any</div></div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerts list -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Alertes</h2>
+                <div class="card-actions"><span class="badge bg-red-lt">3 noves</span></div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-red-lt"><i class="ti ti-trending-up" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">Pujada de preu en un recurrent</div><div class="text-secondary small">Netflix passa de <span class="num">13,99 €</span> a <span class="num">14,99 €</span> al mes.</div></div>
+                    <div class="small text-secondary text-nowrap">12/11</div>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-yellow-lt"><i class="ti ti-chart-pie" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">Pressupost de restauració al 86 %</div><div class="text-secondary small"><span class="num">172 €</span> de <span class="num">200 €</span>, i queden 12 dies de mes.</div></div>
+                    <div class="small text-secondary text-nowrap">10/11</div>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-yellow-lt"><i class="ti ti-receipt" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">Comissió bancària detectada</div><div class="text-secondary small">Manteniment de compte: <span class="num">18,00 €</span> (BBVA).</div></div>
+                    <div class="small text-secondary text-nowrap">05/11</div>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-azure-lt"><i class="ti ti-file-import" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">Fa 16 dies que no importes dades</div><div class="text-secondary small"><a href="import.html">Importa l'extracte de novembre</a> per mantenir el diagnòstic al dia.</div></div>
+                    <div class="small text-secondary text-nowrap">02/11</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+  // Income vs expenses: two series, one axis, legend + tooltip.
+  Estalvia.chart('#chart-income-expenses', function (c) {
+    return {
+      chart: { type: 'bar', height: 280 },
+      series: [
+        { name: 'Ingressos', data: [3180, 4420, 3180, 3180, 3215, 3215] },
+        { name: 'Despeses', data: [2905, 3310, 3240, 3065, 2790, 2660] }
+      ],
+      colors: [c.colors[0], c.colors[2]],
+      stroke: { show: true, width: 2, colors: ['transparent'] },
+      xaxis: { categories: ['Maig', 'Juny', 'Jul.', 'Ag.', 'Set.', 'Oct.'] },
+      yaxis: { labels: { formatter: function (v) { return c.num(v) + ' €'; } }, tickAmount: 4 }
+    };
+  });
+</script>
+</body>
+</html>
