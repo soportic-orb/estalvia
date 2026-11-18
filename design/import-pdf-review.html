@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Revisa l'extracte en PDF · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Balance equation: one line on desktop, a ledger on phones. */
+    .est-eq { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem 1.25rem; }
+    .est-eq-op { font-size: 1.5rem; font-weight: 500; color: var(--tblr-secondary); line-height: 1.6; }
+    .est-eq-term .est-figure { font-size: 1.5rem; white-space: nowrap; }
+    @media (max-width: 767.98px) {
+      .est-eq { display: block; }
+      .est-eq-op { display: none; }
+      .est-eq-term { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.5rem 0; }
+      .est-eq-term + .est-eq-term, .est-eq-op + .est-eq-term { border-top: 1px solid var(--tblr-border-color); }
+      .est-eq-term .est-figure { font-size: 1.125rem; }
+    }
+
+    /* Cells the AI was unsure about. */
+    .est-lowconf { background: var(--tblr-warning-lt); --tblr-table-bg-state: var(--tblr-warning-lt); }
+
+    /* Review table: real table on md+, one compact editable card per movement on phones. */
+    .est-review .est-cell-label { display: none; }
+    .est-review .est-col-date { width: 7.5rem; }
+    .est-review .est-col-sign { width: 8.75rem; }
+    .est-review th.est-col-date:first-child { width: 8.5rem; }
+    .est-review .est-col-amount { width: 8.5rem; }
+    .est-review .form-control { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .est-review .form-select { padding-left: 0.5rem; }
+    @media (min-width: 768px) {
+      .est-review td:not(:first-child):not(:last-child), .est-review th:not(:first-child):not(:last-child) { padding-left: 0.25rem; padding-right: 0.25rem; }
+      .est-review td:first-child { padding-right: 0.25rem; }
+      .est-review td:last-child { padding-left: 0.25rem; }
+    }
+    @media (max-width: 767.98px) {
+      .est-review, .est-review tbody { display: block; }
+      .est-review thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .est-review tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        gap: 0.5rem;
+        padding: 0.875rem 1rem;
+        border-bottom: 1px solid var(--tblr-border-color);
+      }
+      .est-review td { display: block; padding: 0 !important; border: 0; width: auto !important; }
+      .est-review .est-cell-desc { grid-column: 1 / 3; grid-row: 1; }
+      .est-review .est-cell-del { grid-column: 3; grid-row: 1; align-self: end; }
+      .est-review .est-cell-vdate, .est-review .est-cell-amount { grid-column: 2 / 4; }
+      .est-review .est-cell-label { display: block; font-size: 0.75rem; color: var(--tblr-secondary); margin-bottom: 0.125rem; }
+      .est-review .est-lowconf { padding: 0.5rem !important; margin: -0.5rem; border-radius: var(--tblr-border-radius); }
+    }
+
+    /* Placeholder drawing of a PDF page. */
+    .est-sheet-wrap { background: var(--tblr-bg-surface-secondary); padding: 1rem; }
+    .est-sheet {
+      aspect-ratio: 210 / 297;
+      max-width: 22rem;
+      margin: 0 auto;
+      padding: 9% 8%;
+      background: var(--tblr-bg-surface);
+      border: 1px solid var(--tblr-border-color);
+      box-shadow: var(--tblr-box-shadow);
+    }
+    .est-sheet i { display: block; height: 0.4rem; margin-bottom: 0.55rem; border-radius: 2px; background: var(--tblr-border-color); }
+    .est-sheet .est-sheet-row { display: flex; gap: 6%; }
+    .est-sheet .est-sheet-row i { flex: 1 1 0; }
+    .est-sheet .est-sheet-row i:nth-child(1) { flex: 0 0 14%; }
+    .est-sheet .est-sheet-row i:nth-child(3) { flex: 0 0 16%; }
+    .est-sheet .est-sheet-flag { outline: 2px solid var(--tblr-warning); outline-offset: 3px; border-radius: 2px; background: var(--tblr-warning-lt); }
+    .est-actions .btn { min-height: 2.75rem; }
+  </style>
+</head>
+<body data-page="import">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle"><a href="import.html" class="text-reset">Importa</a> · PDF amb IA</div>
+            <h1 class="page-title">Revisa l'extracte abans d'importar-lo</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <div class="est-ai-notice mb-3" role="note"><i class="ti ti-sparkles" aria-hidden="true"></i><span>Dades extretes amb IA. Revisa-les abans de confirmar.</span></div>
+
+        <!-- What the AI detected -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Document detectat</h2>
+              <div class="card-subtitle mt-1 text-break">wizink_extracte_octubre.pdf · pujat el 02/11/2026</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="datagrid" style="--tblr-datagrid-item-width:9rem">
+              <div class="datagrid-item"><div class="datagrid-title">Entitat detectada</div><div class="datagrid-content">WiZink</div></div>
+              <div class="datagrid-item"><div class="datagrid-title">Tipus</div><div class="datagrid-content">Extracte de targeta</div></div>
+              <div class="datagrid-item"><div class="datagrid-title">Targeta</div><div class="datagrid-content num">···· 3377</div></div>
+              <div class="datagrid-item"><div class="datagrid-title">Període</div><div class="datagrid-content num">01/10/2026–31/10/2026</div></div>
+              <div class="datagrid-item"><div class="datagrid-title">Pàgines</div><div class="datagrid-content num">3 pàgines</div></div>
+              <div class="datagrid-item"><div class="datagrid-title">Compte de destinació</div><div class="datagrid-content">WiZink ···· 3377 <a href="import.html" class="small ms-1">Canvia</a></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Balance validation (live) -->
+        <div class="card mb-3" id="balance-card">
+          <div class="card-status-start bg-warning" id="balance-status-bar"></div>
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Validació de saldos</h2>
+              <div class="card-subtitle mt-1">Saldo inicial + moviments = saldo final · tolerància <span class="num">0,01 €</span></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div aria-live="polite">
+              <!-- Unbalanced state -->
+              <div class="d-flex gap-3 align-items-start mb-3" id="balance-bad">
+                <span class="avatar bg-yellow-lt flex-shrink-0"><i class="ti ti-alert-triangle" aria-hidden="true"></i></span>
+                <div>
+                  <div class="h3 mb-1 text-warning">No quadra: revisa els moviments marcats</div>
+                  <div class="text-secondary">Hi ha una diferència de <span class="num fw-medium text-body" data-out="diff">12,40 €</span> entre el saldo calculat i el de l'extracte. Sovint és un import mal llegit o una línia que falta.</div>
+                </div>
+              </div>
+              <!-- Balanced state -->
+              <div class="d-flex gap-3 align-items-start mb-3 d-none" id="balance-ok">
+                <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-circle-check" aria-hidden="true"></i></span>
+                <div>
+                  <div class="h3 mb-1 text-success">Quadra</div>
+                  <div class="text-secondary">El saldo calculat coincideix amb el saldo final de l'extracte. Ja pots confirmar la importació.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="est-eq">
+              <div class="est-eq-term">
+                <div class="subheader">Saldo inicial (deute)</div>
+                <div class="est-figure mt-1">2.398,20 <span class="unit">€</span></div>
+              </div>
+              <div class="est-eq-op" aria-hidden="true">+</div>
+              <div class="est-eq-term">
+                <div class="subheader"><span class="d-md-none">+ </span>Moviments <span class="text-lowercase fw-normal">(càrrecs − pagaments)</span></div>
+                <div class="est-figure mt-1"><span data-out="net">−45,80</span> <span class="unit">€</span></div>
+              </div>
+              <div class="est-eq-op" aria-hidden="true">=</div>
+              <div class="est-eq-term">
+                <div class="subheader"><span class="d-md-none">= </span>Saldo final calculat</div>
+                <div class="est-figure mt-1"><span data-out="calc">2.352,40</span> <span class="unit">€</span></div>
+              </div>
+              <div class="est-eq-op" aria-hidden="true" id="balance-op">≠</div>
+              <div class="est-eq-term">
+                <div class="subheader">Saldo final de l'extracte</div>
+                <div class="est-figure mt-1">2.340,00 <span class="unit">€</span></div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-3 small">
+              <span class="badge bg-secondary-lt"><span class="num" data-out="charges-count">11</span> càrrecs · <span class="num" data-out="charges">224,19 €</span></span>
+              <span class="badge bg-secondary-lt"><span class="num" data-out="payments-count">3</span> pagaments · <span class="num" data-out="payments">269,99 €</span></span>
+              <span class="badge bg-yellow-lt" id="lowconf-badge"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span class="num" data-out="lowconf">2</span> <span data-out="lowconf-label">cel·les amb confiança baixa</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-cards">
+          <!-- PDF page preview (placeholder) -->
+          <div class="col-12 col-xl-3">
+            <button class="btn w-100 d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#pdf-preview" aria-expanded="false" aria-controls="pdf-preview">
+              <i class="ti ti-file-type-pdf icon" aria-hidden="true"></i>Mostra el PDF original
+            </button>
+            <div class="collapse d-xl-block mt-3 mt-xl-0" id="pdf-preview">
+              <div class="card">
+                <div class="card-header">
+                  <h2 class="card-title">PDF original</h2>
+                </div>
+                <div class="est-sheet-wrap">
+                  <div class="est-sheet" role="img" aria-label="Previsualització de la pàgina 1 de 3 de l'extracte, amb la línia dubtosa ressaltada">
+                    <i style="width:34%;height:.8rem"></i>
+                    <i style="width:52%"></i>
+                    <i style="width:40%;margin-bottom:1.4rem"></i>
+                    <i style="width:100%;height:.55rem"></i>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row est-sheet-flag"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <div class="est-sheet-row"><i></i><i></i><i></i></div>
+                    <i style="width:100%;height:.55rem;margin-top:1rem"></i>
+                    <i style="width:60%"></i>
+                    <i style="width:45%"></i>
+                  </div>
+                </div>
+                <div class="card-body py-2 d-flex align-items-center justify-content-between border-top">
+                  <button type="button" class="btn btn-icon btn-ghost-secondary" aria-label="Pàgina anterior" disabled><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+                  <span class="small text-secondary num">Pàgina 1 de 3</span>
+                  <button type="button" class="btn btn-icon btn-ghost-secondary" aria-label="Pàgina següent"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+                </div>
+                <div class="card-footer small text-secondary"><i class="ti ti-alert-triangle text-warning" aria-hidden="true"></i> La línia ressaltada és la que la IA ha llegit amb menys seguretat.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Editable movements -->
+          <div class="col-12 col-xl-9">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Moviments extrets</h2>
+                  <div class="card-subtitle mt-1"><span class="num" data-out="count">14</span> moviments · pots corregir qualsevol camp</div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-vcenter card-table est-review">
+                  <thead>
+                    <tr>
+                      <th class="est-col-date">Data</th>
+                      <th class="est-col-date">Data valor</th>
+                      <th>Descripció</th>
+                      <th class="est-col-sign">Signe</th>
+                      <th class="est-col-amount text-end">Import (€)</th>
+                      <th class="w-1"><span class="visually-hidden">Accions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="rows"></tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <button type="button" class="btn" id="add-row"><i class="ti ti-plus icon" aria-hidden="true"></i>Afegeix un moviment</button>
+              </div>
+            </div>
+
+            <!-- Final actions -->
+            <div class="card mt-3 est-actions">
+              <div class="card-body">
+                <label class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox">
+                  <span class="form-check-label">Conserva el PDF original xifrat</span>
+                  <span class="form-check-description">Per defecte l'eliminem després de processar-lo.</span>
+                </label>
+                <div class="small mb-3" id="footer-status" aria-hidden="true"></div>
+                <div class="d-flex flex-column-reverse flex-sm-row gap-2">
+                  <a href="import.html" class="btn">Descarta</a>
+                  <button type="button" class="btn ms-sm-auto" id="confirm-btn">
+                    <i class="ti ti-alert-triangle icon text-warning" id="confirm-icon" aria-hidden="true"></i><span>Confirma i importa <span data-out="count">14</span> moviments</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Warning confirm shown when the user tries to import while unbalanced -->
+<div class="modal modal-blur fade" id="unbalanced-modal" tabindex="-1" aria-labelledby="unbalanced-title" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-status bg-warning"></div>
+      <div class="modal-body text-center py-4">
+        <i class="ti ti-alert-triangle text-warning mb-2" style="font-size:2.5rem" aria-hidden="true"></i>
+        <h2 class="h3" id="unbalanced-title">Els saldos no quadren</h2>
+        <div class="text-secondary">Hi ha una diferència de <span class="num fw-medium text-body" data-out="diff">12,40 €</span>. Si importes ara, el saldo de la targeta a Estalvia no coincidirà amb el del banc.</div>
+      </div>
+      <div class="modal-footer">
+        <div class="w-100 vstack gap-2">
+          <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Torna a revisar</button>
+          <a href="transactions.html" class="btn w-100">Importa igualment</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Review table + live balance check. All arithmetic in integer cents.
+  (function () {
+    var OPENING = 239820;    // 2.398,20 € debt at the start of the period
+    var CLOSING = 234000;    // 2.340,00 € debt printed on the statement
+    var TOLERANCE = 1;       // 0,01 €
+
+    // sign: C = càrrec (increases the debt), P = pagament (reduces it)
+    var data = [
+      { d: '02/10/2026', v: '03/10/2026', desc: 'SPOTIFY P2F4A1', amt: '10,99', sign: 'C' },
+      { d: '03/10/2026', v: '05/10/2026', desc: 'FARMACIA DEVESA GIRONA', amt: '21,40', sign: 'C',
+        low: { amt: 'Xifra poc llegible al PDF: podria ser 9,00 € o 21,40 €.' }, alt: '9,00' },
+      { d: '05/10/2026', v: '05/10/2026', desc: 'REBUT MENSUAL DOMICILIAT', amt: '95,00', sign: 'P' },
+      { d: '06/10/2026', v: '07/10/2026', desc: 'GLOVO GIRONA', amt: '18,40', sign: 'C' },
+      { d: '09/10/2026', v: '10/10/2026', desc: 'AMAZON.ES MARKETPLACE', amt: '24,99', sign: 'C' },
+      { d: '10/10/2026', v: '12/10/2026', desc: 'REPSOL E.S. SALT', amt: '30,00', sign: 'C' },
+      { d: '13/10/2026', v: '14/10/2026', desc: 'DECATHLON GIRONA', amt: '19,99', sign: 'C' },
+      { d: '15/10/2026', v: '15/10/2026', desc: 'DEVOLUCIO AMAZON.ES', amt: '24,99', sign: 'P' },
+      { d: '17/10/2026', v: '19/10/2026', desc: 'BONPREU GIRONA', amt: '21,73', sign: 'C' },
+      { d: '20/10/2026', v: '20/10/2026', desc: 'PAGAMENT EXTRAORDINARI', amt: '150,00', sign: 'P' },
+      { d: '20/10/2026', v: '21/10/2026', desc: 'RENFE VIATGERS', amt: '8,40', sign: 'C' },
+      { d: '24/10/2026', v: '26/10/2026', desc: 'RESTAURANT KONIG GIRONA', amt: '16,50', sign: 'C' },
+      { d: '27/10/2026', v: '28/10/2026', desc: 'APARCAMENT SABA GIR0NA', amt: '12,00', sign: 'C',
+        low: { desc: 'Text poc llegible: comprova el nom del comerç.' } },
+      { d: '31/10/2026', v: '31/10/2026', desc: 'INTERESSOS DEL PERIODE', amt: '39,79', sign: 'C' }
+    ];
+
+    var tbody = document.getElementById('rows');
+    var uid = 0;
+
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+    function lowNote(text, extra) {
+      return '<div class="small text-warning mt-1 est-low-note" title="' + esc(text) + '" data-bs-toggle="tooltip">' +
+        '<i class="ti ti-alert-triangle" aria-hidden="true"></i> Confiança baixa' + (extra || '') +
+        '<span class="visually-hidden">: ' + esc(text) + '</span></div>';
+    }
+
+    function rowHtml(r) {
+      var id = 'r' + (++uid);
+      var low = r.low || {};
+      var alt = r.alt ? ' <button type="button" class="btn btn-sm ms-1" data-alt="' + r.alt + '">Posa ' + r.alt + ' €</button>' : '';
+      return '<tr>' +
+        '<td class="est-cell-date"><label class="est-cell-label" for="' + id + 'd">Data</label>' +
+          '<input type="text" class="form-control num" id="' + id + 'd" value="' + esc(r.d) + '" inputmode="numeric" placeholder="dd/mm/aaaa" aria-label="Data"></td>' +
+        '<td class="est-cell-vdate"><label class="est-cell-label" for="' + id + 'v">Data de valor</label>' +
+          '<input type="text" class="form-control num" id="' + id + 'v" value="' + esc(r.v) + '" inputmode="numeric" placeholder="dd/mm/aaaa" aria-label="Data de valor"></td>' +
+        '<td class="est-cell-desc' + (low.desc ? ' est-lowconf' : '') + '"><label class="est-cell-label" for="' + id + 't">Descripció</label>' +
+          '<input type="text" class="form-control" id="' + id + 't" value="' + esc(r.desc) + '" placeholder="Descripció" aria-label="Descripció">' +
+          (low.desc ? lowNote(low.desc) : '') + '</td>' +
+        '<td class="est-cell-sign"><label class="est-cell-label" for="' + id + 's">Signe</label>' +
+          '<select class="form-select" id="' + id + 's" data-sign aria-label="Signe">' +
+          '<option value="C"' + (r.sign === 'C' ? ' selected' : '') + '>Càrrec</option>' +
+          '<option value="P"' + (r.sign === 'P' ? ' selected' : '') + '>Pagament</option></select></td>' +
+        '<td class="est-cell-amount' + (low.amt ? ' est-lowconf' : '') + '"><label class="est-cell-label" for="' + id + 'a">Import (€)</label>' +
+          '<input type="text" class="form-control text-end num" id="' + id + 'a" data-amount value="' + esc(r.amt) + '" inputmode="decimal" placeholder="0,00" aria-label="Import en euros">' +
+          (low.amt ? lowNote(low.amt, alt) : '') + '</td>' +
+        '<td class="est-cell-del"><button type="button" class="btn btn-icon btn-ghost-secondary" data-delete aria-label="Elimina el moviment"><i class="ti ti-trash" aria-hidden="true"></i></button></td>' +
+        '</tr>';
+    }
+
+    function parseCents(text) {
+      var t = String(text).trim().replace(/\s|€/g, '').replace(/\./g, '').replace(',', '.');
+      if (!/^\d+(\.\d{1,2})?$/.test(t)) { return NaN; }
+      return Math.round(parseFloat(t) * 100);
+    }
+    function fmt(cents) {
+      return (cents < 0 ? '−' : '') + Estalvia.num(Math.abs(cents) / 100, 2);
+    }
+    function out(name, text) {
+      document.querySelectorAll('[data-out="' + name + '"]').forEach(function (el) { el.textContent = text; });
+    }
+
+    function recalc() {
+      var charges = 0, payments = 0, nc = 0, np = 0, invalid = 0;
+      tbody.querySelectorAll('tr').forEach(function (tr) {
+        var input = tr.querySelector('[data-amount]');
+        var cents = parseCents(input.value);
+        var bad = isNaN(cents);
+        input.classList.toggle('is-invalid', bad);
+        if (bad) { invalid++; return; }
+        if (tr.querySelector('[data-sign]').value === 'P') { payments += cents; np++; } else { charges += cents; nc++; }
+      });
+      var net = charges - payments;
+      var calc = OPENING + net;
+      var diff = Math.abs(calc - CLOSING);
+      var ok = diff <= TOLERANCE && invalid === 0;
+      var count = tbody.querySelectorAll('tr').length;
+      var low = tbody.querySelectorAll('.est-lowconf').length;
+
+      out('net', fmt(net)); out('calc', fmt(calc)); out('diff', fmt(diff) + ' €');
+      out('charges', fmt(charges) + ' €'); out('payments', fmt(payments) + ' €');
+      out('charges-count', nc); out('payments-count', np); out('count', count); out('lowconf', low); out('lowconf-label', low === 1 ? 'cel·la amb confiança baixa' : 'cel·les amb confiança baixa');
+
+      document.getElementById('balance-bad').classList.toggle('d-none', ok);
+      document.getElementById('balance-ok').classList.toggle('d-none', !ok);
+      document.getElementById('balance-op').textContent = ok ? '=' : '≠';
+      document.getElementById('lowconf-badge').classList.toggle('d-none', low === 0);
+      var bar = document.getElementById('balance-status-bar');
+      bar.classList.toggle('bg-warning', !ok); bar.classList.toggle('bg-success', ok);
+
+      var btn = document.getElementById('confirm-btn');
+      var icon = document.getElementById('confirm-icon');
+      btn.classList.toggle('btn-primary', ok);
+      icon.className = 'ti icon ' + (ok ? 'ti-check' : 'ti-alert-triangle text-warning');
+      document.getElementById('footer-status').innerHTML = ok
+        ? '<span class="text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Quadra: el saldo calculat coincideix amb el de l\'extracte.</span>'
+        : '<span class="text-warning"><i class="ti ti-alert-triangle" aria-hidden="true"></i> No quadra: diferència de <span class="num">' + fmt(diff) + ' €</span>.' +
+          (invalid ? ' Hi ha ' + invalid + ' import no vàlid.' : '') + ' Et demanarem confirmació.</span>';
+      btn.dataset.ok = ok ? '1' : '';
+    }
+
+    // Once the user edits a flagged cell it counts as reviewed.
+    function clearLow(td) {
+      if (!td || !td.classList.contains('est-lowconf')) { return; }
+      td.classList.remove('est-lowconf');
+      var note = td.querySelector('.est-low-note');
+      if (note) { note.outerHTML = '<div class="small text-success mt-1"><i class="ti ti-check" aria-hidden="true"></i> Revisat</div>'; }
+    }
+
+    tbody.innerHTML = data.map(rowHtml).join('');
+
+    tbody.addEventListener('input', function (ev) {
+      if (ev.target.matches('input')) { clearLow(ev.target.closest('td')); }
+      recalc();
+    });
+    tbody.addEventListener('change', recalc);
+    tbody.addEventListener('click', function (ev) {
+      var alt = ev.target.closest('[data-alt]');
+      if (alt) {
+        var td = alt.closest('td');
+        td.querySelector('[data-amount]').value = alt.getAttribute('data-alt');
+        clearLow(td); recalc(); return;
+      }
+      var del = ev.target.closest('[data-delete]');
+      if (del) { del.closest('tr').remove(); recalc(); }
+    });
+    document.getElementById('add-row').addEventListener('click', function () {
+      tbody.insertAdjacentHTML('beforeend', rowHtml({ d: '', v: '', desc: '', amt: '0,00', sign: 'C' }));
+      recalc();
+      tbody.lastElementChild.querySelector('input').focus();
+    });
+    document.getElementById('confirm-btn').addEventListener('click', function () {
+      if (this.dataset.ok) { location.href = 'transactions.html'; return; }
+      (window.bootstrap || window.tabler).Modal.getOrCreateInstance(document.getElementById('unbalanced-modal')).show();
+    });
+
+    recalc();
+    // Demo hook for screenshots: ?fixed=1 applies the suggested correction.
+    if (new URLSearchParams(location.search).get('fixed')) { var b = tbody.querySelector('[data-alt]'); if (b) { b.click(); } }
+  })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+</body>
+</html>

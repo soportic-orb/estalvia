@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Administració · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: anchor targets clear the sticky header; numbered OTA checklist. */
+    #users, #ota, #ai { scroll-margin-top: 1rem; }
+    .est-checklist { list-style: none; padding: 0; margin: 0; counter-reset: step; display: grid; gap: 0.625rem; }
+    .est-checklist li { display: flex; gap: 0.75rem; align-items: flex-start; counter-increment: step; }
+    .est-checklist li::before { content: counter(step); flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; font-size: 0.75rem; font-weight: 600; background: var(--tblr-bg-surface-secondary); border: 1px solid var(--tblr-border-color); color: var(--tblr-secondary); font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body data-page="admin-dashboard" data-layout="admin">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Administració · 18/11/2026</div>
+            <h1 class="page-title">Tauler</h1>
+          </div>
+          <div class="col-auto ms-auto d-flex gap-2 align-items-center">
+            <span class="badge bg-green-lt d-none d-sm-inline-flex"><i class="ti ti-circle-check" aria-hidden="true"></i> Sistema operatiu · v1.3.2</span>
+            <a href="#ota" class="btn btn-primary"><i class="ti ti-cloud-download icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Actualització disponible</span><span class="d-sm-none">v1.4.0</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-deck row-cards">
+
+          <!-- KPI row -->
+          <div class="col-6 col-md-4 col-xl">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Usuaris actius</div>
+                <div class="est-figure mt-2">1.284</div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-arrow-up" aria-hidden="true"></i> +46</span> <span class="text-secondary d-block d-sm-inline">vs. octubre</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-xl">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">De pagament</div>
+                <div class="est-figure mt-2">312</div>
+                <div class="mt-2 small"><span class="fw-medium num">24,3 %</span> <span class="text-secondary d-block d-sm-inline">de conversió</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-xl">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">MRR</div>
+                <div class="est-figure mt-2">1.742 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-arrow-up" aria-hidden="true"></i> +3,8 %</span> <span class="text-secondary d-block d-sm-inline">vs. octubre</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-6 col-xl">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Cost d'IA del mes</div>
+                <div class="est-figure mt-2">268,40 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="fw-medium num">15,4 %</span> <span class="text-secondary d-block d-sm-inline">de l'MRR · fins al 18/11</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-xl">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Marge brut</div>
+                <div class="est-figure mt-2">84,6 <span class="unit">%</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Dins l'objectiu</span> <span class="text-secondary d-block d-sm-inline">objectiu &gt; 80 %</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI cost chart -->
+          <div class="col-12 col-lg-7" id="ai">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Cost d'IA per funcionalitat</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Euros per setmana (dilluns–diumenge) · últimes 8 setmanes · la del 16/11 és en curs</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="chart-ai-cost" style="min-height:300px"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI by model -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Consum d'IA per model</h2>
+                  <div class="card-subtitle mt-1">Novembre de 2026 · fins al 18/11</div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                  <thead>
+                    <tr><th>Model</th><th class="text-end">Crides</th><th class="text-end d-none d-sm-table-cell">Tokens entrada / sortida</th><th class="text-end">Cost</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code class="text-body">claude-haiku-5-5</code><div class="small text-secondary">Categorització</div></td>
+                      <td class="text-end">48.210</td>
+                      <td class="text-end d-none d-sm-table-cell text-nowrap">61,2 M / 7,4 M</td>
+                      <td class="text-end text-nowrap">58,90 €</td>
+                    </tr>
+                    <tr>
+                      <td><code class="text-body">claude-sonnet-5-5</code><div class="small text-secondary">PDF, pla d'acció i xat</div></td>
+                      <td class="text-end">9.640</td>
+                      <td class="text-end d-none d-sm-table-cell text-nowrap">38,5 M / 6,1 M</td>
+                      <td class="text-end text-nowrap">171,30 €</td>
+                    </tr>
+                    <tr>
+                      <td><code class="text-body">claude-opus-5-5</code><div class="small text-secondary">Revisió mensual</div></td>
+                      <td class="text-end">412</td>
+                      <td class="text-end d-none d-sm-table-cell text-nowrap">1,9 M / 0,4 M</td>
+                      <td class="text-end text-nowrap">38,20 €</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr><th>Total</th><th class="text-end">58.262</th><th class="text-end d-none d-sm-table-cell text-nowrap">101,6 M / 13,9 M</th><th class="text-end text-nowrap">268,40 €</th></tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="card-footer small text-secondary">Cost mitjà per usuari actiu: <span class="num fw-medium text-body">0,21 €</span> · per usuari de pagament: <span class="num fw-medium text-body">0,86 €</span></div>
+            </div>
+          </div>
+
+          <!-- Users -->
+          <div class="col-12" id="users">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Usuaris</h2>
+                  <div class="card-subtitle mt-1">Ingrés, cost d'IA i marge del mes en curs · 1.284 usuaris</div>
+                </div>
+              </div>
+              <div class="card-body border-bottom">
+                <div class="row g-2">
+                  <div class="col-12 col-md">
+                    <div class="input-icon">
+                      <span class="input-icon-addon"><i class="ti ti-search" aria-hidden="true"></i></span>
+                      <input type="search" class="form-control" placeholder="Cerca per nom o correu…" aria-label="Cerca usuaris">
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-auto">
+                    <label class="visually-hidden" for="filter-plan">Pla</label>
+                    <select id="filter-plan" class="form-select"><option selected>Tots els plans</option><option>Gratuït</option><option>Premium</option><option>Família</option></select>
+                  </div>
+                  <div class="col-6 col-md-auto">
+                    <label class="visually-hidden" for="filter-state">Estat</label>
+                    <select id="filter-state" class="form-select"><option selected>Tots els estats</option><option>Actiu</option><option>En prova</option><option>Suspès</option></select>
+                  </div>
+                  <div class="col-12 col-md-auto">
+                    <label class="form-check form-switch m-0 py-2">
+                      <input class="form-check-input" type="checkbox">
+                      <span class="form-check-label">Només marge negatiu</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                  <thead>
+                    <tr>
+                      <th>Usuari</th>
+                      <th class="d-none d-sm-table-cell">Pla</th>
+                      <th class="d-none d-md-table-cell">Estat</th>
+                      <th class="text-end d-none d-lg-table-cell">Ingrés mensual</th>
+                      <th class="text-end d-none d-md-table-cell">Cost d'IA</th>
+                      <th class="text-end">Marge</th>
+                      <th class="w-1"><span class="visually-hidden">Accions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-body"></tbody>
+                </table>
+              </div>
+              <div class="card-footer d-flex align-items-center flex-wrap gap-2">
+                <p class="m-0 text-secondary small">Mostrant <span class="num">1–8</span> de <span class="num">1.284</span></p>
+                <ul class="pagination m-0 ms-auto">
+                  <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true" aria-label="Pàgina anterior"><i class="ti ti-chevron-left" aria-hidden="true"></i></a></li>
+                  <li class="page-item active"><a class="page-link" href="#" aria-current="page">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#" aria-label="Pàgina següent"><i class="ti ti-chevron-right" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- OTA -->
+          <div class="col-12 col-lg-7" id="ota">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Actualitzacions (OTA)</h2>
+                  <div class="card-subtitle mt-1">Canal estable · última comprovació 18/11/2026 08:00</div>
+                </div>
+                <div class="card-actions"><span class="badge bg-azure-lt"><i class="ti ti-info-circle" aria-hidden="true"></i> Versió nova</span></div>
+              </div>
+              <div class="card-body">
+                <div class="row g-3 align-items-center">
+                  <div class="col-6 col-sm-auto">
+                    <div class="subheader">Instal·lada</div>
+                    <div class="est-figure mt-1">1.3.2</div>
+                    <div class="small text-secondary num">03/11/2026</div>
+                  </div>
+                  <div class="col-auto d-none d-sm-block text-secondary"><i class="ti ti-arrow-right" aria-hidden="true" style="font-size:1.5rem"></i></div>
+                  <div class="col-6 col-sm-auto">
+                    <div class="subheader">Disponible</div>
+                    <div class="est-figure mt-1">1.4.0</div>
+                    <div class="small text-secondary num">17/11/2026 · 14,2 MB</div>
+                  </div>
+                  <div class="col-12 col-sm text-sm-end">
+                    <button type="button" class="btn btn-primary w-100 w-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-ota"><i class="ti ti-cloud-download icon" aria-hidden="true"></i>Actualitza a 1.4.0</button>
+                  </div>
+                </div>
+
+                <div class="row g-4 mt-1">
+                  <div class="col-12 col-md-6">
+                    <h3 class="subheader mb-2">Notes de la versió 1.4.0</h3>
+                    <ul class="mb-0 ps-3">
+                      <li>Simulador d'amortització anticipada amb comparació de quota i termini.</li>
+                      <li>Importació d'extractes en format Norma 43.</li>
+                      <li>El validador de l'assessor comprova també els percentatges.</li>
+                      <li>Correcció: duplicats en importar dos cops el mateix PDF.</li>
+                    </ul>
+                    <div class="small text-secondary mt-2"><i class="ti ti-database" aria-hidden="true"></i> Inclou 2 migracions de base de dades (reversibles).</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <h3 class="subheader mb-2">Què farà l'actualització</h3>
+                    <ol class="est-checklist">
+                      <li><span>Activa el <span class="fw-medium">mode manteniment</span></span></li>
+                      <li><span><span class="fw-medium">Còpia</span> de la base de dades i del codi</span></li>
+                      <li><span>Descàrrega i verificació del <span class="fw-medium">checksum SHA-256</span></span></li>
+                      <li><span>Executa les <span class="fw-medium">migracions</span></span></li>
+                      <li><span><span class="fw-medium">Health check</span> de l'aplicació</span></li>
+                      <li><span><span class="fw-medium">Rollback automàtic</span> si alguna cosa falla</span></li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive border-top">
+                <table class="table table-vcenter card-table">
+                  <caption class="visually-hidden">Registre de les últimes actualitzacions</caption>
+                  <thead><tr><th>Versió</th><th>Data</th><th>Resultat</th><th class="d-none d-md-table-cell">Detall</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td>1.3.2</td><td class="text-nowrap">03/11/2026 <span class="text-secondary d-none d-sm-inline">02:14</span></td>
+                      <td><span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcta</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">1 min 48 s · 0 migracions</td>
+                    </tr>
+                    <tr>
+                      <td>1.3.1</td><td class="text-nowrap">22/10/2026 <span class="text-secondary d-none d-sm-inline">02:09</span></td>
+                      <td><span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcta</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">2 min 31 s · 1 migració · segon intent</td>
+                    </tr>
+                    <tr>
+                      <td>1.3.1</td><td class="text-nowrap">21/10/2026 <span class="text-secondary d-none d-sm-inline">02:11</span></td>
+                      <td><span class="badge bg-yellow-lt"><i class="ti ti-arrow-back-up" aria-hidden="true"></i> Rollback automàtic</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">Health check fallit (HTTP 503) · restaurada la 1.3.0 en 54 s</td>
+                    </tr>
+                    <tr>
+                      <td>1.3.0</td><td class="text-nowrap">06/10/2026 <span class="text-secondary d-none d-sm-inline">02:07</span></td>
+                      <td><span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcta</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">3 min 02 s · 4 migracions</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- External sources -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Fonts externes</h2>
+                <div class="card-actions"><span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> 1 avís</span></div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <span class="avatar avatar-sm bg-green-lt"><i class="ti ti-chart-line" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">INE · IPC</div><div class="text-secondary small">Última sincronització <span class="num">13/11/2026</span></div></div>
+                    <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcte</span>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <span class="avatar avatar-sm bg-green-lt"><i class="ti ti-percentage" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">Banc d'Espanya · Euríbor</div><div class="text-secondary small">Última sincronització <span class="num">02/11/2026</span></div></div>
+                    <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcte</span>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <span class="avatar avatar-sm bg-yellow-lt"><i class="ti ti-bolt" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">REE (ESIOS) · PVPC</div><div class="text-secondary small">Falta el token de l'API · dades del <span class="num">09/11/2026</span></div></div>
+                    <span class="badge bg-yellow-lt"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Avís</span>
+                  </div>
+                  <a href="#" class="btn btn-sm mt-2 ms-5">Configura el token</a>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex gap-3 align-items-center">
+                    <span class="avatar avatar-sm bg-green-lt"><i class="ti ti-gas-station" aria-hidden="true"></i></span>
+                    <div class="flex-fill"><div class="fw-medium">MITECO · Carburants</div><div class="text-secondary small">Última sincronització <span class="num">18/11/2026 06:00</span></div></div>
+                    <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Correcte</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Failed jobs -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Jobs fallits</h2>
+                <div class="card-actions"><span class="badge bg-red-lt"><i class="ti ti-alert-triangle" aria-hidden="true"></i> 2</span></div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="fw-medium">ParseStatementPdf <span class="text-secondary fw-normal num">#48213</span></div>
+                  <div class="text-secondary small">Temps d'espera esgotat (120 s) · 3 intents · <span class="num">18/11 07:42</span></div>
+                </div>
+                <div class="list-group-item">
+                  <div class="fw-medium">SendMonthlyReview <span class="text-secondary fw-normal num">#48190</span></div>
+                  <div class="text-secondary small">SMTP 451 · 3 intents · <span class="num">17/11 09:03</span></div>
+                </div>
+              </div>
+              <div class="card-footer"><a href="#" class="btn btn-sm">Reintenta'ls</a> <a href="#" class="btn btn-sm btn-ghost-secondary">Veure la cua</a></div>
+            </div>
+          </div>
+
+          <!-- Advisor validator incidents -->
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Validador de l'assessor</h2>
+                  <div class="card-subtitle mt-1">Respostes bloquejades abans d'arribar a l'usuari</div>
+                </div>
+                <div class="card-actions"><span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> 3</span></div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="fw-medium"><i class="ti ti-hash text-secondary" aria-hidden="true"></i> Xifra no trobada al context</div>
+                  <div class="text-secondary small">Xat · «340 €» no consta a les dades del motor · <span class="num">18/11 08:15</span></div>
+                </div>
+                <div class="list-group-item">
+                  <div class="fw-medium"><i class="ti ti-ban text-secondary" aria-hidden="true"></i> Terme prohibit: ETF concret</div>
+                  <div class="text-secondary small">Xat · resposta regenerada sense el producte · <span class="num">17/11 21:48</span></div>
+                </div>
+                <div class="list-group-item">
+                  <div class="fw-medium"><i class="ti ti-hash text-secondary" aria-hidden="true"></i> Xifra no trobada al context</div>
+                  <div class="text-secondary small">Pla d'acció · impacte anual diferent del calculat · <span class="num">16/11 03:20</span></div>
+                </div>
+              </div>
+              <div class="card-footer small text-secondary">3 de 2.118 respostes aquesta setmana (<span class="num">0,14 %</span>)</div>
+            </div>
+          </div>
+
+          <!-- Backups -->
+          <div class="col-12 col-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Còpies de seguretat</h2>
+                <div class="card-actions"><span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Al dia</span></div>
+              </div>
+              <div class="card-body">
+                <div class="datagrid" style="--tblr-datagrid-item-width: 9rem">
+                  <div class="datagrid-item"><div class="datagrid-title">Última còpia</div><div class="datagrid-content num fw-medium">18/11/2026 03:00</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Xifratge</div><div class="datagrid-content"><i class="ti ti-lock text-success" aria-hidden="true"></i> Xifrada (AES-256)</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Destí</div><div class="datagrid-content">S3 · eu-south-2</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Mida</div><div class="datagrid-content num">412 MB</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Retenció</div><div class="datagrid-content">30 diàries · 12 mensuals</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Prova de restauració</div><div class="datagrid-content num">01/11/2026 · <span class="text-success"><i class="ti ti-check" aria-hidden="true"></i> correcta</span></div></div>
+                </div>
+              </div>
+              <div class="card-footer"><a href="#" class="btn btn-sm">Fes una còpia ara</a></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia · Administració · v1.3.2 · Totes les accions d'administració queden registrades a l'auditoria.</div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- OTA confirmation modal -->
+<div class="modal modal-blur fade" id="modal-ota" tabindex="-1" aria-labelledby="modal-ota-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h3" id="modal-ota-title">Actualitza a la versió 1.4.0</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tanca"></button>
+      </div>
+      <div class="modal-body">
+        <p>L'aplicació estarà en mode manteniment uns 2–3 minuts. Abans de tocar res es fa una còpia de la base de dades i del codi; si el health check falla, es restaura la versió 1.3.2 automàticament.</p>
+        <label class="form-check mb-0">
+          <input class="form-check-input" type="checkbox">
+          <span class="form-check-label">He llegit les notes de la versió</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Cancel·la</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="ti ti-cloud-download icon" aria-hidden="true"></i>Actualitza ara</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+  // AI cost per feature: stacked weekly bars, four series, one axis (euros).
+  Estalvia.chart('#chart-ai-cost', function (c) {
+    return {
+      chart: { type: 'bar', height: 300, stacked: true },
+      series: [
+        { name: 'Categorització', data: [18.2, 19.1, 19.8, 20.4, 20.9, 21.4, 20.8, 8.4] },
+        { name: 'PDF', data: [31.5, 33.0, 34.6, 35.2, 37.1, 38.2, 36.9, 15.1] },
+        { name: 'Pla d\'acció', data: [15.9, 16.4, 17.2, 17.8, 18.9, 19.5, 18.6, 7.3] },
+        { name: 'Xat', data: [22.6, 24.1, 25.3, 26.7, 28.0, 29.2, 28.6, 11.8] }
+      ],
+      colors: [c.colors[0], c.colors[1], c.colors[2], c.colors[3]],
+      stroke: { show: true, width: 1, colors: [c.surface] },
+      plotOptions: { bar: { borderRadius: 3, borderRadiusApplication: 'end', borderRadiusWhenStacked: 'last' } },
+      xaxis: { categories: ['28/09', '05/10', '12/10', '19/10', '26/10', '02/11', '09/11', '16/11'], labels: { rotate: 0, hideOverlappingLabels: true } },
+      yaxis: { tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } },
+      tooltip: { shared: true, intersect: false, y: { formatter: function (v) { return c.eur(v, 2); } } }
+    };
+  });
+
+  // Users table (prototype data). Margin = monthly income − AI cost.
+  (function () {
+    var users = [
+      { n: 'Laia Ferrer', e: 'laia.ferrer@exemple.cat', plan: 'Premium', state: 'active', inc: 4.99, cost: 0.62 },
+      { n: 'Pau Soler', e: 'pau.soler@exemple.cat', plan: 'Família', state: 'active', inc: 7.99, cost: 1.84 },
+      { n: 'Núria Pons', e: 'nuria.pons@exemple.cat', plan: 'Premium', state: 'active', inc: 4.99, cost: 7.42 },
+      { n: 'Marta Vila', e: 'marta.vila@exemple.cat', plan: 'Premium', state: 'active', inc: 4.99, cost: 0.71 },
+      { n: 'Aina Bosch', e: 'aina.bosch@exemple.cat', plan: 'Premium', note: 'anual', state: 'active', inc: 4.16, cost: 0.38 },
+      { n: 'Jan Vidal', e: 'jan.vidal@exemple.cat', plan: 'Premium', state: 'trial', inc: 0, cost: 0.51 },
+      { n: 'Marc Roca', e: 'marc.roca@exemple.cat', plan: 'Gratuït', state: 'active', inc: 0, cost: 0.04 },
+      { n: 'Carla Mas', e: 'carla.mas@exemple.cat', plan: 'Família', state: 'suspended', inc: 0, cost: 0 }
+    ];
+    var planBadge = { 'Premium': 'bg-primary-lt', 'Família': 'bg-primary-lt', 'Gratuït': 'bg-secondary-lt' };
+    var states = {
+      active: '<span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Actiu</span>',
+      trial: '<span class="badge bg-azure-lt"><i class="ti ti-clock" aria-hidden="true"></i> Prova · dia 9 de 14</span>',
+      suspended: '<span class="badge bg-red-lt"><i class="ti ti-ban" aria-hidden="true"></i> Suspès</span>'
+    };
+    function eur(v) { return (v < 0 ? '−' : '') + Estalvia.eur(Math.abs(v), 2); }
+    function initials(name) { return name.split(' ').map(function (p) { return p[0]; }).join(''); }
+
+    document.getElementById('users-body').innerHTML = users.map(function (u) {
+      var margin = u.inc - u.cost;
+      var pct = u.inc > 0 ? (margin < 0 ? '−' : '') + Estalvia.num(Math.abs(margin / u.inc * 100), 1) + ' %' : '—';
+      var paying = u.inc > 0;
+      var marginCell;
+      if (paying && margin < 0) {
+        // Paying user that costs more than they pay: flagged with colour + icon + label.
+        marginCell = '<div class="text-danger fw-semibold text-nowrap"><i class="ti ti-alert-triangle" aria-hidden="true"></i> ' + eur(margin) + '</div>' +
+          '<div class="small text-danger text-nowrap">' + pct + ' · marge negatiu</div>';
+      } else if (paying) {
+        marginCell = '<div class="fw-medium text-nowrap">' + eur(margin) + '</div><div class="small text-secondary">' + pct + '</div>';
+      } else {
+        marginCell = '<div class="text-secondary text-nowrap">' + eur(margin) + '</div><div class="small text-secondary">' + (u.state === 'trial' ? 'en prova' : u.state === 'suspended' ? 'sense ingrés' : 'sense ingrés') + '</div>';
+      }
+      var plan = '<span class="badge ' + planBadge[u.plan] + '">' + u.plan + '</span>' + (u.note ? ' <span class="small text-secondary">' + u.note + '</span>' : '');
+      return '<tr>' +
+        '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm bg-secondary-lt" aria-hidden="true">' + initials(u.n) + '</span>' +
+        '<div class="text-truncate" style="max-width:14rem"><div class="fw-medium text-truncate">' + u.n + '</div><div class="small text-secondary text-truncate">' + u.e + '</div>' +
+        '<div class="d-sm-none mt-1">' + plan + '</div></div></div></td>' +
+        '<td class="d-none d-sm-table-cell text-nowrap">' + plan + '</td>' +
+        '<td class="d-none d-md-table-cell">' + states[u.state] + '</td>' +
+        '<td class="text-end d-none d-lg-table-cell text-nowrap">' + Estalvia.eur(u.inc, 2) + '</td>' +
+        '<td class="text-end d-none d-md-table-cell text-nowrap">' + Estalvia.eur(u.cost, 2) + '</td>' +
+        '<td class="text-end">' + marginCell + '</td>' +
+        '<td><div class="dropdown"><button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" data-bs-popper-config=\'{"strategy":"fixed"}\' aria-label="Accions per a ' + u.n + '"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>' +
+        '<div class="dropdown-menu dropdown-menu-end">' +
+        '<a class="dropdown-item" href="#"><i class="ti ti-eye dropdown-item-icon" aria-hidden="true"></i>Veure la fitxa</a>' +
+        '<a class="dropdown-item" href="#"><i class="ti ti-user-check dropdown-item-icon" aria-hidden="true"></i><span>Impersona<span class="d-block small text-secondary">Auditat · amb consentiment de l\'usuari</span></span></a>' +
+        '<div class="dropdown-divider"></div>' +
+        '<a class="dropdown-item text-danger" href="#"><i class="ti ti-ban dropdown-item-icon" aria-hidden="true"></i>' + (u.state === 'suspended' ? 'Reactiva' : 'Suspèn') + '</a>' +
+        '</div></div></td>' +
+        '</tr>';
+    }).join('');
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Primers passos · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: wizard width, drop zone and touch-friendly option boxes (theme variables only). */
+    .ob-container { max-width: 46rem; }
+    .ob-dropzone { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 2rem 1rem; text-align: center; cursor: pointer;
+      border: 2px dashed var(--tblr-border-color); border-radius: var(--tblr-border-radius-lg); background: var(--tblr-bg-surface-secondary); }
+    .ob-dropzone:hover, .ob-dropzone.is-dragover, .ob-dropzone:focus-within { border-color: var(--tblr-primary); background: var(--tblr-primary-lt); }
+    .ob-options .form-selectgroup-label { min-height: 2.75rem; display: flex; align-items: center; justify-content: center; gap: 0.375rem; }
+    .ob-type .form-selectgroup-label { display: flex; align-items: center; justify-content: center; gap: 0.375rem; flex-direction: column; line-height: 1.2; padding-block: 0.875rem; height: 100%; }
+    .ob-type .form-selectgroup-label .ti { font-size: 1.5rem; }
+    .ob-type .form-selectgroup-item { display: block; height: 100%; margin: 0; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <a href="#content" class="visually-hidden-focusable btn btn-primary m-2">Salta al contingut</a>
+  <header class="navbar d-print-none">
+    <div class="container-xl">
+      <div class="navbar-brand"><script>document.write(Estalvia.logo({href:'landing.html'}))</script></div>
+      <div class="d-flex align-items-center gap-1 ms-auto">
+        <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+        <a href="dashboard.html" class="btn btn-ghost-secondary">Ho faré després</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-wrapper" id="content">
+    <div class="container-xl ob-container py-4">
+
+      <div class="mb-4">
+        <div class="page-pretitle">Primers passos</div>
+        <h1 class="page-title">Et donem la benvinguda, Marta</h1>
+        <p class="text-secondary mt-1 mb-0">Cinc passos curts per preparar el teu primer diagnòstic. Ho pots canviar tot més endavant.</p>
+      </div>
+
+      <!-- Progress: full steps from tablet up, compact counter + bar on phones -->
+      <nav aria-label="Progrés de la configuració" class="mb-4">
+        <!-- ms-0/ps-0/border-0: Tabler 1.4.0 ships a second global .steps rule (docs layout) that adds a left margin, padding and border -->
+        <ul class="steps steps-counter m-0 p-0 border-0 d-none d-md-flex" id="ob-steps">
+          <li class="step-item active" data-step-item="0" aria-current="step">Idioma</li>
+          <li class="step-item" data-step-item="1">Perfil</li>
+          <li class="step-item" data-step-item="2">Primer compte</li>
+          <li class="step-item" data-step-item="3">Primera importació</li>
+          <li class="step-item" data-step-item="4">Diagnòstic</li>
+        </ul>
+        <div class="d-md-none">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <span class="fw-semibold" id="ob-step-name">Idioma</span>
+            <span class="text-secondary small num" id="ob-step-count">Pas 1 de 5</span>
+          </div>
+          <div class="progress progress-sm" role="progressbar" aria-label="Progrés" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1" id="ob-progress">
+            <div class="progress-bar" style="width:20%"></div>
+          </div>
+        </div>
+      </nav>
+
+      <form action="dashboard.html" method="get" novalidate id="ob-form">
+        <div class="card">
+
+          <!-- Step 1: language -->
+          <section class="card-body" data-step-panel="0" aria-labelledby="ob-h-0">
+            <h2 class="card-title mb-1" id="ob-h-0" tabindex="-1">En quin idioma vols fer servir Estalvia?</h2>
+            <p class="text-secondary">Afecta la interfície, els correus i les respostes de l'assessor.</p>
+            <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column" role="radiogroup" aria-labelledby="ob-h-0">
+              <label class="form-selectgroup-item flex-fill">
+                <input type="radio" name="lang" value="ca" class="form-selectgroup-input" checked>
+                <span class="form-selectgroup-label d-flex align-items-center p-3">
+                  <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                  <span class="text-start"><span class="d-block fw-medium" lang="ca">Català</span><span class="d-block text-secondary small">Idioma per defecte</span></span>
+                </span>
+              </label>
+              <label class="form-selectgroup-item flex-fill">
+                <input type="radio" name="lang" value="es" class="form-selectgroup-input">
+                <span class="form-selectgroup-label d-flex align-items-center p-3">
+                  <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                  <span class="text-start"><span class="d-block fw-medium" lang="es">Castellano</span><span class="d-block text-secondary small">Castellà</span></span>
+                </span>
+              </label>
+            </div>
+          </section>
+
+          <!-- Step 2: profile -->
+          <section class="card-body" data-step-panel="1" aria-labelledby="ob-h-1" hidden>
+            <h2 class="card-title mb-1" id="ob-h-1" tabindex="-1">Explica'ns una mica la teva situació</h2>
+            <p class="text-secondary">Ho fem servir per ajustar el diagnòstic a la teva llar. No ho compartim amb ningú.</p>
+
+            <fieldset class="mb-4">
+              <legend class="form-label">Situació laboral</legend>
+              <div class="form-selectgroup ob-options">
+                <label class="form-selectgroup-item"><input type="radio" name="job" value="fix" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Contracte fix</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="job" value="temporal" class="form-selectgroup-input"><span class="form-selectgroup-label">Temporal</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="job" value="autonom" class="form-selectgroup-input"><span class="form-selectgroup-label">Autònom</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="job" value="atur" class="form-selectgroup-input"><span class="form-selectgroup-label">A l'atur</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="job" value="pensionista" class="form-selectgroup-input"><span class="form-selectgroup-label">Pensionista</span></label>
+              </div>
+            </fieldset>
+
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="ob-income">Ingressos nets mensuals de la llar</label>
+                <div class="input-group">
+                  <input type="text" class="form-control num text-end" id="ob-income" name="income" value="3.215,00" inputmode="decimal" aria-describedby="ob-income-hint">
+                  <span class="input-group-text">€/mes</span>
+                </div>
+                <div class="form-hint" id="ob-income-hint">Aproximat. El calcularem bé amb els extractes.</div>
+              </div>
+              <div class="col-6 col-sm-3">
+                <label class="form-label" for="ob-members">Membres de la llar</label>
+                <input type="number" class="form-control num" id="ob-members" name="members" value="2" min="1" max="12" inputmode="numeric">
+              </div>
+              <div class="col-6 col-sm-3">
+                <label class="form-label" for="ob-dependants">Persones a càrrec</label>
+                <input type="number" class="form-control num" id="ob-dependants" name="dependants" value="0" min="0" max="10" inputmode="numeric">
+              </div>
+            </div>
+
+            <fieldset class="mb-4">
+              <legend class="form-label">Habitatge</legend>
+              <div class="form-selectgroup ob-options">
+                <label class="form-selectgroup-item"><input type="radio" name="housing" value="lloguer" class="form-selectgroup-input" checked><span class="form-selectgroup-label"><i class="ti ti-key" aria-hidden="true"></i>Lloguer</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="housing" value="hipoteca" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-building-bank" aria-hidden="true"></i>Hipoteca</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="housing" value="propietat" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-home" aria-hidden="true"></i>Propietat pagada</span></label>
+                <label class="form-selectgroup-item"><input type="radio" name="housing" value="altres" class="form-selectgroup-input"><span class="form-selectgroup-label">Altres</span></label>
+              </div>
+            </fieldset>
+
+            <div class="mb-4">
+              <label class="form-label" for="ob-region">Comunitat autònoma</label>
+              <select class="form-select" id="ob-region" name="region" aria-describedby="ob-region-hint">
+                <option>Andalusia</option><option>Aragó</option><option>Astúries</option><option>Illes Balears</option><option>Canàries</option><option>Cantàbria</option><option>Castella-la Manxa</option><option>Castella i Lleó</option><option selected>Catalunya</option><option>Comunitat Valenciana</option><option>Extremadura</option><option>Galícia</option><option>La Rioja</option><option>Comunitat de Madrid</option><option>Regió de Múrcia</option><option>Navarra</option><option>País Basc</option><option>Ceuta</option><option>Melilla</option>
+              </select>
+              <div class="form-hint" id="ob-region-hint">Per aplicar els trams i ajuts que et corresponen.</div>
+            </div>
+
+            <fieldset class="mb-4">
+              <legend class="form-label">Què vols aconseguir? <span class="form-label-description">Tria'n tants com vulguis</span></legend>
+              <div class="form-selectgroup form-selectgroup-pills ob-options">
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="deute" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Sortir del deute</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="emergencia" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Fons d'emergència</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="control" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Controlar la despesa</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="habitatge" class="form-selectgroup-input"><span class="form-selectgroup-label">Entrada d'un pis</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="viatge" class="form-selectgroup-input"><span class="form-selectgroup-label">Un viatge o una compra gran</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="jubilacio" class="form-selectgroup-input"><span class="form-selectgroup-label">Jubilació</span></label>
+                <label class="form-selectgroup-item"><input type="checkbox" name="goals" value="fills" class="form-selectgroup-input"><span class="form-selectgroup-label">Estudis dels fills</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="form-label">Si tens deutes, com prefereixes liquidar-los?</legend>
+              <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column flex-sm-row">
+                <label class="form-selectgroup-item flex-fill">
+                  <input type="radio" name="debt_method" value="allau" class="form-selectgroup-input" checked>
+                  <span class="form-selectgroup-label d-flex align-items-start p-3 h-100">
+                    <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                    <span class="text-start"><span class="d-block fw-medium">Allau</span><span class="d-block text-secondary small">Primer el deute amb l'interès més alt. Pagues menys interessos en total.</span></span>
+                  </span>
+                </label>
+                <label class="form-selectgroup-item flex-fill">
+                  <input type="radio" name="debt_method" value="bola" class="form-selectgroup-input">
+                  <span class="form-selectgroup-label d-flex align-items-start p-3 h-100">
+                    <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                    <span class="text-start"><span class="d-block fw-medium">Bola de neu</span><span class="d-block text-secondary small">Primer el deute més petit. Veus resultats abans i motiva més.</span></span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- Step 3: first account -->
+          <section class="card-body" data-step-panel="2" aria-labelledby="ob-h-2" hidden>
+            <h2 class="card-title mb-1" id="ob-h-2" tabindex="-1">Afegeix el teu primer compte</h2>
+            <p class="text-secondary">Comença pel compte on cobres la nòmina. Després en podràs afegir més.</p>
+
+            <fieldset class="mb-4">
+              <legend class="form-label">Tipus de compte</legend>
+              <div class="row g-2 ob-type">
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="corrent" class="form-selectgroup-input" checked><span class="form-selectgroup-label"><i class="ti ti-building-bank" aria-hidden="true"></i><span class="small">Compte corrent</span></span></label></div>
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="estalvi" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-pig-money" aria-hidden="true"></i><span class="small">Estalvi</span></span></label></div>
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="targeta" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-credit-card" aria-hidden="true"></i><span class="small">Targeta</span></span></label></div>
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="prestec" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-receipt" aria-hidden="true"></i><span class="small">Préstec</span></span></label></div>
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="hipoteca" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-home" aria-hidden="true"></i><span class="small">Hipoteca</span></span></label></div>
+                <div class="col-4 col-sm-2"><label class="form-selectgroup-item"><input type="radio" name="acc_type" value="efectiu" class="form-selectgroup-input"><span class="form-selectgroup-label"><i class="ti ti-cash" aria-hidden="true"></i><span class="small">Efectiu</span></span></label></div>
+              </div>
+            </fieldset>
+
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="ob-acc-name">Nom del compte</label>
+                <input type="text" class="form-control" id="ob-acc-name" name="acc_name" value="Compte nòmina">
+              </div>
+              <div class="col-12 col-sm-6">
+                <label class="form-label" for="ob-acc-bank">Entitat</label>
+                <select class="form-select" id="ob-acc-bank" name="acc_bank">
+                  <option selected>CaixaBank</option><option>BBVA</option><option>Santander</option><option>Sabadell</option><option>ING</option><option>Openbank</option><option>Bankinter</option><option>Unicaja</option><option>Kutxabank</option><option>Abanca</option><option>Revolut</option><option>Una altra entitat</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="ob-acc-iban">IBAN <span class="form-label-description">Opcional</span></label>
+                <div class="input-icon">
+                  <span class="input-icon-addon"><i class="ti ti-lock" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control num" id="ob-acc-iban" name="acc_iban" value="ES12 2100 0418 4502 0005 4521" autocomplete="off" spellcheck="false" aria-describedby="ob-acc-iban-hint">
+                </div>
+                <div class="form-hint" id="ob-acc-iban-hint">Es desa xifrat i només en mostrem els 4 últims dígits. Serveix per reconèixer el compte quan importes fitxers.</div>
+              </div>
+              <div class="col-7 col-sm-6">
+                <label class="form-label" for="ob-acc-balance">Saldo inicial</label>
+                <div class="input-group">
+                  <input type="text" class="form-control num text-end" id="ob-acc-balance" name="acc_balance" value="1.842,37" inputmode="decimal">
+                  <span class="input-group-text">€</span>
+                </div>
+              </div>
+              <div class="col-5 col-sm-6">
+                <label class="form-label" for="ob-acc-date">Data del saldo</label>
+                <input type="text" class="form-control num" id="ob-acc-date" name="acc_date" value="18/11/2026" placeholder="dd/mm/aaaa" inputmode="numeric">
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 4: first import -->
+          <section class="card-body" data-step-panel="3" aria-labelledby="ob-h-3" hidden>
+            <h2 class="card-title mb-1" id="ob-h-3" tabindex="-1">Importa els teus primers moviments</h2>
+            <p class="text-secondary">Descarrega l'extracte de <strong class="fw-medium text-body">CaixaBank · Compte nòmina</strong> des de la banca en línia i puja'l aquí. Amb tres mesos el diagnòstic ja és fiable.</p>
+
+            <label class="ob-dropzone mb-3" id="ob-dropzone" for="ob-file">
+              <span class="avatar avatar-lg bg-primary-lt"><i class="ti ti-cloud-upload" aria-hidden="true"></i></span>
+              <span class="fw-medium d-none d-md-inline">Arrossega el fitxer aquí o <span class="text-primary">tria'l del dispositiu</span></span><span class="fw-medium text-primary d-md-none">Tria el fitxer del dispositiu</span>
+              <span class="text-secondary small">CSV, XLSX, Norma 43, OFX o PDF · màxim 10 MB</span>
+              <input type="file" class="visually-hidden" id="ob-file" name="file" accept=".csv,.xlsx,.xls,.n43,.q43,.txt,.ofx,.qfx,.pdf" multiple>
+            </label>
+
+            <!-- Example of a file already queued -->
+            <div class="list-group mb-3" id="ob-files" aria-label="Fitxers seleccionats">
+              <div class="list-group-item">
+                <div class="row g-2 align-items-center">
+                  <div class="col-auto"><span class="avatar bg-green-lt"><i class="ti ti-file-spreadsheet" aria-hidden="true"></i></span></div>
+                  <div class="col" style="min-width:0">
+                    <div class="fw-medium text-truncate">moviments_caixabank_ago-oct_2026.csv</div>
+                    <div class="text-secondary small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Format reconegut</span> · <span class="num">212</span> moviments · <span class="num">01/08/2026</span>–<span class="num">31/10/2026</span></div>
+                  </div>
+                  <div class="col-auto"><button type="button" class="btn btn-icon btn-ghost-secondary" aria-label="Treu el fitxer moviments_caixabank_ago-oct_2026.csv"><i class="ti ti-x" aria-hidden="true"></i></button></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-text my-3">o bé</div>
+            <a href="transactions.html" class="btn w-100" style="min-height:2.75rem"><i class="ti ti-pencil icon" aria-hidden="true"></i>Introdueix moviments manualment</a>
+
+            <div class="alert alert-info mt-4 mb-0" role="note">
+              <div class="d-flex">
+                <div><i class="ti ti-shield-lock icon alert-icon" aria-hidden="true"></i></div>
+                <div>
+                  <h3 class="alert-title">Els teus extractes, en privat</h3>
+                  <div class="text-secondary">No et demanem mai les claus del banc. Els fitxers es processen en servidors de la UE i es desen xifrats. Si un PDF s'ha de llegir amb IA, abans n'eliminem el teu nom i els IBAN.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 5: diagnosis in preparation -->
+          <section class="card-body" data-step-panel="4" aria-labelledby="ob-h-4" hidden>
+            <div class="empty py-4">
+              <div class="mb-4"><span class="avatar avatar-xl rounded-circle bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i></span></div>
+              <h2 class="empty-title" id="ob-h-4" tabindex="-1">Estem preparant el teu primer diagnòstic</h2>
+              <p class="empty-subtitle text-secondary">Tot ha anat bé, Marta. Normalment triga menys d'un minut i t'avisarem quan estigui llest. Mentrestant, ja pots entrar al tauler.</p>
+              <ul class="list-group text-start w-100 mt-3" style="max-width:26rem" aria-label="Estat de la preparació">
+                <li class="list-group-item d-flex align-items-center gap-3">
+                  <i class="ti ti-circle-check text-success fs-2" aria-hidden="true"></i>
+                  <span class="flex-fill">Moviments importats</span>
+                  <span class="num text-secondary small">212 · Fet</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center gap-3">
+                  <i class="ti ti-circle-check text-success fs-2" aria-hidden="true"></i>
+                  <span class="flex-fill">Categories assignades</span>
+                  <span class="num text-secondary small">205 de 212 · Fet</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center gap-3">
+                  <span class="spinner-border spinner-border-sm text-secondary" aria-hidden="true"></span>
+                  <span class="flex-fill">Índex de salut financera</span>
+                  <span class="text-secondary small">Calculant…</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center gap-3">
+                  <i class="ti ti-circle-dashed text-secondary fs-2" aria-hidden="true"></i>
+                  <span class="flex-fill">Pla d'acció amb impacte en €</span>
+                  <span class="text-secondary small">Pendent</span>
+                </li>
+              </ul>
+              <div class="empty-action">
+                <a href="dashboard.html" class="btn btn-primary" style="min-height:2.75rem;padding-inline:1.5rem">Ves al tauler <i class="ti ti-arrow-right icon icon-end ms-2 me-0" aria-hidden="true"></i></a>
+              </div>
+              <p class="text-secondary small mt-3 mb-0">Queden <span class="num">7</span> moviments per revisar. Els trobaràs a Moviments.</p>
+            </div>
+          </section>
+
+          <!-- Wizard navigation -->
+          <div class="card-footer d-flex align-items-center gap-2" id="ob-footer">
+            <button type="button" class="btn" id="ob-prev" style="min-height:2.75rem" hidden><i class="ti ti-chevron-left icon" aria-hidden="true"></i>Enrere</button>
+            <button type="button" class="btn btn-ghost-secondary ms-auto" id="ob-skip" style="min-height:2.75rem" hidden>Omet</button>
+            <button type="button" class="btn btn-primary ms-auto" id="ob-next" style="min-height:2.75rem;padding-inline:1.5rem">Continua <i class="ti ti-chevron-right icon icon-end ms-2 me-0" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </form>
+
+      <p class="text-secondary small text-center mt-4 mb-0"><i class="ti ti-lock me-1" aria-hidden="true"></i>Les teves respostes es desen xifrades i les pots modificar o esborrar a Perfil i llar.</p>
+    </div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Step wizard: one panel at a time; updates Tabler steps, the mobile counter and the progress bar.
+  (function () {
+    var NAMES = ['Idioma', 'Perfil', 'Primer compte', 'Primera importació', 'Diagnòstic'];
+    var panels = document.querySelectorAll('[data-step-panel]');
+    var items = document.querySelectorAll('[data-step-item]');
+    var prev = document.getElementById('ob-prev');
+    var next = document.getElementById('ob-next');
+    var skip = document.getElementById('ob-skip');
+    var footer = document.getElementById('ob-footer');
+    var last = panels.length - 1;
+    // ?step=N (1-based) opens a given step directly, handy when reviewing the proposal.
+    var current = Math.min(Math.max(parseInt(new URLSearchParams(location.search).get('step') || '1', 10) - 1, 0), last) || 0;
+
+    function show(index, focus) {
+      current = index;
+      panels.forEach(function (p, i) { p.hidden = i !== index; });
+      items.forEach(function (it, i) {
+        it.classList.toggle('active', i === index);
+        if (i === index) { it.setAttribute('aria-current', 'step'); } else { it.removeAttribute('aria-current'); }
+      });
+      document.getElementById('ob-step-name').textContent = NAMES[index];
+      document.getElementById('ob-step-count').textContent = 'Pas ' + (index + 1) + ' de ' + NAMES.length;
+      var bar = document.getElementById('ob-progress');
+      bar.setAttribute('aria-valuenow', String(index + 1));
+      bar.firstElementChild.style.width = ((index + 1) / NAMES.length * 100) + '%';
+      prev.hidden = index === 0;
+      skip.hidden = index !== 3;
+      next.classList.toggle('ms-auto', index !== 3);
+      footer.classList.toggle('d-none', index === last); // the last panel has its own action
+      if (focus) {
+        var heading = document.getElementById('ob-h-' + index);
+        heading.focus({ preventScroll: true });
+        window.scrollTo({ top: 0 });
+      }
+    }
+    prev.addEventListener('click', function () { show(Math.max(current - 1, 0), true); });
+    next.addEventListener('click', function () { show(Math.min(current + 1, last), true); });
+    skip.addEventListener('click', function () { show(last, true); });
+    show(current, false);
+
+    // Drop zone feedback (visual only in this prototype).
+    var zone = document.getElementById('ob-dropzone');
+    ['dragenter', 'dragover'].forEach(function (t) { zone.addEventListener(t, function (ev) { ev.preventDefault(); zone.classList.add('is-dragover'); }); });
+    ['dragleave', 'drop'].forEach(function (t) { zone.addEventListener(t, function (ev) { ev.preventDefault(); zone.classList.remove('is-dragover'); }); });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Diagnòstic · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: reference band tick over a meter, indicator blocks, chevron state. */
+    .est-band { position: relative; padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .est-band-tick { position: absolute; top: 0; bottom: 0; width: 2px; border-radius: 1px; background: var(--tblr-body-color); }
+    .est-indicator { border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: 1rem; background: var(--tblr-bg-surface); }
+    .est-indicator + .est-indicator { margin-top: 0.75rem; }
+    .est-indicator dt { font-weight: 500; color: var(--tblr-secondary); font-size: 0.8125rem; }
+    .est-indicator dd { margin-bottom: 0.625rem; }
+    .est-indicator dd:last-child { margin-bottom: 0; }
+    .est-formula { display: inline-block; padding: 0.125rem 0.5rem; border-radius: 6px; background: var(--tblr-bg-surface-secondary); border: 1px solid var(--tblr-border-color); font-size: 0.8125rem; }
+    .est-dim-toggle { min-height: 2.75rem; }
+    .est-dim-toggle .ti-chevron-down { transition: transform 0.15s; }
+    .est-dim-toggle[aria-expanded="true"] .ti-chevron-down { transform: rotate(180deg); }
+    .est-dim-score { min-width: 3rem; text-align: right; }
+  </style>
+</head>
+<body data-page="diagnosis">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-3 align-items-center">
+          <div class="col-12 col-md">
+            <div class="page-pretitle">Motor v1.0 · calculat el 02/11/2026</div>
+            <h1 class="page-title">Diagnòstic financer</h1>
+          </div>
+          <div class="col-12 col-md-auto d-flex gap-2">
+            <div class="flex-fill">
+              <label class="visually-hidden" for="period">Període analitzat</label>
+              <select id="period" class="form-select">
+                <option selected>Agost–octubre 2026</option>
+                <option>Maig–juliol 2026</option>
+                <option>Febrer–abril 2026</option>
+                <option>Novembre 2025–gener 2026</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary"><i class="ti ti-refresh icon" aria-hidden="true"></i>Recalcula</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-deck row-cards">
+
+          <!-- Hero: health score -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Índex de salut financera</h2>
+                  <div class="card-subtitle mt-1">Puntuació de 0 a 100 · agost–octubre de 2026</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex align-items-baseline gap-2">
+                  <div class="est-figure est-figure-xl">62</div>
+                  <div class="text-secondary">de 100</div>
+                </div>
+                <div class="mt-2 d-flex align-items-center gap-2 flex-wrap">
+                  <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                  <span class="text-success small fw-medium"><i class="ti ti-trending-up" aria-hidden="true"></i> +4 punts vs. període anterior (58)</span>
+                </div>
+                <div class="est-meter est-meter-lg est-meter-warning mt-3" role="img" aria-label="62 de 100"><span style="width:62%"></span></div>
+                <div class="d-flex justify-content-between small text-secondary mt-1 num"><span>0</span><span>50</span><span>100</span></div>
+                <p class="text-secondary mt-3 mb-0">Vas en bona direcció: gastes menys del que ingresses i tens la despesa sota control. El que més pesa ara és la targeta revolving i un fons d'emergència encara curt.</p>
+                <div class="d-flex flex-wrap gap-2 mt-3 small text-secondary">
+                  <span><i class="ti ti-circle-check text-success" aria-hidden="true"></i> 70–100 Bé</span>
+                  <span><i class="ti ti-alert-circle text-warning" aria-hidden="true"></i> 45–69 Millorable</span>
+                  <span><i class="ti ti-alert-triangle text-danger" aria-hidden="true"></i> 0–44 Feble</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Score evolution -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Evolució de l'índex</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Punts (0–100) · finestra mòbil de 3 mesos · últims 6 mesos · eix de 40 a 80</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="chart-score" style="min-height:260px"></div>
+                <details class="mt-2">
+                  <summary class="small text-secondary">Veure les dades en taula</summary>
+                  <div class="table-responsive mt-2">
+                    <table class="table table-sm table-vcenter">
+                      <thead><tr><th>Període acabat a</th><th class="text-end">Índex</th></tr></thead>
+                      <tbody>
+                        <tr><td>Maig 2026</td><td class="text-end">56</td></tr>
+                        <tr><td>Juny 2026</td><td class="text-end">57</td></tr>
+                        <tr><td>Juliol 2026</td><td class="text-end">58</td></tr>
+                        <tr><td>Agost 2026</td><td class="text-end">59</td></tr>
+                        <tr><td>Setembre 2026</td><td class="text-end">61</td></tr>
+                        <tr><td>Octubre 2026</td><td class="text-end">62</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <!-- The 5 dimensions -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Les 5 dimensions</h2>
+                  <div class="card-subtitle mt-1">Cada dimensió puntua de 0 a 100 i pesa diferent a l'índex. Obre-les per veure què mesura cada indicador i com es calcula.</div>
+                </div>
+              </div>
+              <div class="list-group list-group-flush">
+
+                <!-- Liquiditat -->
+                <div class="list-group-item">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-green-lt"><i class="ti ti-droplet" aria-hidden="true"></i></span></div>
+                    <div class="col">
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h3 class="h3 mb-0">Liquiditat</h3>
+                        <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Bé</span>
+                      </div>
+                      <div class="small text-secondary">Pes a l'índex: <span class="num">20 %</span> · aporta <span class="num">14,2</span> punts</div>
+                    </div>
+                    <div class="col-auto est-dim-score"><span class="est-figure">71</span></div>
+                    <div class="col-12">
+                      <div class="est-meter est-meter-success" role="img" aria-label="Liquiditat: 71 de 100"><span style="width:71%"></span></div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-ghost-secondary est-dim-toggle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#dim-liquiditat" aria-expanded="false" aria-controls="dim-liquiditat"><i class="ti ti-chevron-down icon" aria-hidden="true"></i>Indicadors i explicació</button>
+                    </div>
+                  </div>
+                  <div class="collapse mt-2" id="dim-liquiditat">
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Flux de caixa mensual</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>El que et queda cada mes després de pagar-ho tot.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Flux = ingressos nets − despeses totals</span> <span class="text-secondary small">(mitjana de 3 mesos, sense transferències internes)</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Cada mes et queden diners. És la base que fa possible tota la resta del pla.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">+365 <span class="unit">€/mes</span></div>
+                          <div class="small mt-1"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Positiu</span> <span class="text-secondary">· referència: per sobre de 0 €</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Estabilitat dels ingressos</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Si els ingressos de la llar arriben cada mes amb un import semblant.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Variabilitat = desviació típica dels ingressos / mitjana</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Amb dues nòmines fixes pots planificar amb tranquil·litat: els imports gairebé no canvien.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">±0,5 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Variabilitat baixa</span> <span class="text-secondary">· referència: menys del 10 %</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Deute -->
+                <div class="list-group-item">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-yellow-lt"><i class="ti ti-scale" aria-hidden="true"></i></span></div>
+                    <div class="col">
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h3 class="h3 mb-0">Deute</h3>
+                        <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                      </div>
+                      <div class="small text-secondary">Pes a l'índex: <span class="num">25 %</span> · aporta <span class="num">12,0</span> punts</div>
+                    </div>
+                    <div class="col-auto est-dim-score"><span class="est-figure">48</span></div>
+                    <div class="col-12">
+                      <div class="est-meter est-meter-warning" role="img" aria-label="Deute: 48 de 100"><span style="width:48%"></span></div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-ghost-secondary est-dim-toggle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#dim-deute" aria-expanded="true" aria-controls="dim-deute"><i class="ti ti-chevron-down icon" aria-hidden="true"></i>Indicadors i explicació</button>
+                    </div>
+                  </div>
+                  <div class="collapse show mt-2" id="dim-deute">
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Ràtio d'endeutament</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quina part dels ingressos se'n va cada mes a pagar quotes de deutes.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Ràtio = quotes mensuals de deute / ingressos nets</span> <span class="text-secondary small num">= 371,90 € / 3.203 €</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Les quotes (préstec del cotxe i targeta) són assumibles. El problema no és la quantitat de deute, sinó el preu d'una part.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">11,6 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Correcte</span> <span class="text-secondary">· referència: menys del 30 %</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Deute car</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>El saldo dels deutes amb un interès alt, que creixen més de pressa del que normalment pots estalviar.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Deute car = suma dels saldos amb interès nominal (TIN) superior al 7 %</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>La targeta WiZink et costa uns <span class="num">511 €</span> l'any només en interessos. Reduir-la és, ara mateix, l'estalvi més segur que tens a l'abast.</dd>
+                          </dl>
+                          <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-deute" aria-expanded="false" aria-controls="why-deute"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                          <div class="collapse" id="why-deute">
+                            <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                              <div class="fw-medium mb-2">Dades que ha fet servir el motor</div>
+                              <div class="table-responsive">
+                                <table class="table table-sm table-vcenter mb-0">
+                                  <thead><tr><th>Deute</th><th class="text-end">Saldo</th><th class="text-end">TIN</th><th class="text-end">TAE</th></tr></thead>
+                                  <tbody>
+                                    <tr><td>WiZink <span class="badge bg-red-lt ms-1"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Car</span></td><td class="text-end text-nowrap">2.340,00 €</td><td class="text-end text-nowrap">19,92 %</td><td class="text-end text-nowrap">21,84 %</td></tr>
+                                    <tr><td>Préstec cotxe</td><td class="text-end text-nowrap">8.615,40 €</td><td class="text-end text-nowrap">6,95 %</td><td class="text-end text-nowrap">7,45 %</td></tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <p class="text-secondary mt-2 mb-0">Regla R-D02 del motor v1.0: un deute és «car» si el seu interès nominal supera el 7 %. El préstec del cotxe queda just per sota i no hi compta.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">2.340,00 <span class="unit">€</span></div>
+                          <div class="small mt-1"><span class="text-danger fw-medium"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Deute car</span> <span class="text-secondary">· referència: 0 €</span></div>
+                          <div class="small text-secondary mt-1 num">≈ 511 €/any d'interessos</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Interessos pagats</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Els diners que has pagat per tenir deute, sense comptar el capital que tornes.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Interessos = suma de la part d'interès de cada quota del període</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Gairebé la meitat dels interessos venen de la targeta, tot i que és el deute més petit.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">279 <span class="unit">€ en 3 mesos</span></div>
+                          <div class="small text-secondary mt-1 num">Targeta 128 € · préstec 151 €</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Estalvi -->
+                <div class="list-group-item">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-yellow-lt"><i class="ti ti-pig-money" aria-hidden="true"></i></span></div>
+                    <div class="col">
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h3 class="h3 mb-0">Estalvi</h3>
+                        <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                      </div>
+                      <div class="small text-secondary">Pes a l'índex: <span class="num">20 %</span> · aporta <span class="num">13,2</span> punts</div>
+                    </div>
+                    <div class="col-auto est-dim-score"><span class="est-figure">66</span></div>
+                    <div class="col-12">
+                      <div class="est-meter est-meter-warning" role="img" aria-label="Estalvi: 66 de 100"><span style="width:66%"></span></div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-ghost-secondary est-dim-toggle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#dim-estalvi" aria-expanded="false" aria-controls="dim-estalvi"><i class="ti ti-chevron-down icon" aria-hidden="true"></i>Indicadors i explicació</button>
+                    </div>
+                  </div>
+                  <div class="collapse mt-2" id="dim-estalvi">
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Taxa d'estalvi</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quina part del que ingresses aconsegueixes no gastar.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Taxa d'estalvi = (ingressos − despeses) / ingressos</span> <span class="text-secondary small num">= (3.203 € − 2.838 €) / 3.203 €</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Ja estalvies de manera regular. Per arribar al 20 % caldrien uns <span class="num">276 €</span> més al mes; el pla d'acció en cobreix <span class="num">214 €</span>.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">11,4 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Per sota de l'objectiu</span> <span class="text-secondary">· objectiu 20 %</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Regularitat de l'estalvi</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quants mesos del període acabes amb flux positiu.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Regularitat = mesos amb flux positiu / mesos del període</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Tres mesos seguits en positiu, i cada mes una mica millor que l'anterior.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">3 <span class="unit">de 3 mesos</span></div>
+                          <div class="small mt-1"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Regular</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Resiliència -->
+                <div class="list-group-item">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-red-lt"><i class="ti ti-shield" aria-hidden="true"></i></span></div>
+                    <div class="col">
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h3 class="h3 mb-0">Resiliència</h3>
+                        <span class="badge bg-red-lt"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Feble</span>
+                      </div>
+                      <div class="small text-secondary">Pes a l'índex: <span class="num">15 %</span> · aporta <span class="num">6,6</span> punts</div>
+                    </div>
+                    <div class="col-auto est-dim-score"><span class="est-figure">44</span></div>
+                    <div class="col-12">
+                      <div class="est-meter est-meter-danger" role="img" aria-label="Resiliència: 44 de 100"><span style="width:44%"></span></div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-ghost-secondary est-dim-toggle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#dim-resiliencia" aria-expanded="false" aria-controls="dim-resiliencia"><i class="ti ti-chevron-down icon" aria-hidden="true"></i>Indicadors i explicació</button>
+                    </div>
+                  </div>
+                  <div class="collapse mt-2" id="dim-resiliencia">
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Fons d'emergència</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quants mesos podries cobrir les despeses essencials si un mes no entrés cap ingrés.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Mesos coberts = saldo líquid / despesa essencial mensual</span> <span class="text-secondary small num">= 3.905,27 € / 2.170 €</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Tens un primer coixí, que ja és molt. Arribar a 3 mesos vol dir tenir <span class="num">6.510 €</span>: te'n falten <span class="num">2.604,73 €</span>, i serà el pas següent quan la targeta estigui liquidada.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">1,8 <span class="unit">mesos</span></div>
+                          <div class="small mt-1"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Curt</span> <span class="text-secondary">· objectiu 3 mesos</span></div>
+                          <div class="est-meter est-meter-warning mt-2" role="img" aria-label="1,8 de 3 mesos"><span style="width:60%"></span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Concentració d'ingressos</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quant depèn la llar d'una sola font d'ingressos.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Concentració = ingrés més gran / ingressos totals</span> <span class="text-secondary small num">= 1.890,00 € / 3.215,00 €</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Teniu dues nòmines, i això reparteix el risc. Per això el fons de 3 mesos és suficient i no cal anar als 6.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">58,8 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-info fw-medium"><i class="ti ti-info-circle" aria-hidden="true"></i> Informatiu</span> <span class="text-secondary">· dues fonts d'ingressos</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Control de despesa -->
+                <div class="list-group-item">
+                  <div class="row g-3 align-items-center">
+                    <div class="col-auto"><span class="avatar bg-green-lt"><i class="ti ti-adjustments" aria-hidden="true"></i></span></div>
+                    <div class="col">
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <h3 class="h3 mb-0">Control de despesa</h3>
+                        <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Bé</span>
+                      </div>
+                      <div class="small text-secondary">Pes a l'índex: <span class="num">20 %</span> · aporta <span class="num">15,6</span> punts</div>
+                    </div>
+                    <div class="col-auto est-dim-score"><span class="est-figure">78</span></div>
+                    <div class="col-12">
+                      <div class="est-meter est-meter-success" role="img" aria-label="Control de despesa: 78 de 100"><span style="width:78%"></span></div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-ghost-secondary est-dim-toggle px-2" type="button" data-bs-toggle="collapse" data-bs-target="#dim-control" aria-expanded="false" aria-controls="dim-control"><i class="ti ti-chevron-down icon" aria-hidden="true"></i>Indicadors i explicació</button>
+                    </div>
+                  </div>
+                  <div class="collapse mt-2" id="dim-control">
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Despesa respecte de l'IPC</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Si la teva despesa creix més o menys que els preus.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Diferència = variació interanual de la despesa − IPC interanual</span> <span class="text-secondary small">(IPC de l'INE, octubre de 2026)</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>Gastes un <span class="num">1,2 %</span> més que fa un any, mentre que els preus han pujat un <span class="num">2,4 %</span>. En termes reals, gastes menys.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">+1,2 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Per sota de l'IPC</span> <span class="text-secondary num">· IPC +2,4 %</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-indicator">
+                      <div class="row g-3">
+                        <div class="col-12 col-md-8">
+                          <h4 class="mb-2">Pes de les subscripcions</h4>
+                          <dl class="mb-0">
+                            <dt>Què mesura</dt><dd>Quina part de la despesa mensual són càrrecs recurrents de subscripcions.</dd>
+                            <dt>Com es calcula</dt><dd><span class="est-formula">Pes = subscripcions mensuals / despesa mensual total</span> <span class="text-secondary small num">= 148 € / 2.838 €</span></dd>
+                            <dt>Què vol dir per a tu</dt><dd>No és una xifra alta, però hi ha tres serveis de vídeo que se solapen. Val la pena mirar-s'ho amb calma.</dd>
+                          </dl>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">El teu valor</div>
+                          <div class="est-figure mt-1">5,2 <span class="unit">%</span></div>
+                          <div class="small mt-1"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> 3 serveis solapats</span> <span class="text-secondary num">· 1.776 €/any</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-footer small text-secondary">
+                <i class="ti ti-math-function" aria-hidden="true"></i>
+                Índex = suma de (puntuació × pes): <span class="num">14,2 + 12,0 + 13,2 + 6,6 + 15,6 = 61,6</span>, arrodonit a <span class="num fw-medium text-body">62</span>.
+              </div>
+            </div>
+          </div>
+
+          <!-- Indicator KPI cards -->
+          <div class="col-12">
+            <div class="mt-2">
+              <h2 class="h2 mb-0">Indicadors del període</h2>
+              <div class="text-secondary">Mitjanes mensuals d'agost a octubre de 2026</div>
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Ingressos nets mensuals</div>
+                <div class="est-figure mt-2">3.203 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Variabilitat baixa</span> <span class="text-secondary d-block">mitjana de 3 mesos</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Despesa mensual total</div>
+                <div class="est-figure mt-2">2.838 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-trending-down" aria-hidden="true"></i> −9,9 %</span> <span class="text-secondary d-block">vs. període anterior</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Taxa d'estalvi</div>
+                <div class="est-figure mt-2">11,4 <span class="unit">%</span></div>
+                <div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span> <span class="text-secondary d-block">objectiu 20 %</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Ràtio d'endeutament</div>
+                <div class="est-figure mt-2">11,6 <span class="unit">%</span></div>
+                <div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Correcte</span> <span class="text-secondary d-block">recomanat &lt; 30 %</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Fons d'emergència</div>
+                <div class="est-figure mt-2">1,8 <span class="unit">mesos</span></div>
+                <div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Curt</span> <span class="text-secondary d-block">objectiu 3 mesos</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Deute car</div>
+                <div class="est-figure mt-2">2.340,00 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-danger fw-medium"><i class="ti ti-alert-triangle" aria-hidden="true"></i> ≈ 511 €/any</span> <span class="text-secondary d-block">d'interessos · TIN &gt; 7 %</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Subscripcions</div>
+                <div class="est-figure mt-2">1.776 <span class="unit">€/any</span></div>
+                <div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> 3 solapades</span> <span class="text-secondary d-block num">148 €/mes</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Comissions bancàries</div>
+                <div class="est-figure mt-2">72 <span class="unit">€/any</span></div>
+                <div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Evitable</span> <span class="text-secondary d-block">manteniment BBVA</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 50/30/20 -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Despesa per tipus i regla 50/30/20</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Percentatge dels ingressos nets (3.203 €/mes) · la marca vertical és la referència</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="vstack gap-4">
+                  <div>
+                    <div class="d-flex justify-content-between align-items-baseline gap-2 mb-1">
+                      <span class="fw-medium">Necessitats i quotes de deute</span>
+                      <span class="num text-nowrap"><span class="fw-semibold">67,7 %</span> <span class="text-secondary small">· 2.170 €</span></span>
+                    </div>
+                    <div class="est-band" role="img" aria-label="Necessitats i deute: 67,7 % dels ingressos; referència 50 %">
+                      <div class="est-meter est-meter-lg est-meter-warning"><span style="width:67.7%"></span></div>
+                      <i class="est-band-tick" style="left:50%"></i>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap gap-1 small mt-1">
+                      <span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> 17,7 pp per sobre</span>
+                      <span class="text-secondary num">referència 50 % · necessitats 1.798 € (56,1 %) + deute 372 € (11,6 %)</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-between align-items-baseline gap-2 mb-1">
+                      <span class="fw-medium">Desitjos</span>
+                      <span class="num text-nowrap"><span class="fw-semibold">20,9 %</span> <span class="text-secondary small">· 668 €</span></span>
+                    </div>
+                    <div class="est-band" role="img" aria-label="Desitjos: 20,9 % dels ingressos; referència 30 %">
+                      <div class="est-meter est-meter-lg est-meter-success"><span style="width:20.9%"></span></div>
+                      <i class="est-band-tick" style="left:30%"></i>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap gap-1 small mt-1">
+                      <span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> Dins la banda</span>
+                      <span class="text-secondary num">referència fins al 30 %</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-between align-items-baseline gap-2 mb-1">
+                      <span class="fw-medium">Estalvi</span>
+                      <span class="num text-nowrap"><span class="fw-semibold">11,4 %</span> <span class="text-secondary small">· 365 €</span></span>
+                    </div>
+                    <div class="est-band" role="img" aria-label="Estalvi: 11,4 % dels ingressos; referència 20 %">
+                      <div class="est-meter est-meter-lg est-meter-warning"><span style="width:11.4%"></span></div>
+                      <i class="est-band-tick" style="left:20%"></i>
+                    </div>
+                    <div class="d-flex justify-content-between flex-wrap gap-1 small mt-1">
+                      <span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> 8,6 pp per sota</span>
+                      <span class="text-secondary num">referència 20 % o més</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-secondary small mt-4 mb-0">Com que el lloguer i les quotes s'enduen més de la meitat dels ingressos, el marge real per a desitjos és més estret que el 30 % teòric. Per això el pla proposa ajustos petits en oci i subscripcions, no pas grans renúncies.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fixed vs variable + evolution -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Despesa fixa i variable</h2>
+                  <div class="card-subtitle mt-1 est-chart-unit">Euros per mes · mitjana agost–octubre · total 2.838 €</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="est-bars" role="list">
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Fixa <span class="text-secondary small">(61,4 %)</span></span><span class="est-bars-track"><span style="width:100%"></span></span><span class="est-bars-value num">1.742 €</span></div>
+                  <div class="est-bars-row" role="listitem"><span class="est-bars-label">Variable <span class="text-secondary small">(38,6 %)</span></span><span class="est-bars-track"><span style="width:62.9%"></span></span><span class="est-bars-value num">1.096 €</span></div>
+                </div>
+                <p class="text-secondary small mt-3 mb-0">Fixa: lloguer, quotes, subministraments, assegurances i subscripcions. Variable: alimentació, transport, oci i la resta.</p>
+
+                <h3 class="subheader mt-4 mb-2">Evolució de la despesa</h3>
+                <div class="table-responsive">
+                  <table class="table table-sm table-vcenter mb-0">
+                    <tbody>
+                      <tr><td>vs. període anterior <span class="text-secondary small d-block">maig–juliol 2026</span></td><td class="text-end text-nowrap"><span class="text-success fw-medium"><i class="ti ti-trending-down" aria-hidden="true"></i> −9,9 %</span></td></tr>
+                      <tr><td>vs. mateix període de 2025</td><td class="text-end text-nowrap fw-medium">+1,2 %</td></tr>
+                      <tr><td>IPC interanual <span class="text-secondary small d-block">INE · octubre de 2026</span></td><td class="text-end text-nowrap fw-medium">+2,4 %</td></tr>
+                      <tr><td>Despesa en termes reals</td><td class="text-end text-nowrap"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> −1,2 pp</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <button type="button" class="btn btn-sm mt-3" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="focus" title="Per què et dic això" data-bs-content="Comparo la teva despesa mitjana d'agost–octubre de 2026 (2.838 €) amb la del mateix període de 2025 (2.804 €) i amb l'IPC general publicat per l'INE. Si la teva despesa creix menys que els preus, el teu control de despesa puntua més alt."><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pyramid -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">La teva etapa a la piràmide de l'estalvi</h2>
+                  <div class="card-subtitle mt-1">Etapa 2 de 5 · Eliminar el deute car</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row g-4 align-items-center">
+                  <div class="col-12 col-md-5">
+                    <ol class="est-pyramid" aria-label="Etapes de la piràmide de l'estalvi">
+                      <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>0 · Estabilitzar <span class="visually-hidden">(completada)</span></li>
+                      <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>1 · Coixí inicial <span class="visually-hidden">(completada)</span></li>
+                      <li class="is-current" aria-current="step"><i class="ti ti-map-pin" aria-hidden="true"></i>2 · Deute car <span class="visually-hidden">(etapa actual)</span></li>
+                      <li>3 · Fons d'emergència</li>
+                      <li>4 · Objectius</li>
+                      <li>5 · Llarg termini</li>
+                    </ol>
+                  </div>
+                  <div class="col-12 col-md-7">
+                    <h3 class="h3">Per què ets a l'etapa 2</h3>
+                    <ul class="list-unstyled vstack gap-2 mb-4">
+                      <li class="d-flex gap-2"><i class="ti ti-circle-check text-success mt-1" aria-hidden="true"></i><span><span class="fw-medium">Etapa 0 superada:</span> flux de caixa positiu els 3 mesos del període (<span class="num">+365 €/mes</span> de mitjana).</span></li>
+                      <li class="d-flex gap-2"><i class="ti ti-circle-check text-success mt-1" aria-hidden="true"></i><span><span class="fw-medium">Etapa 1 superada:</span> tens més d'1 mes de despesa essencial en líquid (<span class="num">3.905,27 €</span> davant de <span class="num">2.170 €</span>).</span></li>
+                      <li class="d-flex gap-2"><i class="ti ti-map-pin text-primary mt-1" aria-hidden="true"></i><span><span class="fw-medium">Etapa 2 en curs:</span> encara tens <span class="num">2.340,00 €</span> de deute car (WiZink, <span class="num">21,84 %</span> TAE).</span></li>
+                    </ul>
+                    <h3 class="h3">Què desbloqueja l'etapa 3</h3>
+                    <p class="text-secondary mb-2">Passaràs a «Fons d'emergència complet» quan el deute car sigui <span class="num fw-medium text-body">0 €</span>. Mentre un deute et costa un 21,84 %, cada euro que hi destines rendeix més que qualsevol estalvi.</p>
+                    <div class="d-flex justify-content-between small mb-1"><span>Deute car liquidat</span><span class="num text-secondary">300,00 € de 2.640,00 € · 11 %</span></div>
+                    <div class="est-meter est-meter-info" role="img" aria-label="11 % del deute car liquidat"><span style="width:11.4%"></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="col-12">
+            <div class="card bg-primary-lt border-0">
+              <div class="card-body">
+                <div class="row g-3 align-items-center">
+                  <div class="col-12 col-md">
+                    <h2 class="h2 mb-1">I ara, què puc fer?</h2>
+                    <div>El teu pla d'acció converteix aquest diagnòstic en 6 passos concrets, ordenats per impacte: fins a <span class="num fw-semibold">214 €/mes</span>.</div>
+                  </div>
+                  <div class="col-12 col-md-auto">
+                    <a href="advisor-plan.html" class="btn btn-primary w-100"><i class="ti ti-list-check icon" aria-hidden="true"></i>Veure el pla d'acció</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Example state: provisional diagnosis -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <span class="badge bg-secondary-lt mb-2">Exemple d'estat · no aplica a aquest compte</span>
+                  <h2 class="card-title">Diagnòstic provisional</h2>
+                  <div class="card-subtitle mt-1">Així es mostra la capçalera quan hi ha menys de 3 mesos de dades.</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-info mb-0" role="status">
+                  <div class="d-flex">
+                    <div><i class="ti ti-info-circle icon alert-icon" aria-hidden="true"></i></div>
+                    <div>
+                      <h4 class="alert-title">Diagnòstic provisional: menys de 3 mesos de dades</h4>
+                      <div class="text-secondary">Tenim moviments de 5 setmanes. Les xifres són orientatives i l'índex es mostra com a interval (<span class="num">58–66</span>). <a href="import.html" class="alert-link">Importa extractes anteriors</a> per obtenir un diagnòstic complet.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="text-secondary small mt-4 mb-0"><i class="ti ti-calculator" aria-hidden="true"></i> Totes les xifres les calcula el motor d'Estalvia a partir dels teus moviments.</p>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+  // Health score over time: one series, fixed 0–100 scale, no legend.
+  Estalvia.chart('#chart-score', function (c) {
+    return {
+      chart: { type: 'line', height: 260 },
+      series: [{ name: 'Índex', data: [56, 57, 58, 59, 61, 62] }],
+      colors: [c.colors[0]],
+      markers: { size: 4 },
+      xaxis: { categories: ['Maig', 'Juny', 'Jul.', 'Ag.', 'Set.', 'Oct.'] },
+      yaxis: { min: 40, max: 80, tickAmount: 4, labels: { formatter: function (v) { return c.num(v); } } },
+      tooltip: { y: { formatter: function (v) { return v + ' punts'; } } }
+    };
+  });
+</script>
+</body>
+</html>

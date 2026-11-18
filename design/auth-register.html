@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Crea el compte · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+</head>
+<body>
+  <main class="page page-center">
+    <!-- Language and theme -->
+    <div class="d-flex justify-content-end align-items-center gap-1 p-3">
+      <div class="btn-group" role="group" aria-label="Idioma">
+        <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
+        <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
+      </div>
+      <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="container container-tight py-4 my-auto">
+      <div class="text-center mb-4">
+        <script>document.write(Estalvia.logo({href:'landing.html', size:'lg'}))</script>
+      </div>
+      <div class="card card-md">
+        <div class="card-body">
+          <h1 class="h2 text-center mb-1">Crea el teu compte</h1>
+          <p class="text-secondary text-center mb-4">14 dies de Premium sense targeta. Després, tria tu.</p>
+          <form action="onboarding.html" method="get" autocomplete="on">
+            <div class="mb-3">
+              <label class="form-label" for="reg-name">Nom</label>
+              <input type="text" class="form-control" id="reg-name" name="name" value="Marta Vila" autocomplete="name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="reg-email">Correu electrònic</label>
+              <input type="email" class="form-control" id="reg-email" name="email" value="marta.vila@exemple.cat" autocomplete="email" inputmode="email" aria-describedby="reg-email-hint" required>
+              <div class="form-hint" id="reg-email-hint">T'hi enviarem un enllaç per verificar-lo.</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="reg-password">Contrasenya</label>
+              <div class="input-group input-group-flat">
+                <input type="password" class="form-control" id="reg-password" name="password" value="Girona-tardor26" autocomplete="new-password" aria-describedby="reg-password-strength reg-password-hint" minlength="10" required>
+                <span class="input-group-text">
+                  <button type="button" class="btn btn-icon btn-sm btn-ghost-secondary border-0" data-toggle-password="reg-password" aria-label="Mostra la contrasenya" aria-pressed="false"><i class="ti ti-eye" aria-hidden="true"></i></button>
+                </span>
+              </div>
+              <!-- Strength meter: colour + text label, updated by the script below -->
+              <div class="d-flex align-items-center gap-2 mt-2" id="reg-password-strength" aria-live="polite">
+                <div class="est-meter est-meter-success flex-fill" id="reg-strength-meter" role="img" aria-label="Seguretat de la contrasenya"><span style="width:100%"></span></div>
+                <span class="small fw-medium text-success text-nowrap" id="reg-strength-label"><i class="ti ti-check" aria-hidden="true"></i> Forta</span>
+              </div>
+              <ul class="list-unstyled small text-secondary mt-2 mb-0 row g-1" id="reg-password-hint">
+                <li class="col-6" data-rule="length"><i class="ti ti-check text-success" aria-hidden="true"></i> 10 caràcters o més</li>
+                <li class="col-6" data-rule="case"><i class="ti ti-check text-success" aria-hidden="true"></i> Majúscules i minúscules</li>
+                <li class="col-6" data-rule="digit"><i class="ti ti-check text-success" aria-hidden="true"></i> Un número</li>
+                <li class="col-6" data-rule="symbol"><i class="ti ti-check text-success" aria-hidden="true"></i> Un símbol</li>
+              </ul>
+            </div>
+
+            <!-- Granular consents (GDPR): one checkbox each, none pre-ticked by default in production -->
+            <fieldset class="mb-2">
+              <legend class="form-label">Consentiments</legend>
+              <label class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" name="consent_terms" required checked>
+                <span class="form-check-label">Accepto les <a href="landing.html#legal">condicions del servei</a> <span class="badge bg-secondary-lt ms-1">Obligatori</span></span>
+              </label>
+              <label class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" name="consent_privacy" required checked>
+                <span class="form-check-label">He llegit i accepto la <a href="landing.html#legal">política de privacitat</a> <span class="badge bg-secondary-lt ms-1">Obligatori</span></span>
+              </label>
+              <label class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" name="consent_ai" aria-describedby="consent-ai-desc" checked>
+                <span class="form-check-label">Autoritzo el tractament de les meves dades amb IA <span class="badge bg-azure-lt ms-1">Opcional</span></span>
+                <span class="form-check-description" id="consent-ai-desc">Cal per fer servir l'assessor i llegir extractes en PDF. La IA no rep mai el teu nom ni els teus IBAN. Si no ho actives, la plataforma funciona igualment sense IA, i ho pots canviar quan vulguis.</span>
+              </label>
+              <label class="form-check mb-0">
+                <input type="checkbox" class="form-check-input" name="consent_marketing">
+                <span class="form-check-label">Vull rebre novetats i consells d'estalvi per correu <span class="badge bg-azure-lt ms-1">Opcional</span></span>
+              </label>
+            </fieldset>
+
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary w-100" style="min-height:2.75rem">Crea el compte</button>
+            </div>
+            <p class="text-secondary small text-center mt-3 mb-0"><i class="ti ti-mail me-1" aria-hidden="true"></i>Rebràs un correu de verificació per activar el compte.</p>
+          </form>
+        </div>
+      </div>
+      <div class="text-center text-secondary mt-3">Ja tens compte? <a href="auth-login.html">Entra</a></div>
+      <div class="text-center text-secondary small mt-4"><i class="ti ti-lock me-1" aria-hidden="true"></i>Connexió xifrada · Dades allotjades a la UE · No venem dades</div>
+    </div>
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Show / hide password.
+  document.querySelectorAll('[data-toggle-password]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = document.getElementById(btn.getAttribute('data-toggle-password'));
+      var show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      btn.setAttribute('aria-pressed', String(show));
+      btn.setAttribute('aria-label', show ? 'Amaga la contrasenya' : 'Mostra la contrasenya');
+      btn.querySelector('.ti').className = 'ti ' + (show ? 'ti-eye-off' : 'ti-eye');
+    });
+  });
+
+  // Password strength: four simple rules -> meter + text label (never colour alone).
+  (function () {
+    var input = document.getElementById('reg-password');
+    var meter = document.getElementById('reg-strength-meter');
+    var label = document.getElementById('reg-strength-label');
+    var LEVELS = [
+      { cls: 'danger', text: 'Molt feble', icon: 'alert-circle' },
+      { cls: 'danger', text: 'Feble', icon: 'alert-circle' },
+      { cls: 'warning', text: 'Acceptable', icon: 'alert-circle' },
+      { cls: 'warning', text: 'Bona', icon: 'alert-circle' },
+      { cls: 'success', text: 'Forta', icon: 'check' }
+    ];
+    function update() {
+      var v = input.value;
+      var rules = {
+        length: v.length >= 10,
+        'case': /[a-z]/.test(v) && /[A-Z]/.test(v),
+        digit: /\d/.test(v),
+        symbol: /[^A-Za-z0-9]/.test(v)
+      };
+      var score = 0;
+      Object.keys(rules).forEach(function (k) {
+        if (rules[k]) { score++; }
+        var icon = document.querySelector('[data-rule="' + k + '"] .ti');
+        icon.className = 'ti ' + (rules[k] ? 'ti-check text-success' : 'ti-circle');
+      });
+      var lvl = LEVELS[score];
+      meter.className = 'est-meter flex-fill est-meter-' + lvl.cls;
+      meter.firstElementChild.style.width = Math.max(score, v ? 0.5 : 0) * 25 + '%';
+      label.className = 'small fw-medium text-nowrap text-' + lvl.cls;
+      label.innerHTML = '<i class="ti ti-' + lvl.icon + '" aria-hidden="true"></i> ' + lvl.text;
+    }
+    input.addEventListener('input', update);
+    update();
+  })();
+</script>
+</body>
+</html>

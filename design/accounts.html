@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Comptes · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Section heading with its subtotal on the right. */
+    .acc-section { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 2rem 0 0.75rem; }
+    .acc-section h2 { font-size: 1rem; font-weight: 600; margin: 0; }
+  </style>
+</head>
+<body data-page="accounts">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">6 comptes · 4 entitats</div>
+            <h1 class="page-title">Comptes</h1>
+          </div>
+          <div class="col-auto ms-auto d-flex gap-2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-account"><i class="ti ti-plus icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Afegeix un compte</span><span class="d-sm-none">Afegeix</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- Summary -->
+        <div class="row row-deck row-cards">
+          <div class="col-12 col-md-4">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Líquid disponible</div>
+                <div class="est-figure mt-2">3.905,27 <span class="unit">€</span></div>
+                <div class="mt-2 small text-secondary">3 comptes · 1,8 mesos de despesa essencial</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Deute total</div>
+                <div class="est-figure mt-2">11.273,85 <span class="unit">€</span></div>
+                <div class="mt-2 small"><span class="text-danger fw-medium"><i class="ti ti-flame" aria-hidden="true"></i> <span class="num">2.340,00 €</span> de deute car</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="card card-sm">
+              <div class="card-body">
+                <div class="subheader">Patrimoni net</div>
+                <div class="est-figure mt-2">−7.368,58 <span class="unit">€</span></div>
+                <div class="mt-2 small text-secondary">Líquid menys deute. No inclou béns com el cotxe.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current and savings accounts -->
+        <div class="acc-section">
+          <h2><i class="ti ti-building-bank text-secondary me-1" aria-hidden="true"></i>Comptes</h2>
+          <div class="text-secondary small">Total <span class="num fw-medium text-body">3.905,27 €</span></div>
+        </div>
+        <div class="row row-deck row-cards">
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="avatar" aria-hidden="true">CB</span>
+                  <div class="flex-fill overflow-hidden">
+                    <h3 class="h4 mb-0 text-truncate">Compte nòmina</h3>
+                    <div class="text-secondary small text-truncate">CaixaBank · <span class="num">···· 4521</span></div>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Compte nòmina"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="transactions.html"><i class="ti ti-arrows-exchange dropdown-item-icon" aria-hidden="true"></i>Veure els moviments</a>
+                      <a class="dropdown-item" href="import.html"><i class="ti ti-file-import dropdown-item-icon" aria-hidden="true"></i>Importa un extracte</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="est-figure mt-4">1.842,37 <span class="unit">€</span></div>
+                <div class="small text-secondary mt-1">Saldo · compte corrent</div>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2">
+                <span class="badge bg-secondary-lt"><i class="ti ti-file-spreadsheet" aria-hidden="true"></i> Importació</span>
+                <span class="small text-secondary">Actualitzat <span class="num">02/11/2026</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="avatar" aria-hidden="true">ING</span>
+                  <div class="flex-fill overflow-hidden">
+                    <h3 class="h4 mb-0 text-truncate">Compte estalvi</h3>
+                    <div class="text-secondary small text-truncate">ING · <span class="num">···· 8830</span></div>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Compte estalvi"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="transactions.html"><i class="ti ti-arrows-exchange dropdown-item-icon" aria-hidden="true"></i>Veure els moviments</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-refresh dropdown-item-icon" aria-hidden="true"></i>Actualitza el saldo</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="est-figure mt-4">1.650,00 <span class="unit">€</span></div>
+                <div class="small text-secondary mt-1">Saldo · vinculat a l'objectiu <a href="budgets-goals.html">Fons d'emergència</a></div>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2">
+                <span class="badge bg-secondary-lt"><i class="ti ti-pencil" aria-hidden="true"></i> Manual</span>
+                <span class="small text-secondary">Actualitzat <span class="num">10/11/2026</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="avatar" aria-hidden="true">BB</span>
+                  <div class="flex-fill overflow-hidden">
+                    <h3 class="h4 mb-0 text-truncate">Compte corrent</h3>
+                    <div class="text-secondary small text-truncate">BBVA · <span class="num">···· 1207</span></div>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Compte corrent"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="transactions.html"><i class="ti ti-arrows-exchange dropdown-item-icon" aria-hidden="true"></i>Veure els moviments</a>
+                      <a class="dropdown-item" href="import.html"><i class="ti ti-file-import dropdown-item-icon" aria-hidden="true"></i>Importa un extracte</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="est-figure mt-4">412,90 <span class="unit">€</span></div>
+                <div class="small mt-1"><span class="text-warning fw-medium"><i class="ti ti-receipt" aria-hidden="true"></i> Comissió de <span class="num">18,00 €</span> al trimestre</span></div>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2">
+                <span class="badge bg-secondary-lt"><i class="ti ti-file-type-pdf" aria-hidden="true"></i> PDF</span>
+                <span class="small text-secondary">Actualitzat <span class="num">02/11/2026</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credit cards -->
+        <div class="acc-section">
+          <h2><i class="ti ti-credit-card text-secondary me-1" aria-hidden="true"></i>Targetes</h2>
+          <div class="text-secondary small">Disposat <span class="num fw-medium text-body">2.658,45 €</span></div>
+        </div>
+        <div class="row row-deck row-cards">
+
+          <div class="col-12 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="avatar" aria-hidden="true">CB</span>
+                  <div class="flex-fill overflow-hidden">
+                    <h3 class="h4 mb-0 text-truncate">Visa CaixaBank</h3>
+                    <div class="text-secondary small text-truncate">Targeta de crèdit · pagament total · <span class="num">···· 9012</span></div>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Visa CaixaBank"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="transactions.html"><i class="ti ti-arrows-exchange dropdown-item-icon" aria-hidden="true"></i>Veure els moviments</a>
+                      <a class="dropdown-item" href="import.html"><i class="ti ti-file-import dropdown-item-icon" aria-hidden="true"></i>Importa un extracte</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="est-figure mt-4">318,45 <span class="unit">€</span></div>
+                <div class="small text-secondary mt-1">Disposat aquest mes · es carrega sencer el dia 1, sense interessos</div>
+                <div class="d-flex justify-content-between small mt-3 mb-1">
+                  <span class="text-secondary">Disposat del límit</span>
+                  <span class="num"><span class="fw-medium">15,9 %</span> <span class="text-secondary">· límit 2.000,00 €</span></span>
+                </div>
+                <div class="est-meter est-meter-success" role="img" aria-label="318,45 € disposats d'un límit de 2.000,00 €"><span style="width:15.9%"></span></div>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2">
+                <span class="badge bg-secondary-lt"><i class="ti ti-file-spreadsheet" aria-hidden="true"></i> Importació</span>
+                <span class="small text-secondary">Actualitzat <span class="num">02/11/2026</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card">
+              <div class="card-status-start bg-red"></div>
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="avatar" aria-hidden="true">WZ</span>
+                  <div class="flex-fill overflow-hidden">
+                    <h3 class="h4 mb-0 text-truncate">WiZink</h3>
+                    <div class="text-secondary small text-truncate">Targeta revolving · <span class="num">···· 3377</span></div>
+                  </div>
+                  <div class="dropdown">
+                    <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de WiZink"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <a class="dropdown-item" href="transactions.html"><i class="ti ti-arrows-exchange dropdown-item-icon" aria-hidden="true"></i>Veure els moviments</a>
+                      <a class="dropdown-item" href="simulators.html"><i class="ti ti-calculator dropdown-item-icon" aria-hidden="true"></i>Simula com liquidar-la</a>
+                      <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-end justify-content-between flex-wrap gap-2 mt-4">
+                  <div class="est-figure">2.340,00 <span class="unit">€</span></div>
+                  <span class="badge bg-red-lt"><i class="ti ti-flame" aria-hidden="true"></i> Deute car · TAE 21,84 %</span>
+                </div>
+                <div class="small text-secondary mt-1">Deute pendent · quota de <span class="num">95,00 €/mes</span></div>
+                <p class="small mt-3 mb-0">Et costa <span class="num fw-medium">≈ 511 €</span> l'any en interessos. Liquidar-la és la primera acció del teu pla. <a href="advisor-plan.html">Veure el pla<i class="ti ti-chevron-right" aria-hidden="true"></i></a></p>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2">
+                <span class="badge bg-secondary-lt"><i class="ti ti-file-type-pdf" aria-hidden="true"></i> PDF</span>
+                <span class="small text-secondary">Actualitzat <span class="num">28/10/2026</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Loans and mortgages -->
+        <div class="acc-section">
+          <h2><i class="ti ti-receipt-2 text-secondary me-1" aria-hidden="true"></i>Préstecs i hipoteques</h2>
+          <div class="text-secondary small">Pendent <span class="num fw-medium text-body">8.615,40 €</span></div>
+        </div>
+        <div class="row row-deck row-cards">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row g-4 align-items-center">
+                  <div class="col-12 col-lg-5">
+                    <div class="d-flex align-items-center gap-3">
+                      <span class="avatar" aria-hidden="true">SC</span>
+                      <div class="flex-fill overflow-hidden">
+                        <h3 class="h4 mb-0 text-truncate"><a href="account-detail.html" class="text-reset">Préstec cotxe</a></h3>
+                        <div class="text-secondary small text-truncate">Santander Consumer · tipus fix · sistema francès</div>
+                      </div>
+                      <div class="dropdown d-lg-none">
+                        <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Préstec cotxe"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                          <a class="dropdown-item" href="account-detail.html"><i class="ti ti-table dropdown-item-icon" aria-hidden="true"></i>Taula d'amortització</a>
+                          <a class="dropdown-item" href="simulators.html"><i class="ti ti-calculator dropdown-item-icon" aria-hidden="true"></i>Simula una amortització</a>
+                          <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="est-figure mt-4">8.615,40 <span class="unit">€</span></div>
+                    <div class="small text-secondary mt-1">Capital pendent</div>
+                  </div>
+                  <div class="col-12 col-lg-7">
+                    <div class="d-flex align-items-start gap-2">
+                      <div class="flex-fill">
+                        <div class="d-flex justify-content-between small mb-1">
+                          <span class="text-secondary">Capital amortitzat</span>
+                          <span class="num"><span class="fw-medium">38,5 %</span> <span class="text-secondary">· 5.384,60 € de 14.000,00 €</span></span>
+                        </div>
+                        <div class="est-meter est-meter-lg est-meter-info" role="img" aria-label="38,5 % del capital amortitzat"><span style="width:38.5%"></span></div>
+                      </div>
+                      <div class="dropdown d-none d-lg-block">
+                        <button type="button" class="btn btn-icon btn-ghost-secondary" data-bs-toggle="dropdown" aria-label="Opcions de Préstec cotxe"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                          <a class="dropdown-item" href="account-detail.html"><i class="ti ti-table dropdown-item-icon" aria-hidden="true"></i>Taula d'amortització</a>
+                          <a class="dropdown-item" href="simulators.html"><i class="ti ti-calculator dropdown-item-icon" aria-hidden="true"></i>Simula una amortització</a>
+                          <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row g-3 mt-1">
+                      <div class="col-4"><div class="subheader">Quota</div><div class="num fw-semibold mt-1">276,90 €</div></div>
+                      <div class="col-4"><div class="subheader">TAE</div><div class="num fw-semibold mt-1">7,45 %</div></div>
+                      <div class="col-4"><div class="subheader">Propera quota</div><div class="num fw-semibold mt-1">05/12/2026</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <span class="badge bg-secondary-lt"><i class="ti ti-pencil" aria-hidden="true"></i> Manual</span>
+                  <span class="small text-secondary">Actualitzat <span class="num">05/11/2026</span></span>
+                </div>
+                <a href="account-detail.html" class="btn btn-sm">Detall i taula d'amortització<i class="ti ti-chevron-right ms-1" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Investments and pensions: empty state -->
+        <div class="acc-section">
+          <h2><i class="ti ti-chart-line text-secondary me-1" aria-hidden="true"></i>Inversions i pensions</h2>
+        </div>
+        <div class="card">
+          <div class="empty">
+            <div class="empty-icon"><i class="ti ti-plant-2 fs-1" aria-hidden="true"></i></div>
+            <p class="empty-title">Encara no n'has afegit cap</p>
+            <p class="empty-subtitle text-secondary">Si tens un fons, un pla de pensions o un altre producte, afegeix-ne el saldo perquè compti al teu patrimoni. Estalvia només en fa el seguiment: no recomana productes d'inversió.</p>
+            <div class="empty-action">
+              <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal-account"><i class="ti ti-plus icon" aria-hidden="true"></i>Afegeix una inversió o un pla</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan limit hint -->
+        <p class="small text-secondary mt-4 mb-0"><i class="ti ti-info-circle" aria-hidden="true"></i> Comptes: il·limitats al pla Premium. Al pla Gratuït el límit és de 3 comptes. <a href="billing.html" class="link-secondary">Veure els plans</a></p>
+
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Add account modal -->
+<div class="modal modal-blur fade" id="modal-account" tabindex="-1" aria-labelledby="modal-account-title" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <form class="modal-content" onsubmit="return false">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-account-title">Afegeix un compte</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tanca"></button>
+      </div>
+      <div class="modal-body">
+        <fieldset class="mb-3">
+          <legend class="form-label">Tipus de compte</legend>
+          <div class="row g-2">
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="corrent" class="form-selectgroup-input" checked><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-building-bank fs-2" aria-hidden="true"></i>Compte corrent</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="estalvi" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-pig-money fs-2" aria-hidden="true"></i>Estalvi</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="targeta" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-credit-card fs-2" aria-hidden="true"></i>Targeta de crèdit</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="prestec" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-receipt-2 fs-2" aria-hidden="true"></i>Préstec</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="hipoteca" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-home fs-2" aria-hidden="true"></i>Hipoteca</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="inversio" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-chart-line fs-2" aria-hidden="true"></i>Inversió</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="pensions" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-umbrella fs-2" aria-hidden="true"></i>Pla de pensions</span></label></div>
+            <div class="col-6 col-sm-3"><label class="form-selectgroup-item w-100"><input type="radio" name="acc-type" value="efectiu" class="form-selectgroup-input"><span class="form-selectgroup-label d-flex flex-column align-items-center gap-1 py-3"><i class="ti ti-cash fs-2" aria-hidden="true"></i>Efectiu</span></label></div>
+          </div>
+        </fieldset>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="acc-entity">Entitat</label>
+            <input type="text" class="form-control" id="acc-entity" placeholder="Per exemple, CaixaBank" autocomplete="off">
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label" for="acc-name">Nom del compte</label>
+            <input type="text" class="form-control" id="acc-name" placeholder="Per exemple, Compte nòmina">
+          </div>
+          <div class="col-6 col-sm-4">
+            <label class="form-label" for="acc-last4">Últims 4 dígits <span class="form-label-description">Opcional</span></label>
+            <input type="text" class="form-control num" id="acc-last4" inputmode="numeric" maxlength="4" placeholder="0000">
+          </div>
+          <div class="col-6 col-sm-4">
+            <label class="form-label" for="acc-balance">Saldo actual</label>
+            <div class="input-group">
+              <input type="text" class="form-control num text-end" id="acc-balance" inputmode="decimal" placeholder="0,00">
+              <span class="input-group-text">€</span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4">
+            <label class="form-label" for="acc-date">Data del saldo</label>
+            <input type="date" class="form-control" id="acc-date" value="2026-11-18">
+          </div>
+        </div>
+        <p class="small text-secondary mt-3 mb-0"><i class="ti ti-lock" aria-hidden="true"></i> No et demanem mai les claus del banc. Després podràs importar-ne els moviments amb un extracte en CSV, Excel o PDF. En préstecs i hipoteques et demanarem les condicions al pas següent.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Cancel·la</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"><i class="ti ti-plus icon" aria-hidden="true"></i>Afegeix el compte</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+</body>
+</html>

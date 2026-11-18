@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Verificació en dos passos · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: one-time-code boxes and QR frame (theme variables only). */
+    .otp-inputs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.5rem; }
+    .otp-inputs .form-control { height: 3.25rem; padding-inline: 0; text-align: center; font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .otp-inputs .form-control:nth-child(3) { margin-right: 0.25rem; }
+    /* A QR must stay dark-on-white in both themes to remain scannable. */
+    .qr-frame { width: 10.5rem; max-width: 100%; padding: 0.625rem; border-radius: var(--tblr-border-radius); border: 1px solid var(--tblr-border-color);
+      background: var(--tblr-white); color: var(--tblr-black); }
+    .qr-frame svg { display: block; width: 100%; height: auto; }
+    .recovery-codes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; list-style: none; padding: 0; margin: 0; }
+    .recovery-codes li { padding: 0.5rem; text-align: center; border-radius: var(--tblr-border-radius); background: var(--tblr-bg-surface-secondary);
+      border: 1px solid var(--tblr-border-color); font-family: var(--tblr-font-monospace); font-size: 0.9375rem; letter-spacing: 0.04em; }
+    @media (min-width: 576px) { .recovery-codes { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  </style>
+</head>
+<body>
+  <main class="page page-center">
+    <!-- Language and theme -->
+    <div class="d-flex justify-content-end align-items-center gap-1 p-3">
+      <div class="btn-group" role="group" aria-label="Idioma">
+        <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
+        <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
+      </div>
+      <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+    </div>
+
+    <!-- State 1: code entry at sign-in -->
+    <div class="container container-tight py-4 mt-auto">
+      <div class="text-center mb-4">
+        <script>document.write(Estalvia.logo({href:'landing.html', size:'lg'}))</script>
+      </div>
+      <div class="card card-md">
+        <div class="card-body">
+          <div class="text-center">
+            <span class="avatar avatar-lg bg-primary-lt mb-3"><i class="ti ti-shield-lock" aria-hidden="true"></i></span>
+            <h1 class="h2 mb-1">Verificació en dos passos</h1>
+            <p class="text-secondary mb-4">Escriu el codi de 6 dígits de la teva aplicació d'autenticació per a <span class="text-body fw-medium">marta.vila@exemple.cat</span>.</p>
+          </div>
+          <form action="dashboard.html" method="get" id="otp-form" novalidate>
+            <fieldset class="mb-3">
+              <legend class="form-label">Codi de verificació</legend>
+              <div class="otp-inputs" id="otp-inputs">
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="one-time-code" aria-label="Dígit 1 de 6" autofocus required>
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="Dígit 2 de 6" required>
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="Dígit 3 de 6" required>
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="Dígit 4 de 6" required>
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="Dígit 5 de 6" required>
+                <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]" maxlength="1" autocomplete="off" aria-label="Dígit 6 de 6" required>
+              </div>
+              <div class="form-hint mt-2">El codi canvia cada 30 segons.</div>
+            </fieldset>
+            <label class="form-check mb-0">
+              <input type="checkbox" class="form-check-input" name="trust_device">
+              <span class="form-check-label">Confia en aquest dispositiu 30 dies</span>
+              <span class="form-check-description">No ho marquis en ordinadors compartits.</span>
+            </label>
+            <div class="form-footer">
+              <button type="submit" class="btn btn-primary w-100" style="min-height:2.75rem">Verifica i entra</button>
+            </div>
+          </form>
+          <div class="text-center mt-3"><a href="#">Fes servir un codi de recuperació</a></div>
+        </div>
+      </div>
+      <div class="text-center text-secondary mt-3"><a href="auth-login.html" class="link-secondary"><i class="ti ti-arrow-left me-1" aria-hidden="true"></i>Torna a l'inici de sessió</a></div>
+    </div>
+
+    <!-- State 2: setup (shown here on the same page for the design proposal) -->
+    <div class="container py-4 mb-auto" style="max-width:44rem">
+      <div class="hr-text">Un altre estat d'aquesta pantalla</div>
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Configuració de la 2FA</h2>
+            <div class="card-subtitle mt-1">Activa-la des de Seguretat. Necessites una aplicació d'autenticació (Google Authenticator, Aegis, 1Password…).</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="h4 mb-3"><span class="badge bg-primary-lt me-2 num">1</span>Escaneja el codi QR</h3>
+          <div class="row g-4 align-items-center">
+            <div class="col-12 col-sm-auto d-flex justify-content-center">
+              <div class="qr-frame" role="img" aria-label="Codi QR per afegir Estalvia a l'aplicació d'autenticació (exemple)">
+                <!-- Placeholder QR drawn as SVG by the script below -->
+                <svg id="qr-placeholder" viewBox="0 0 25 25" shape-rendering="crispEdges" aria-hidden="true"></svg>
+              </div>
+            </div>
+            <div class="col" style="min-width:0">
+              <label class="form-label" for="totp-secret">O escriu la clau manualment</label>
+              <div class="input-group">
+                <input type="text" class="form-control font-monospace" id="totp-secret" value="JBSW Y3DP EHPK 3PXP" readonly>
+                <button type="button" class="btn btn-icon" data-copy="#totp-secret" aria-label="Copia la clau"><i class="ti ti-copy" aria-hidden="true"></i></button>
+              </div>
+              <div class="form-hint">Tipus: basat en el temps (TOTP) · 6 dígits · 30 segons</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="h4 mb-2"><span class="badge bg-primary-lt me-2 num">2</span>Desa els codis de recuperació</h3>
+          <p class="text-secondary">Si perds el mòbil, cada codi et permet entrar una sola vegada. Guarda'ls en un lloc segur: no te'ls tornarem a mostrar.</p>
+          <ul class="recovery-codes num" id="recovery-codes" aria-label="Codis de recuperació">
+            <li>7K2M-9QXD</li>
+            <li>R4TP-W8NC</li>
+            <li>H6VB-3JLF</li>
+            <li>X9DA-5MZG</li>
+            <li>C3YE-8HKP</li>
+            <li>N5WQ-2RTU</li>
+            <li>F8GJ-6SVB</li>
+            <li>L2PX-4CNE</li>
+          </ul>
+          <div class="d-flex flex-column flex-sm-row gap-2 mt-3">
+            <button type="button" class="btn" data-copy="#recovery-codes"><i class="ti ti-copy icon" aria-hidden="true"></i>Copia els codis</button>
+            <button type="button" class="btn" id="download-codes"><i class="ti ti-download icon" aria-hidden="true"></i>Descarrega'ls (.txt)</button>
+            <span class="small text-success align-self-center" id="copy-status" role="status"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="h4 mb-3"><span class="badge bg-primary-lt me-2 num">3</span>Confirma amb un codi</h3>
+          <div class="row g-2 align-items-end">
+            <div class="col">
+              <label class="form-label" for="setup-code">Codi de 6 dígits de l'aplicació</label>
+              <input type="text" class="form-control num" id="setup-code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" placeholder="000000">
+            </div>
+            <div class="col-12 col-sm-auto"><button type="button" class="btn btn-primary w-100">Activa la 2FA</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // One-time-code boxes: auto-advance, backspace, arrows and paste of the full code.
+  (function () {
+    var inputs = Array.prototype.slice.call(document.querySelectorAll('#otp-inputs input'));
+    function fill(digits, from) {
+      digits.split('').forEach(function (d, i) { if (inputs[from + i]) { inputs[from + i].value = d; } });
+      var next = Math.min(from + digits.length, inputs.length - 1);
+      inputs[next].focus();
+    }
+    inputs.forEach(function (input, i) {
+      input.addEventListener('input', function () {
+        var digits = input.value.replace(/\D/g, '');
+        input.value = '';
+        if (digits) { fill(digits.slice(0, inputs.length - i), i); }
+      });
+      input.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Backspace' && !input.value && i > 0) { inputs[i - 1].focus(); inputs[i - 1].value = ''; ev.preventDefault(); }
+        if (ev.key === 'ArrowLeft' && i > 0) { inputs[i - 1].focus(); }
+        if (ev.key === 'ArrowRight' && i < inputs.length - 1) { inputs[i + 1].focus(); }
+      });
+      input.addEventListener('focus', function () { input.select(); });
+      input.addEventListener('paste', function (ev) {
+        var digits = (ev.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+        if (digits) { ev.preventDefault(); fill(digits.slice(0, inputs.length), 0); }
+      });
+    });
+    // Autocomplete from SMS/authenticator may drop all six digits in the first box: allow it.
+    inputs[0].setAttribute('maxlength', '6');
+  })();
+
+  // Placeholder QR: finder patterns + deterministic pseudo-random modules (not a real code).
+  (function () {
+    var N = 25, seed = 62, rects = '';
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+    function inFinder(x, y) { return (x < 8 && y < 8) || (x > N - 9 && y < 8) || (x < 8 && y > N - 9); }
+    for (var y = 0; y < N; y++) { for (var x = 0; x < N; x++) {
+      if (!inFinder(x, y) && rnd() > 0.52) { rects += '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>'; }
+    } }
+    [[0, 0], [N - 7, 0], [0, N - 7]].forEach(function (p) {
+      rects += '<path fill-rule="evenodd" d="M' + p[0] + ' ' + p[1] + 'h7v7h-7zM' + (p[0] + 1) + ' ' + (p[1] + 1) + 'v5h5v-5z"/>' +
+        '<rect x="' + (p[0] + 2) + '" y="' + (p[1] + 2) + '" width="3" height="3"/>';
+    });
+    document.getElementById('qr-placeholder').innerHTML = '<g fill="currentColor">' + rects + '</g>';
+  })();
+
+  // Copy and download helpers.
+  (function () {
+    var status = document.getElementById('copy-status');
+    function textOf(el) {
+      if (el.tagName === 'INPUT') { return el.value; }
+      return Array.prototype.map.call(el.querySelectorAll('li'), function (li) { return li.textContent.trim(); }).join('\n');
+    }
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = textOf(document.querySelector(btn.getAttribute('data-copy')));
+        if (navigator.clipboard) { navigator.clipboard.writeText(text).catch(function () {}); }
+        status.textContent = 'Copiat al porta-retalls';
+        setTimeout(function () { status.textContent = ''; }, 2500);
+      });
+    });
+    document.getElementById('download-codes').addEventListener('click', function () {
+      var text = 'Estalvia · codis de recuperació (marta.vila@exemple.cat)\n\n' + textOf(document.getElementById('recovery-codes')) + '\n';
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+      a.download = 'estalvia-codis-recuperacio.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Importa moviments · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: file drop zone (Tabler ships none without the Dropzone plugin). */
+    .est-dropzone {
+      border: 2px dashed var(--tblr-border-color);
+      border-radius: var(--tblr-border-radius-lg);
+      background: var(--tblr-bg-surface-secondary);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .est-dropzone:focus-within { border-color: var(--tblr-primary); }
+    .est-wizard-actions .btn { min-height: 2.75rem; }
+  </style>
+</head>
+<body data-page="import">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Moviments</div>
+            <h1 class="page-title">Importa moviments</h1>
+          </div>
+          <div class="col-auto ms-auto">
+            <a href="#recent-imports" class="btn"><i class="ti ti-history icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Importacions recents</span><span class="d-sm-none">Historial</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <div class="card" id="wizard">
+          <!-- Wizard progress: full steps on md+, compact counter + progress bar on phones -->
+          <div class="card-body border-bottom">
+            <ul class="steps steps-counter my-2 p-0 border-0 d-none d-md-flex" id="wizard-steps" aria-label="Passos de la importació">
+              <li class="step-item"><a href="?step=1" class="text-reset" data-go="1">Pujada</a></li>
+              <li class="step-item"><a href="?step=2" class="text-reset" data-go="2">Format</a></li>
+              <li class="step-item"><a href="?step=3" class="text-reset" data-go="3">Mapatge</a></li>
+              <li class="step-item"><a href="?step=4" class="text-reset" data-go="4">Previsualització</a></li>
+              <li class="step-item"><a href="?step=5" class="text-reset" data-go="5">Informe</a></li>
+            </ul>
+            <div class="d-md-none" aria-live="polite">
+              <div class="d-flex justify-content-between align-items-baseline mb-2">
+                <span class="fw-semibold" id="wizard-compact-title">Pujada</span>
+                <span class="text-secondary small num" id="wizard-compact-count">Pas 1 de 5</span>
+              </div>
+              <div class="progress progress-sm" role="progressbar" aria-label="Progrés de la importació" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" id="wizard-progress">
+                <div class="progress-bar" style="width:20%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ Step 1: upload ============ -->
+          <section class="card-body" data-panel="1" aria-labelledby="panel-1-title">
+            <h2 class="card-title" id="panel-1-title">Puja l'extracte del banc</h2>
+            <p class="text-secondary">Descarrega els moviments des de la banca en línia i puja el fitxer aquí. No et demanem mai les claus del banc.</p>
+
+            <div class="row g-4">
+              <div class="col-12 col-lg-7">
+                <div class="mb-3">
+                  <label class="form-label" for="dest-account">Compte de destinació</label>
+                  <select class="form-select" id="dest-account">
+                    <option selected>CaixaBank · Compte nòmina ···· 4521</option>
+                    <option>ING · Compte estalvi ···· 8830</option>
+                    <option>BBVA · Compte corrent ···· 1207</option>
+                    <option>Visa CaixaBank ···· 9012</option>
+                    <option>WiZink ···· 3377</option>
+                  </select>
+                </div>
+
+                <div class="est-dropzone">
+                  <span class="avatar avatar-lg bg-primary-lt mb-3"><i class="ti ti-cloud-upload" aria-hidden="true"></i></span>
+                  <div class="fw-medium mb-1">Arrossega el fitxer aquí</div>
+                  <div class="text-secondary small mb-3">CSV, XLSX, Norma 43, OFX, QIF o PDF · màxim <span class="num">10 MB</span></div>
+                  <label class="btn" for="file-input"><i class="ti ti-folder-open icon" aria-hidden="true"></i>Tria un fitxer</label>
+                  <input type="file" id="file-input" class="visually-hidden" accept=".csv,.xlsx,.xls,.n43,.q43,.txt,.ofx,.qif,.pdf">
+                </div>
+
+                <!-- A file already selected -->
+                <div class="card card-sm mt-3">
+                  <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-auto"><span class="avatar bg-green-lt"><i class="ti ti-file-spreadsheet" aria-hidden="true"></i></span></div>
+                      <div class="col text-truncate">
+                        <div class="fw-medium text-truncate">caixabank_moviments_2026-11.csv</div>
+                        <div class="small text-secondary"><span class="num">48 KB</span> · <span class="text-success"><i class="ti ti-check" aria-hidden="true"></i> Fitxer llest</span></div>
+                      </div>
+                      <div class="col-auto"><button type="button" class="btn btn-icon btn-ghost-secondary" aria-label="Treu el fitxer caixabank_moviments_2026-11.csv"><i class="ti ti-x" aria-hidden="true"></i></button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-lg-5">
+                <div class="vstack gap-3">
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-azure-lt flex-shrink-0"><i class="ti ti-sparkles" aria-hidden="true"></i></span>
+                    <div>
+                      <div class="fw-medium">Els PDF es llegeixen amb IA</div>
+                      <div class="text-secondary small">Si puges un extracte en PDF, extraiem els moviments amb IA i te'ls ensenyem en una <a href="import-pdf-review.html">pantalla de revisió</a> abans d'importar res.</div>
+                      <div class="mt-2">
+                        <div class="d-flex justify-content-between small mb-1"><span>PDF amb IA</span><span class="num fw-medium">4 de 30 aquest mes</span></div>
+                        <div class="est-meter est-meter-info" role="img" aria-label="4 de 30 lectures de PDF fetes servir aquest mes"><span style="width:13.3%"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-green-lt flex-shrink-0"><i class="ti ti-lock" aria-hidden="true"></i></span>
+                    <div>
+                      <div class="fw-medium">El teu fitxer, protegit</div>
+                      <div class="text-secondary small">El fitxer es desa xifrat i s'elimina després de processar-lo. Només en conservem els moviments.</div>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-3">
+                    <span class="avatar avatar-sm bg-secondary-lt flex-shrink-0"><i class="ti ti-copy-off" aria-hidden="true"></i></span>
+                    <div>
+                      <div class="fw-medium">Sense duplicats</div>
+                      <div class="text-secondary small">Si el fitxer inclou moviments que ja tens, els detectem i no els tornem a importar.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ Step 2: format ============ -->
+          <section class="card-body" data-panel="2" aria-labelledby="panel-2-title" hidden>
+            <h2 class="card-title" id="panel-2-title">Format detectat</h2>
+            <p class="text-secondary">Hem analitzat <span class="fw-medium text-body">caixabank_moviments_2026-11.csv</span>. Si alguna cosa no és correcta, la pots canviar.</p>
+
+            <div class="row g-3">
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-type">Tipus de fitxer</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-type"><option selected>CSV</option><option>XLSX</option><option>Norma 43</option><option>OFX</option><option>QIF</option></select>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-sep">Separador</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-sep"><option selected>Punt i coma ( ; )</option><option>Coma ( , )</option><option>Tabulador</option><option>Barra vertical ( | )</option></select>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-enc">Codificació</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-enc"><option selected>ISO-8859-1</option><option>UTF-8</option><option>Windows-1252</option></select>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-header">Fila de capçalera</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-header"><option selected>Fila 1</option><option>Fila 2</option><option>Fila 3</option><option>Sense capçalera</option></select>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-date">Format de les dates</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-date"><option selected>dd/mm/aaaa</option><option>dd-mm-aaaa</option><option>aaaa-mm-dd</option><option>dd/mm/aa</option></select>
+              </div>
+              <div class="col-12 col-sm-6 col-lg-4">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label class="form-label" for="fmt-num">Format dels números</label>
+                  <span class="small text-success"><i class="ti ti-circle-check" aria-hidden="true"></i> Detectat</span>
+                </div>
+                <select class="form-select" id="fmt-num"><option selected>1.234,56</option><option>1,234.56</option><option>1234,56</option><option>1234.56</option></select>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="h3 mb-1">Plantilla</h3>
+            <p class="text-secondary small">Una plantilla recorda quina columna és cada cosa. La pots ajustar al pas següent.</p>
+            <fieldset class="list-group">
+              <legend class="visually-hidden">Tria una plantilla</legend>
+              <label class="list-group-item d-flex gap-3 align-items-start">
+                <input class="form-check-input m-0 mt-1 flex-shrink-0" type="radio" name="template" checked>
+                <span class="flex-fill">
+                  <span class="d-block small text-secondary">Plantilla proposada</span>
+                  <span class="d-block fw-medium">CaixaBank — extracte de compte (CSV)</span>
+                  <span class="d-block small text-secondary">Coincideixen les 6 columnes del fitxer.</span>
+                  <span class="d-block mt-2"><span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Coincidència 96 %</span></span>
+                </span>
+              </label>
+              <label class="list-group-item d-flex gap-3 align-items-start">
+                <input class="form-check-input m-0 mt-1 flex-shrink-0" type="radio" name="template">
+                <span class="flex-fill">
+                  <span class="d-block fw-medium">CaixaBank — extracte de targeta (CSV)</span>
+                  <span class="d-block small text-secondary">Coincideixen 4 de 6 columnes.</span>
+                  <span class="d-block mt-2"><span class="badge bg-secondary-lt">Coincidència 61 %</span></span>
+                </span>
+              </label>
+              <label class="list-group-item d-flex gap-3 align-items-start">
+                <input class="form-check-input m-0 mt-1 flex-shrink-0" type="radio" name="template">
+                <span class="flex-fill">
+                  <span class="d-block fw-medium">Genèrica — CSV amb capçalera</span>
+                  <span class="d-block small text-secondary">Coincideixen 3 de 6 columnes.</span>
+                  <span class="d-block mt-2"><span class="badge bg-secondary-lt">Coincidència 48 %</span></span>
+                </span>
+              </label>
+              <label class="list-group-item d-flex gap-3 align-items-start">
+                <input class="form-check-input m-0 mt-1 flex-shrink-0" type="radio" name="template">
+                <span class="flex-fill">
+                  <span class="d-block fw-medium">Sense plantilla</span>
+                  <span class="d-block small text-secondary">Faré el mapatge de les columnes a mà.</span>
+                </span>
+              </label>
+            </fieldset>
+          </section>
+
+          <!-- ============ Step 3: mapping ============ -->
+          <section class="card-body" data-panel="3" aria-labelledby="panel-3-title" hidden>
+            <h2 class="card-title" id="panel-3-title">Mapatge de columnes</h2>
+            <p class="text-secondary">Digues a quin camp d'Estalvia correspon cada columna del fitxer. Ho hem omplert amb la plantilla <span class="fw-medium text-body">CaixaBank — extracte de compte (CSV)</span>.</p>
+
+            <fieldset class="mb-3">
+              <legend class="form-label">Com venen els imports?</legend>
+              <div class="form-selectgroup">
+                <label class="form-selectgroup-item">
+                  <input type="radio" name="amount-mode" class="form-selectgroup-input" checked>
+                  <span class="form-selectgroup-label">Columna única amb signe</span>
+                </label>
+                <label class="form-selectgroup-item">
+                  <input type="radio" name="amount-mode" class="form-selectgroup-input">
+                  <span class="form-selectgroup-label">Columnes càrrec i abonament</span>
+                </label>
+              </div>
+            </fieldset>
+          </section>
+          <div class="table-responsive border-top" data-panel="3" hidden>
+            <table class="table table-vcenter card-table">
+              <thead>
+                <tr>
+                  <th>Columna del fitxer</th>
+                  <th class="d-none d-md-table-cell">Valor d'exemple</th>
+                  <th>Camp d'Estalvia</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="fw-medium">Fecha</div><div class="small text-secondary d-md-none num">17/11/2026</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">17/11/2026</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Fecha"><option selected>Data d'operació</option><option>Data de valor</option><option>Descripció</option><option>Descripció (concatena)</option><option>Import</option><option>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+                <tr>
+                  <td><div class="fw-medium">Fecha valor</div><div class="small text-secondary d-md-none num">17/11/2026</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">17/11/2026</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Fecha valor"><option>Data d'operació</option><option selected>Data de valor</option><option>Descripció</option><option>Descripció (concatena)</option><option>Import</option><option>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+                <tr>
+                  <td><div class="fw-medium">Concepto</div><div class="small text-secondary d-md-none">MERCADONA GIRONA</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">MERCADONA GIRONA</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Concepto"><option>Data d'operació</option><option>Data de valor</option><option selected>Descripció</option><option>Descripció (concatena)</option><option>Import</option><option>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+                <tr>
+                  <td><div class="fw-medium">Más datos</div><div class="small text-secondary d-md-none">COMPRA TARGETA *4521</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">COMPRA TARGETA *4521</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Más datos"><option>Data d'operació</option><option>Data de valor</option><option>Descripció</option><option selected>Descripció (concatena)</option><option>Import</option><option>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+                <tr>
+                  <td><div class="fw-medium">Importe</div><div class="small text-secondary d-md-none num">-62,35</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">-62,35</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Importe"><option>Data d'operació</option><option>Data de valor</option><option>Descripció</option><option>Descripció (concatena)</option><option selected>Import</option><option>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+                <tr>
+                  <td><div class="fw-medium">Saldo</div><div class="small text-secondary d-md-none num">1.842,37</div></td>
+                  <td class="d-none d-md-table-cell text-secondary">1.842,37</td>
+                  <td><select class="form-select" aria-label="Camp per a la columna Saldo"><option>Data d'operació</option><option>Data de valor</option><option>Descripció</option><option>Descripció (concatena)</option><option>Import</option><option selected>Saldo</option><option>Ignora la columna</option></select></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body" data-panel="3" hidden>
+            <div class="d-flex gap-2 align-items-start text-success small mb-3"><i class="ti ti-circle-check mt-1" aria-hidden="true"></i><span>Tots els camps obligatoris estan assignats: data d'operació, descripció i import.</span></div>
+            <label class="form-check mb-0">
+              <input class="form-check-input" type="checkbox" checked>
+              <span class="form-check-label">Desa aquest mapatge com a plantilla</span>
+              <span class="form-check-description">La propera vegada que pugis un fitxer com aquest, el reconeixerem automàticament.</span>
+            </label>
+          </div>
+
+          <!-- ============ Step 4: preview ============ -->
+          <section class="card-body" data-panel="4" aria-labelledby="panel-4-title" hidden>
+            <h2 class="card-title" id="panel-4-title">Previsualització</h2>
+            <p class="text-secondary">Així quedaran els moviments. Encara no hem importat res.</p>
+
+            <div class="row g-3">
+              <div class="col-6 col-md-3">
+                <div class="subheader">Files llegides</div>
+                <div class="est-figure mt-1">42</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="subheader">Noves</div>
+                <div class="est-figure mt-1">38</div>
+                <div class="small text-success mt-1"><i class="ti ti-circle-check" aria-hidden="true"></i> S'importaran</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="subheader">Duplicades</div>
+                <div class="est-figure mt-1">3</div>
+                <div class="small text-secondary mt-1"><i class="ti ti-copy" aria-hidden="true"></i> No s'importaran</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="subheader">Amb error</div>
+                <div class="est-figure mt-1">1</div>
+                <div class="small text-danger mt-1"><i class="ti ti-alert-circle" aria-hidden="true"></i> Cal revisar-la</div>
+              </div>
+            </div>
+
+            <div class="alert alert-danger mt-4 mb-0" role="alert">
+              <div class="d-flex">
+                <div class="me-2"><i class="ti ti-alert-circle icon alert-icon" aria-hidden="true"></i></div>
+                <div class="flex-fill">
+                  <h3 class="alert-title">Data no vàlida a la fila 17</h3>
+                  <div class="text-secondary">El fitxer hi diu <span class="num fw-medium">32/11/2026</span>. Corregeix-la aquí o la fila s'ometrà; la resta s'importarà igualment.</div>
+                  <div class="row g-2 mt-1 align-items-end">
+                    <div class="col-7 col-sm-auto">
+                      <label class="form-label small mb-1" for="fix-date">Data corregida</label>
+                      <input type="text" class="form-control" id="fix-date" inputmode="numeric" placeholder="dd/mm/aaaa" autocomplete="off">
+                    </div>
+                    <div class="col-5 col-sm-auto"><button type="button" class="btn w-100">Aplica</button></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="table-responsive border-top" data-panel="4" hidden>
+            <table class="table table-vcenter card-table">
+              <caption class="visually-hidden">Primeres 8 files del fitxer amb el seu estat</caption>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Descripció</th>
+                  <th class="text-end">Import</th>
+                  <th class="d-none d-sm-table-cell">Estat</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-nowrap">17/11/2026</td>
+                  <td><div>MERCADONA GIRONA</div><div class="d-sm-none mt-1"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></div></td>
+                  <td class="text-end text-nowrap">−62,35 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">16/11/2026</td>
+                  <td><div>BIZUM REBUT JORDI P.</div><div class="d-sm-none mt-1"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></div></td>
+                  <td class="text-end text-nowrap"><span class="est-amount-in">+45,00 €</span></td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">14/11/2026</td>
+                  <td><div>REPSOL E.S. SALT</div><div class="d-sm-none mt-1"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></div></td>
+                  <td class="text-end text-nowrap">−48,00 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">12/11/2026</td>
+                  <td><div>NETFLIX.COM</div><div class="d-sm-none mt-1"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></div></td>
+                  <td class="text-end text-nowrap">−14,99 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap text-danger"><i class="ti ti-alert-circle" aria-hidden="true"></i> 32/11/2026</td>
+                  <td><div>ENDESA ENERGIA SAU</div><div class="small text-danger">Fila 17 · data no vàlida</div><div class="d-sm-none mt-1"><span class="badge bg-red-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Error</span></div></td>
+                  <td class="text-end text-nowrap">−71,20 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-red-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Error</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">05/11/2026</td>
+                  <td><div>SANTANDER CONSUMER · PRÉSTEC</div><div class="d-sm-none mt-1"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></div></td>
+                  <td class="text-end text-nowrap">−276,90 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-green-lt"><i class="ti ti-plus" aria-hidden="true"></i> Nou</span></td>
+                </tr>
+                <tr class="text-secondary">
+                  <td class="text-nowrap">03/11/2026</td>
+                  <td><div>LLOGUER NOVEMBRE</div><div class="small">Ja importat el 02/11/2026</div><div class="d-sm-none mt-1"><span class="badge bg-secondary-lt"><i class="ti ti-copy" aria-hidden="true"></i> Duplicat</span></div></td>
+                  <td class="text-end text-nowrap">−870,00 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-secondary-lt"><i class="ti ti-copy" aria-hidden="true"></i> Duplicat</span></td>
+                </tr>
+                <tr class="text-secondary">
+                  <td class="text-nowrap">02/11/2026</td>
+                  <td><div>MOVISTAR · FIBRA I MÒBIL</div><div class="small">Ja importat el 02/11/2026</div><div class="d-sm-none mt-1"><span class="badge bg-secondary-lt"><i class="ti ti-copy" aria-hidden="true"></i> Duplicat</span></div></td>
+                  <td class="text-end text-nowrap">−58,90 €</td>
+                  <td class="d-none d-sm-table-cell"><span class="badge bg-secondary-lt"><i class="ti ti-copy" aria-hidden="true"></i> Duplicat</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-body" data-panel="4" hidden>
+            <div class="d-flex gap-2 align-items-start small text-secondary"><i class="ti ti-info-circle mt-1" aria-hidden="true"></i><span>Es mostren 8 de 42 files. Els duplicats són moviments que ja tens al compte (mateixa data, import i descripció): no s'importen, així no es compten dues vegades.</span></div>
+          </div>
+
+          <!-- ============ Step 5: report ============ -->
+          <section class="card-body" data-panel="5" aria-labelledby="panel-5-title" hidden>
+            <div class="text-center py-3">
+              <span class="avatar avatar-xl rounded-circle bg-green-lt mb-3"><i class="ti ti-check" aria-hidden="true"></i></span>
+              <h2 class="h2 mb-1" id="panel-5-title">Importació feta</h2>
+              <p class="text-secondary mb-0">Hem afegit <span class="num fw-medium text-body">38 moviments</span> a CaixaBank · Compte nòmina ···· 4521.</p>
+            </div>
+
+            <div class="row g-3 text-center mt-1">
+              <div class="col-4">
+                <div class="est-figure">38</div>
+                <div class="small text-secondary mt-1">importats</div>
+              </div>
+              <div class="col-4">
+                <div class="est-figure">3</div>
+                <div class="small text-secondary mt-1">duplicats omesos</div>
+              </div>
+              <div class="col-4">
+                <div class="est-figure">1</div>
+                <div class="small text-secondary mt-1">amb error, omès</div>
+              </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+              <div class="col-12 col-lg-6">
+                <div class="alert alert-success mb-0 h-100" role="status">
+                  <div class="d-flex">
+                    <div class="me-2"><i class="ti ti-scale icon alert-icon" aria-hidden="true"></i></div>
+                    <div>
+                      <h3 class="alert-title">El saldo quadra</h3>
+                      <div class="text-secondary">El saldo final del fitxer coincideix amb el saldo calculat: <span class="num fw-medium text-body">1.842,37 €</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6">
+                <div class="alert alert-info mb-0 h-100" role="status">
+                  <div class="d-flex">
+                    <div class="me-2"><i class="ti ti-category icon alert-icon" aria-hidden="true"></i></div>
+                    <div class="flex-fill">
+                      <h3 class="alert-title">La categorització s'està fent en segon pla</h3>
+                      <div class="text-secondary mb-2"><span class="num">26 de 38</span> moviments categoritzats. Pots continuar; t'avisarem quan acabi.</div>
+                      <div class="progress progress-sm" role="progressbar" aria-label="Categorització" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"><div class="progress-bar bg-info" style="width:68%"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="subheader mt-4 mb-2">Files que no s'han importat</h3>
+            <div class="list-group">
+              <div class="list-group-item">
+                <div class="row g-2 align-items-center">
+                  <div class="col"><div class="fw-medium">LLOGUER NOVEMBRE</div><div class="small text-secondary">03/11/2026 · duplicat, ja importat el 02/11/2026</div></div>
+                  <div class="col-auto num">−870,00 €</div>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <div class="row g-2 align-items-center">
+                  <div class="col"><div class="fw-medium">MOVISTAR · FIBRA I MÒBIL</div><div class="small text-secondary">02/11/2026 · duplicat, ja importat el 02/11/2026</div></div>
+                  <div class="col-auto num">−58,90 €</div>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <div class="row g-2 align-items-center">
+                  <div class="col"><div class="fw-medium">AIGÜES DE GIRONA</div><div class="small text-secondary">02/11/2026 · duplicat, ja importat el 02/11/2026</div></div>
+                  <div class="col-auto num">−31,45 €</div>
+                </div>
+              </div>
+              <div class="list-group-item">
+                <div class="row g-2 align-items-center">
+                  <div class="col"><div class="fw-medium">ENDESA ENERGIA SAU</div><div class="small text-danger"><i class="ti ti-alert-circle" aria-hidden="true"></i> Fila 17 · data no vàlida (32/11/2026)</div></div>
+                  <div class="col-auto num">−71,20 €</div>
+                  <div class="col-12 col-sm-auto"><a href="transactions.html" class="btn btn-sm">Afegeix-lo a mà</a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-4 est-wizard-actions">
+              <a href="transactions.html" class="btn btn-primary"><i class="ti ti-arrows-exchange icon" aria-hidden="true"></i>Veure els moviments</a>
+              <a href="import.html" class="btn"><i class="ti ti-file-import icon" aria-hidden="true"></i>Importa un altre fitxer</a>
+            </div>
+          </section>
+
+          <!-- Wizard navigation -->
+          <div class="card-footer est-wizard-actions" id="wizard-footer">
+            <div class="d-flex gap-2">
+              <button type="button" class="btn" id="wizard-back"><i class="ti ti-arrow-left icon" aria-hidden="true"></i>Enrere</button>
+              <button type="button" class="btn btn-primary ms-auto" id="wizard-next"><span id="wizard-next-label">Continua</span><i class="ti ti-arrow-right icon icon-end" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent imports -->
+        <div class="card mt-4" id="recent-imports">
+          <div class="card-header">
+            <div>
+              <h2 class="card-title">Importacions recents</h2>
+              <div class="card-subtitle mt-1">Els fitxers originals ja s'han eliminat; en conservem només els moviments.</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-vcenter card-table">
+              <thead>
+                <tr>
+                  <th class="d-none d-sm-table-cell">Data</th>
+                  <th>Fitxer</th>
+                  <th class="d-none d-lg-table-cell">Compte</th>
+                  <th class="d-none d-md-table-cell">Format</th>
+                  <th class="text-end d-none d-sm-table-cell">Files</th>
+                  <th>Estat</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-nowrap d-none d-sm-table-cell">02/11/2026</td>
+                  <td><div class="text-break">caixabank_moviments_2026-10.csv</div><div class="small text-secondary d-lg-none"><span class="d-sm-none num">02/11/2026 · </span>CaixaBank ···· 4521<span class="d-sm-none"> · 51 files</span></div></td>
+                  <td class="d-none d-lg-table-cell text-secondary">CaixaBank · Compte nòmina ···· 4521</td>
+                  <td class="d-none d-md-table-cell text-secondary">CSV</td>
+                  <td class="text-end d-none d-sm-table-cell">51</td>
+                  <td><span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Fet</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap d-none d-sm-table-cell">02/11/2026</td>
+                  <td><div class="text-break">wizink_extracte_octubre.pdf</div><div class="small text-secondary d-lg-none"><span class="d-sm-none num">02/11/2026 · </span>WiZink ···· 3377<span class="d-sm-none"> · 14 files</span></div></td>
+                  <td class="d-none d-lg-table-cell text-secondary">WiZink ···· 3377</td>
+                  <td class="d-none d-md-table-cell text-secondary">PDF amb IA</td>
+                  <td class="text-end d-none d-sm-table-cell">14</td>
+                  <td><a href="import-pdf-review.html" class="badge bg-yellow-lt"><i class="ti ti-eye-check" aria-hidden="true"></i> Pendent de revisió</a></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap d-none d-sm-table-cell">02/11/2026</td>
+                  <td><div class="text-break">ing_estalvi_2026-10.xlsx</div><div class="small text-secondary d-lg-none"><span class="d-sm-none num">02/11/2026 · </span>ING ···· 8830<span class="d-sm-none"> · 4 files</span></div></td>
+                  <td class="d-none d-lg-table-cell text-secondary">ING · Compte estalvi ···· 8830</td>
+                  <td class="d-none d-md-table-cell text-secondary">XLSX</td>
+                  <td class="text-end d-none d-sm-table-cell">4</td>
+                  <td><span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Fet</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap d-none d-sm-table-cell">04/10/2026</td>
+                  <td><div class="text-break">bbva_q43_setembre.n43</div><div class="small text-secondary d-lg-none"><span class="d-sm-none num">04/10/2026 · </span>BBVA ···· 1207<span class="d-sm-none"> · 19 files</span></div></td>
+                  <td class="d-none d-lg-table-cell text-secondary">BBVA · Compte corrent ···· 1207</td>
+                  <td class="d-none d-md-table-cell text-secondary">Norma 43</td>
+                  <td class="text-end d-none d-sm-table-cell">19</td>
+                  <td><span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Fet</span></td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap d-none d-sm-table-cell">04/10/2026</td>
+                  <td><div class="text-break">visa_caixabank_setembre.csv</div><div class="small text-secondary d-lg-none"><span class="d-sm-none num">04/10/2026 · </span>Visa CaixaBank ···· 9012<span class="d-sm-none"> · 23 files</span></div></td>
+                  <td class="d-none d-lg-table-cell text-secondary">Visa CaixaBank ···· 9012</td>
+                  <td class="d-none d-md-table-cell text-secondary">CSV</td>
+                  <td class="text-end d-none d-sm-table-cell">23</td>
+                  <td><span class="badge bg-yellow-lt"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Fet amb 2 avisos</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Wizard: one panel visible at a time; ?step=N opens a given step.
+  (function () {
+    var TITLES = ['Pujada', 'Format', 'Mapatge', 'Previsualització', 'Informe'];
+    var TOTAL = TITLES.length;
+    var current = 1;
+    var panels = document.querySelectorAll('[data-panel]');
+    var steps = document.querySelectorAll('#wizard-steps .step-item');
+    var back = document.getElementById('wizard-back');
+    var next = document.getElementById('wizard-next');
+    var progress = document.getElementById('wizard-progress');
+
+    function go(n, scroll) {
+      current = Math.min(TOTAL, Math.max(1, n));
+      panels.forEach(function (p) { p.hidden = Number(p.getAttribute('data-panel')) !== current; });
+      steps.forEach(function (s, i) {
+        s.classList.toggle('active', i + 1 === current);
+        var link = s.querySelector('a');
+        if (i + 1 === current) { link.setAttribute('aria-current', 'step'); } else { link.removeAttribute('aria-current'); }
+      });
+      document.getElementById('wizard-compact-title').textContent = TITLES[current - 1];
+      document.getElementById('wizard-compact-count').textContent = 'Pas ' + current + ' de ' + TOTAL;
+      progress.setAttribute('aria-valuenow', current);
+      progress.firstElementChild.style.width = (current / TOTAL * 100) + '%';
+      back.classList.toggle('invisible', current === 1);
+      document.getElementById('wizard-footer').hidden = current === TOTAL;
+      document.getElementById('wizard-next-label').textContent = current === 4 ? 'Importa 38 moviments' : 'Continua';
+      if (scroll) { document.getElementById('wizard').scrollIntoView({ block: 'start' }); }
+    }
+
+    back.addEventListener('click', function () { go(current - 1, true); });
+    next.addEventListener('click', function () { go(current + 1, true); });
+    document.getElementById('wizard-steps').addEventListener('click', function (ev) {
+      var link = ev.target.closest('[data-go]');
+      if (link) { ev.preventDefault(); go(Number(link.getAttribute('data-go'))); }
+    });
+
+    go(Number(new URLSearchParams(location.search).get('step')) || 1);
+  })();
+</script>
+</body>
+</html>

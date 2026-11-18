@@ -9,19 +9,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
   <link rel="stylesheet" href="assets/estalvia-theme.css">
   <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: make the invalid state read as one field inside a flat input group. */
+    .input-group-flat .form-control.is-invalid { background-image: none; padding-right: 0.75rem; }
+    .input-group-flat .form-control.is-invalid + .input-group-text { border-color: var(--tblr-form-invalid-border-color); }
+  </style>
 </head>
-<body class="d-flex flex-column">
-  <!-- Language and theme -->
-  <div class="d-flex justify-content-end align-items-center gap-1 p-3">
-    <div class="btn-group" role="group" aria-label="Idioma">
-      <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
-      <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
-    </div>
-    <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
-  </div>
-
+<body>
   <main class="page page-center">
-    <div class="container container-tight py-4">
+    <!-- Language and theme -->
+    <div class="d-flex justify-content-end align-items-center gap-1 p-3">
+      <div class="btn-group" role="group" aria-label="Idioma">
+        <a href="#" class="btn btn-sm active" aria-current="true" lang="ca" title="Català">CA</a>
+        <a href="#" class="btn btn-sm" lang="es" title="Castellano">ES</a>
+      </div>
+      <button type="button" class="btn btn-icon btn-ghost-secondary" data-est-theme-toggle aria-label="Canvia entre mode clar i fosc"><i class="ti ti-moon hide-theme-dark" aria-hidden="true"></i><i class="ti ti-sun hide-theme-light" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="container container-tight py-4 my-auto">
       <div class="text-center mb-4">
         <script>document.write(Estalvia.logo({href:'landing.html', size:'lg'}))</script>
       </div>

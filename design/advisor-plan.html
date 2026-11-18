@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pla d'acció · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: difficulty dots, first-step box, locked preview for the free plan. */
+    .est-dots { display: inline-flex; gap: 3px; vertical-align: middle; }
+    .est-dots > span { width: 0.5rem; height: 0.5rem; border-radius: 50%; border: 1.5px solid var(--tblr-secondary); }
+    .est-dots > span.is-on { background: var(--tblr-secondary); }
+    .est-step { border-left: 3px solid var(--tblr-primary); background: var(--tblr-bg-surface-secondary); border-radius: 0 var(--tblr-border-radius) var(--tblr-border-radius) 0; padding: 0.75rem 1rem; }
+    .est-prio { width: 2.25rem; height: 2.25rem; font-weight: 600; }
+    .est-action-btns .btn { min-height: 2.75rem; }
+    .est-locked { position: relative; }
+    .est-locked-content { filter: blur(5px); opacity: 0.6; pointer-events: none; user-select: none; }
+    .est-locked-overlay { position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem; text-align: center; }
+    .est-locked-overlay > div { background: var(--tblr-bg-surface); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius-lg); padding: 1.25rem; max-width: 24rem; box-shadow: var(--tblr-box-shadow-card); }
+  </style>
+</head>
+<body data-page="advisor-plan">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Assessor · Novembre de 2026</div>
+            <h1 class="page-title">El teu pla d'acció</h1>
+          </div>
+          <div class="col-auto ms-auto d-flex gap-2">
+            <a href="advisor-chat.html" class="btn btn-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Pregunta a l'assessor</span><span class="d-sm-none">Pregunta</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- Permanent AI notice -->
+        <div class="est-ai-notice mb-3" role="note">
+          <i class="ti ti-sparkles" aria-hidden="true"></i>
+          <span>Text redactat per una IA a partir de xifres calculades per Estalvia. No és assessorament d'inversió.</span>
+        </div>
+
+        <div class="row row-cards">
+
+          <!-- Summary -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row g-4 align-items-center">
+                  <div class="col-12 col-md-6 col-lg-5">
+                    <div class="subheader">Estalvi potencial del pla</div>
+                    <div class="d-flex align-items-baseline flex-wrap column-gap-4 row-gap-1 mt-2">
+                      <div class="est-figure est-figure-xl">214 <span class="unit">€/mes</span></div>
+                      <div class="est-figure est-figure-lg">2.563 <span class="unit">€/any</span></div>
+                    </div>
+                    <div class="mt-3 d-flex flex-wrap gap-2">
+                      <span class="badge bg-primary-lt"><i class="ti ti-map-pin" aria-hidden="true"></i> Etapa 2 · Deute car</span>
+                      <span class="badge bg-secondary-lt">6 accions</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-4">
+                    <div class="subheader">Aconseguit fins ara</div>
+                    <div class="est-figure mt-2">6 <span class="unit">€/mes</span></div>
+                    <div class="est-meter est-meter-lg est-meter-success mt-2" role="img" aria-label="6 de 214 euros al mes aconseguits"><span style="width:2.8%"></span></div>
+                    <div class="d-flex justify-content-between small text-secondary mt-1"><span><i class="ti ti-circle-check text-success" aria-hidden="true"></i> 1 de 6 accions fetes</span><span class="num">6 de 214 €/mes</span></div>
+                  </div>
+                  <div class="col-12 col-lg-3">
+                    <div class="small text-secondary vstack gap-1">
+                      <span><i class="ti ti-calendar" aria-hidden="true"></i> Pla generat el <span class="num">02/11/2026</span></span>
+                      <span><i class="ti ti-refresh" aria-hidden="true"></i> Propera revisió mensual: <span class="num">02/12/2026</span></span>
+                      <span><i class="ti ti-heart-rate-monitor" aria-hidden="true"></i> Basat en el <a href="diagnosis.html">diagnòstic d'agost–octubre</a></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly review -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-status-start bg-green"></div>
+              <div class="card-body">
+                <div class="d-flex gap-3">
+                  <span class="avatar bg-green-lt flex-shrink-0"><i class="ti ti-calendar-check" aria-hidden="true"></i></span>
+                  <div>
+                    <h2 class="card-title mb-1">Revisió de novembre</h2>
+                    <p class="mb-2">Bon mes, Marta. Has reduït el deute de la targeta en <span class="num fw-medium">300,00 €</span>, has eliminat la comissió del BBVA i l'octubre has tancat amb <span class="num fw-medium">2.660 €</span> de despesa, <span class="num fw-medium">130 €</span> menys que al setembre. L'índex de salut ha pujat de <span class="num">58</span> a <span class="num">62</span>.</p>
+                    <p class="text-secondary mb-0">Aquest mes et proposo una sola cosa més: revisar les subscripcions de vídeo. Són cinc minuts i no cal renunciar a res que facis servir.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="col-12">
+            <div class="form-selectgroup form-selectgroup-pills" role="group" aria-label="Filtra les accions per estat">
+              <label class="form-selectgroup-item"><input type="radio" name="status-filter" value="all" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Totes <span class="num text-secondary ms-1">6</span></span></label>
+              <label class="form-selectgroup-item"><input type="radio" name="status-filter" value="pending" class="form-selectgroup-input"><span class="form-selectgroup-label">Pendents <span class="num text-secondary ms-1">4</span></span></label>
+              <label class="form-selectgroup-item"><input type="radio" name="status-filter" value="progress" class="form-selectgroup-input"><span class="form-selectgroup-label">En curs <span class="num text-secondary ms-1">1</span></span></label>
+              <label class="form-selectgroup-item"><input type="radio" name="status-filter" value="done" class="form-selectgroup-input"><span class="form-selectgroup-label">Fetes <span class="num text-secondary ms-1">1</span></span></label>
+              <label class="form-selectgroup-item"><input type="radio" name="status-filter" value="dismissed" class="form-selectgroup-input"><span class="form-selectgroup-label">Descartades <span class="num text-secondary ms-1">0</span></span></label>
+            </div>
+          </div>
+
+          <!-- Action 1 -->
+          <div class="col-12" data-status="progress">
+            <article class="card" aria-labelledby="a1-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num" aria-label="Prioritat 1">1</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a1-title">Liquida la targeta revolving (mètode allau)</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-azure-lt"><i class="ti ti-progress" aria-hidden="true"></i> En curs</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span class="is-on"></span><span></span></span>Dificultat mitjana</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte</div>
+                    <div class="est-figure">43 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">511 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Ja has començat, i es nota. La WiZink té un <span class="num">21,84 %</span> TAE: dels <span class="num">95,00 €</span> de quota, gairebé la meitat són interessos. Mentre aquest deute existeixi, et costa uns <span class="num">511 €</span> l'any, i cada euro extra que hi poses deixa de generar-ne.</p>
+
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between flex-wrap gap-1 small mb-1"><span class="fw-medium">Deute reduït de <span class="num">2.640,00 €</span> a <span class="num">2.340,00 €</span></span><span class="num text-secondary">300,00 € liquidats · 11 %</span></div>
+                  <div class="est-meter est-meter-info" role="img" aria-label="11 % del deute liquidat"><span style="width:11.4%"></span></div>
+                  <div class="small text-secondary mt-1"><i class="ti ti-calculator" aria-hidden="true"></i> Progrés calculat amb els teus moviments, no amb el que has marcat.</div>
+                </div>
+
+                <div class="est-step">
+                  <div class="subheader mb-1">Primer pas</div>
+                  Programa una transferència fixa de <span class="num fw-medium">200 €</span> a la targeta el dia 29, just després de la nòmina. Amb aquest ritme la tindries liquidada l'agost de 2027.
+                </div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-1" aria-expanded="false" aria-controls="why-1"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse" id="why-1">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-D02 · deute car)</div>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-vcenter mb-0">
+                        <thead><tr><th>Deute</th><th class="text-end">Saldo</th><th class="text-end">TAE</th><th class="text-end">Quota</th></tr></thead>
+                        <tbody>
+                          <tr><td>WiZink</td><td class="text-end text-nowrap">2.340,00 €</td><td class="text-end text-nowrap">21,84 %</td><td class="text-end text-nowrap">95,00 €</td></tr>
+                          <tr><td>Préstec cotxe</td><td class="text-end text-nowrap">8.615,40 €</td><td class="text-end text-nowrap">7,45 %</td><td class="text-end text-nowrap">276,90 €</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="text-secondary mt-2 mb-0">Mètode allau: primer el deute amb l'interès més alt. Flux de caixa disponible: <span class="num">+365 €/mes</span>.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn btn-primary"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                  <button type="button" class="btn active" aria-pressed="true"><i class="ti ti-progress icon" aria-hidden="true"></i>En curs</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                  <button type="button" class="btn btn-ghost-secondary ms-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-dismiss" data-action-title="Liquida la targeta revolving (mètode allau)"><i class="ti ti-x icon" aria-hidden="true"></i>Descarta</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Action 2 -->
+          <div class="col-12" data-status="pending">
+            <article class="card" aria-labelledby="a2-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num" aria-label="Prioritat 2">2</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a2-title">Revisa 3 subscripcions de vídeo solapades</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-secondary-lt"><i class="ti ti-circle-dashed" aria-hidden="true"></i> Pendent</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span></span><span></span></span>Dificultat baixa</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte</div>
+                    <div class="est-figure">26 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">312 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Pagues tres plataformes de vídeo alhora, i és molt habitual: s'hi entra per una sèrie i s'hi queda. No cal renunciar-hi; n'hi ha prou de tenir-ne una d'activa i anar-les alternant. Si en mantens una i pauses les altres dues, pots alliberar fins a <span class="num">26 €</span> al mes.</p>
+
+                <div class="est-step">
+                  <div class="subheader mb-1">Primer pas</div>
+                  Mira quina de les tres heu obert menys aquest mes i posa-la en pausa avui. La pots reactivar quan vulguis.
+                </div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-2" aria-expanded="true" aria-controls="why-2"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse show" id="why-2">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-S01 · recurrents solapats)</div>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-vcenter mb-0">
+                        <thead><tr><th>Subscripció</th><th>Últim càrrec</th><th class="text-end">Import mensual</th></tr></thead>
+                        <tbody>
+                          <tr><td>Netflix</td><td class="text-nowrap">12/11/2026</td><td class="text-end text-nowrap">14,99 €</td></tr>
+                          <tr><td>Disney+</td><td class="text-nowrap">08/11/2026</td><td class="text-end text-nowrap">10,99 €</td></tr>
+                          <tr><td>HBO Max</td><td class="text-nowrap">03/11/2026</td><td class="text-end text-nowrap">9,99 €</td></tr>
+                          <tr><td class="fw-medium" colspan="2">Total de la categoria «vídeo»</td><td class="text-end text-nowrap fw-medium">35,97 €</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <p class="text-secondary mt-2 mb-0">Estalvi calculat mantenint només la més econòmica: <span class="num">35,97 € − 9,99 € = 25,98 €/mes</span>. Total de subscripcions: <span class="num">148 €/mes</span>.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn btn-primary"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                  <button type="button" class="btn" aria-pressed="false"><i class="ti ti-progress icon" aria-hidden="true"></i>En curs</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                  <button type="button" class="btn btn-ghost-secondary ms-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-dismiss" data-action-title="Revisa 3 subscripcions de vídeo solapades"><i class="ti ti-x icon" aria-hidden="true"></i>Descarta</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Action 3 -->
+          <div class="col-12" data-status="pending">
+            <article class="card" aria-labelledby="a3-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num" aria-label="Prioritat 3">3</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a3-title">Compara la tarifa de llum amb el PVPC</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-secondary-lt"><i class="ti ti-circle-dashed" aria-hidden="true"></i> Pendent</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span></span><span></span></span>Dificultat baixa</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte</div>
+                    <div class="est-figure">18 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">216 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Les teves factures d'Endesa són d'una tarifa del mercat lliure. Amb el mateix consum, la tarifa regulada (PVPC) t'hauria sortit uns <span class="num">18 €</span> més barata cada mes. És una estimació: el PVPC canvia cada hora, i per això et proposo comparar abans de decidir.</p>
+
+                <div class="est-step">
+                  <div class="subheader mb-1">Primer pas</div>
+                  Tingues a mà l'última factura i entra al comparador oficial de la CNMC. Només necessites la potència contractada i el consum en kWh.
+                </div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-3" aria-expanded="false" aria-controls="why-3"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse" id="why-3">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-U03 · llum vs PVPC)</div>
+                    <dl class="row mb-0">
+                      <dt class="col-7 fw-normal text-secondary">Factura mitjana d'Endesa (agost–octubre)</dt><dd class="col-5 text-end num">86 €/mes</dd>
+                      <dt class="col-7 fw-normal text-secondary">Estimació amb PVPC i el mateix consum</dt><dd class="col-5 text-end num">68 €/mes</dd>
+                      <dt class="col-7 fw-normal text-secondary">Font de preus</dt><dd class="col-5 text-end mb-0">PVPC · REE (ESIOS)</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn btn-primary"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                  <button type="button" class="btn" aria-pressed="false"><i class="ti ti-progress icon" aria-hidden="true"></i>En curs</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                  <button type="button" class="btn btn-ghost-secondary ms-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-dismiss" data-action-title="Compara la tarifa de llum amb el PVPC"><i class="ti ti-x icon" aria-hidden="true"></i>Descarta</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Action 4 (done) -->
+          <div class="col-12" data-status="done">
+            <article class="card" aria-labelledby="a4-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-green-lt est-prio num" aria-label="Prioritat 4">4</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a4-title">Elimina la comissió de manteniment del BBVA</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Feta</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span></span><span></span></span>Dificultat baixa</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte</div>
+                    <div class="est-figure">6 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">72 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Fet, i ben fet. El compte del BBVA cobrava <span class="num">18,00 €</span> cada trimestre de manteniment per un saldo de <span class="num">412,90 €</span>. Són <span class="num">72 €</span> l'any que ja no pagaràs.</p>
+
+                <div class="small text-secondary"><i class="ti ti-calendar-check" aria-hidden="true"></i> Marcada com a feta el <span class="num">09/11/2026</span>. Ho confirmarem amb els teus moviments quan arribi la data del proper càrrec trimestral (febrer de 2027).</div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-4" aria-expanded="false" aria-controls="why-4"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse" id="why-4">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-C01 · comissions evitables)</div>
+                    <dl class="row mb-0">
+                      <dt class="col-7 fw-normal text-secondary">Últim càrrec «Manteniment de compte» · BBVA ···· 1207</dt><dd class="col-5 text-end num">18,00 € · 05/11/2026</dd>
+                      <dt class="col-7 fw-normal text-secondary">Freqüència detectada</dt><dd class="col-5 text-end">Trimestral</dd>
+                      <dt class="col-7 fw-normal text-secondary">Cost anual</dt><dd class="col-5 text-end num mb-0">72 €</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn"><i class="ti ti-arrow-back-up icon" aria-hidden="true"></i>Desfés</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Action 5 -->
+          <div class="col-12" data-status="pending">
+            <article class="card" aria-labelledby="a5-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num" aria-label="Prioritat 5">5</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a5-title">Ajusta restauració i oci a la banda 50/30/20</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-secondary-lt"><i class="ti ti-circle-dashed" aria-hidden="true"></i> Pendent</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span class="is-on"></span><span></span></span>Dificultat mitjana</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte</div>
+                    <div class="est-figure">60 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">720 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Sortir a sopar forma part de viure bé i no et demano que ho deixis. A l'octubre vas gastar <span class="num">172 €</span> en oci i restauració, <span class="num">60 €</span> menys que la teva mitjana del trimestre. Si aquest octubre es converteix en el teu mes normal, l'estalvi ja el tens: només cal mantenir-lo.</p>
+
+                <div class="est-step">
+                  <div class="subheader mb-1">Primer pas</div>
+                  Crea un pressupost de <span class="num fw-medium">172 €</span> per a «Oci i restauració» i activa l'avís quan arribis al 80 %.
+                </div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-5" aria-expanded="false" aria-controls="why-5"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse" id="why-5">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-B02 · banda 50/30/20)</div>
+                    <dl class="row mb-0">
+                      <dt class="col-7 fw-normal text-secondary">Oci i restauració · mitjana agost–octubre</dt><dd class="col-5 text-end num">232 €/mes</dd>
+                      <dt class="col-7 fw-normal text-secondary">Oci i restauració · octubre</dt><dd class="col-5 text-end num">172 €</dd>
+                      <dt class="col-7 fw-normal text-secondary">Necessitats i quotes de deute</dt><dd class="col-5 text-end num">67,7 % dels ingressos</dd>
+                      <dt class="col-7 fw-normal text-secondary">Estalvi actual · objectiu</dt><dd class="col-5 text-end num mb-0">11,4 % · 20 %</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn btn-primary"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                  <button type="button" class="btn" aria-pressed="false"><i class="ti ti-progress icon" aria-hidden="true"></i>En curs</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                  <button type="button" class="btn btn-ghost-secondary ms-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-dismiss" data-action-title="Ajusta restauració i oci a la banda 50/30/20"><i class="ti ti-x icon" aria-hidden="true"></i>Descarta</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Action 6 -->
+          <div class="col-12" data-status="pending">
+            <article class="card" aria-labelledby="a6-title">
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num" aria-label="Prioritat 6">6</span></div>
+                  <div class="col">
+                    <h2 class="h2 mb-2" id="a6-title">Revisa les assegurances (cotxe i llar) abans de la renovació</h2>
+                    <div class="d-flex flex-wrap align-items-center gap-2 small">
+                      <span class="badge bg-secondary-lt"><i class="ti ti-circle-dashed" aria-hidden="true"></i> Pendent</span>
+                      <span class="text-secondary"><span class="est-dots me-1" aria-hidden="true"><span class="is-on"></span><span class="is-on"></span><span></span></span>Dificultat mitjana</span>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-auto text-md-end">
+                    <div class="subheader">Impacte estimat</div>
+                    <div class="est-figure">61 <span class="unit">€/mes</span></div>
+                    <div class="num text-secondary">732 €/any</div>
+                  </div>
+                </div>
+
+                <p class="mt-3">Les assegurances es renoven soles i gairebé sempre pugen una mica cada any; és fàcil que passin desapercebudes. Demanar un parell de pressupostos amb les mateixes cobertures abans de la renovació acostuma a ser suficient perquè et millorin el preu. L'estalvi és una estimació i el sabràs del cert quan tinguis les ofertes.</p>
+
+                <div class="est-step">
+                  <div class="subheader mb-1">Primer pas</div>
+                  Busca la pòlissa del cotxe i apunta'n les cobertures. Posa't un recordatori un mes abans de la renovació: és el termini per avisar la companyia si vols canviar.
+                </div>
+
+                <button class="btn btn-sm mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#why-6" aria-expanded="false" aria-controls="why-6"><i class="ti ti-help-circle icon" aria-hidden="true"></i>Per què et dic això</button>
+                <div class="collapse" id="why-6">
+                  <div class="mt-3 p-3 rounded bg-surface-secondary small">
+                    <div class="fw-medium mb-2">Dades del motor (regla R-A01 · assegurances per renovar)</div>
+                    <dl class="row mb-0">
+                      <dt class="col-7 fw-normal text-secondary">Mapfre · cotxe (càrrec anual detectat)</dt><dd class="col-5 text-end num">1.140,00 €</dd>
+                      <dt class="col-7 fw-normal text-secondary">Mapfre · llar (càrrec anual detectat)</dt><dd class="col-5 text-end num">396,00 €</dd>
+                      <dt class="col-7 fw-normal text-secondary">Primes de referència per a cobertures equivalents</dt><dd class="col-5 text-end num">804 €/any</dd>
+                      <dt class="col-7 fw-normal text-secondary">Propera renovació detectada</dt><dd class="col-5 text-end num mb-0">15/01/2027 (cotxe)</dd>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-flex flex-wrap gap-2 est-action-btns">
+                  <button type="button" class="btn btn-primary"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                  <button type="button" class="btn" aria-pressed="false"><i class="ti ti-progress icon" aria-hidden="true"></i>En curs</button>
+                  <a href="advisor-chat.html" class="btn btn-ghost-primary"><i class="ti ti-message-chatbot icon" aria-hidden="true"></i>Pregunta a l'assessor</a>
+                  <button type="button" class="btn btn-ghost-secondary ms-sm-auto" data-bs-toggle="modal" data-bs-target="#modal-dismiss" data-action-title="Revisa les assegurances (cotxe i llar) abans de la renovació"><i class="ti ti-x icon" aria-hidden="true"></i>Descarta</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Empty state for filters with no results -->
+          <div class="col-12 d-none" id="empty-filter">
+            <div class="card">
+              <div class="empty">
+                <div class="empty-icon"><i class="ti ti-circle-x" aria-hidden="true" style="font-size:2.5rem"></i></div>
+                <p class="empty-title">No has descartat cap acció</p>
+                <p class="empty-subtitle text-secondary">Si una proposta no encaixa amb tu, la pots descartar i dir-nos per què. Ens ajuda a afinar el pla.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Variant: free plan -->
+          <div class="col-12">
+            <h2 class="h2 mb-0 mt-3">Altres estats d'aquesta pantalla</h2>
+            <div class="text-secondary">Exemple per a la proposta de disseny; no forma part del pla de la Marta.</div>
+          </div>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <span class="badge bg-secondary-lt mb-2">Variant: pla Gratuït</span>
+                  <h3 class="card-title">Resum del pla (1 acció)</h3>
+                  <div class="card-subtitle mt-1">Estalvi potencial total: <span class="num">214 €/mes</span> · <span class="num">2.563 €/any</span></div>
+                </div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="row g-2 align-items-center">
+                    <div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num">1</span></div>
+                    <div class="col">
+                      <div class="fw-medium">Liquida la targeta revolving (mètode allau)</div>
+                      <div class="text-secondary small">Dificultat mitjana · <span class="badge bg-azure-lt"><i class="ti ti-progress" aria-hidden="true"></i> En curs</span></div>
+                    </div>
+                    <div class="col-auto text-end"><div class="num fw-semibold">43 €/mes</div><div class="num small text-secondary">511 €/any</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="est-locked border-top">
+                <div class="list-group list-group-flush est-locked-content" aria-hidden="true">
+                  <div class="list-group-item"><div class="row g-2 align-items-center"><div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num">2</span></div><div class="col"><div class="fw-medium">Acció reservada al pla Premium</div><div class="text-secondary small">Dificultat baixa · Pendent</div></div><div class="col-auto text-end"><div class="num fw-semibold">00 €/mes</div><div class="num small text-secondary">000 €/any</div></div></div></div>
+                  <div class="list-group-item"><div class="row g-2 align-items-center"><div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num">3</span></div><div class="col"><div class="fw-medium">Acció reservada al pla Premium</div><div class="text-secondary small">Dificultat baixa · Pendent</div></div><div class="col-auto text-end"><div class="num fw-semibold">00 €/mes</div><div class="num small text-secondary">000 €/any</div></div></div></div>
+                  <div class="list-group-item"><div class="row g-2 align-items-center"><div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num">4</span></div><div class="col"><div class="fw-medium">Acció reservada al pla Premium</div><div class="text-secondary small">Dificultat baixa · Pendent</div></div><div class="col-auto text-end"><div class="num fw-semibold">00 €/mes</div><div class="num small text-secondary">000 €/any</div></div></div></div>
+                  <div class="list-group-item"><div class="row g-2 align-items-center"><div class="col-auto"><span class="avatar rounded-circle bg-primary-lt est-prio num">5</span></div><div class="col"><div class="fw-medium">Acció reservada al pla Premium</div><div class="text-secondary small">Dificultat mitjana · Pendent</div></div><div class="col-auto text-end"><div class="num fw-semibold">00 €/mes</div><div class="num small text-secondary">000 €/any</div></div></div></div>
+                </div>
+                <div class="est-locked-overlay">
+                  <div>
+                    <span class="avatar bg-primary-lt mb-2"><i class="ti ti-lock" aria-hidden="true"></i></span>
+                    <div class="fw-semibold mb-1">5 accions més al teu pla</div>
+                    <div class="text-secondary small mb-3">Sumen <span class="num">171 €/mes</span> d'estalvi potencial. Amb Premium veus el pla complet, el detall de cada acció i el xat amb l'assessor.</div>
+                    <a href="billing.html" class="btn btn-primary w-100">Prova Premium 14 dies</a>
+                    <div class="text-secondary small mt-2">Sense targeta · després <span class="num">4,99 €/mes</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Dismiss modal -->
+<div class="modal modal-blur fade" id="modal-dismiss" tabindex="-1" aria-labelledby="modal-dismiss-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h3" id="modal-dismiss-title">Descarta aquesta acció</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tanca"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-medium mb-3" id="modal-dismiss-action">Acció</p>
+        <div class="mb-3">
+          <label class="form-label" for="dismiss-reason">Per què la descartes?</label>
+          <select class="form-select" id="dismiss-reason">
+            <option selected>Ja ho he fet d'una altra manera</option>
+            <option>No s'aplica al meu cas</option>
+            <option>Ara no em va bé; recorda-m'ho més endavant</option>
+            <option>No hi estic d'acord</option>
+            <option>Les dades no són correctes</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" for="dismiss-note">Vols afegir-hi alguna cosa? <span class="form-label-description">Opcional</span></label>
+          <textarea class="form-control" id="dismiss-note" rows="2"></textarea>
+        </div>
+        <p class="text-secondary small mt-3 mb-0">No passa res per descartar una proposta. La tindrem en compte a la propera revisió mensual i la podràs recuperar quan vulguis.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Cancel·la</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Descarta l'acció</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Status filter pills: show/hide action cards by data-status.
+  (function () {
+    var cards = document.querySelectorAll('[data-status]');
+    var empty = document.getElementById('empty-filter');
+    document.querySelectorAll('input[name="status-filter"]').forEach(function (input) {
+      input.addEventListener('change', function () {
+        var shown = 0;
+        cards.forEach(function (card) {
+          var match = input.value === 'all' || card.getAttribute('data-status') === input.value;
+          card.classList.toggle('d-none', !match);
+          if (match) { shown++; }
+        });
+        empty.classList.toggle('d-none', shown > 0);
+      });
+    });
+    // Dismiss modal: show which action is being dismissed.
+    document.getElementById('modal-dismiss').addEventListener('show.bs.modal', function (ev) {
+      var title = ev.relatedTarget && ev.relatedTarget.getAttribute('data-action-title');
+      if (title) { document.getElementById('modal-dismiss-action').textContent = title; }
+    });
+  })();
+</script>
+</body>
+</html>

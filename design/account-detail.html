@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Préstec cotxe · Comptes · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Amortisation table: paid rows recede, the next payment stands out. */
+    #amort-table tr.is-paid td { color: var(--tblr-secondary); }
+    #amort-table tr.is-next td { background: var(--tblr-azure-lt); font-weight: 600; }
+    #amort-table tr.is-next td:first-child { box-shadow: inset 3px 0 0 var(--tblr-azure); }
+  </style>
+</head>
+<body data-page="accounts">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <nav aria-label="Ruta de navegació">
+              <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item"><a href="accounts.html">Comptes</a></li>
+                <li class="breadcrumb-item"><a href="accounts.html">Préstecs i hipoteques</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Préstec cotxe</li>
+              </ol>
+            </nav>
+            <h1 class="page-title">Préstec cotxe</h1>
+            <div class="text-secondary mt-1">Santander Consumer · préstec personal a tipus fix</div>
+          </div>
+          <div class="col-auto ms-auto d-flex gap-2">
+            <a href="simulators.html" class="btn d-none d-md-inline-flex"><i class="ti ti-calculator icon" aria-hidden="true"></i>Simula una amortització</a>
+            <div class="dropdown">
+              <button type="button" class="btn btn-icon" data-bs-toggle="dropdown" aria-label="Opcions del préstec"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a class="dropdown-item" href="#"><i class="ti ti-pencil dropdown-item-icon" aria-hidden="true"></i>Edita les condicions</a>
+                <a class="dropdown-item" href="#"><i class="ti ti-cash dropdown-item-icon" aria-hidden="true"></i>Registra una amortització</a>
+                <a class="dropdown-item" href="#"><i class="ti ti-download dropdown-item-icon" aria-hidden="true"></i>Exporta la taula (CSV)</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#"><i class="ti ti-archive dropdown-item-icon" aria-hidden="true"></i>Arxiva</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-cards">
+
+          <!-- Main column -->
+          <div class="col-12 col-lg-8">
+
+            <!-- Key figures -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row g-4 align-items-end">
+                  <div class="col-12 col-sm-6">
+                    <div class="subheader">Capital pendent</div>
+                    <div class="est-figure est-figure-lg mt-2">8.615,40 <span class="unit">€</span></div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="d-flex justify-content-between small mb-1">
+                      <span class="text-secondary">Capital amortitzat</span>
+                      <span class="num"><span class="fw-medium">38,5 %</span> <span class="text-secondary">de 14.000,00 €</span></span>
+                    </div>
+                    <div class="est-meter est-meter-lg est-meter-info" role="img" aria-label="38,5 % del capital amortitzat"><span style="width:38.5%"></span></div>
+                    <div class="small text-secondary mt-1"><span class="num">33</span> quotes pagades de <span class="num">60</span></div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <div class="row g-3">
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">Quota mensual</div>
+                    <div class="est-figure fs-2 mt-1">276,90 <span class="unit">€</span></div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">Propera quota</div>
+                    <div class="est-figure fs-2 mt-1">05/12/2026</div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">Data final</div>
+                    <div class="est-figure fs-2 mt-1">02/2029</div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">TIN</div>
+                    <div class="est-figure fs-2 mt-1">6,95 <span class="unit">%</span></div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">TAE</div>
+                    <div class="est-figure fs-2 mt-1">7,45 <span class="unit">%</span></div>
+                  </div>
+                  <div class="col-6 col-md-4">
+                    <div class="subheader">Interessos pendents <span class="text-lowercase fw-normal">(est.)</span></div>
+                    <div class="est-figure fs-2 mt-1"><span id="fig-interest">—</span> <span class="unit">€</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="card">
+              <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs" role="tablist">
+                  <li class="nav-item" role="presentation"><a href="#tab-summary" class="nav-link active" data-bs-toggle="tab" role="tab" aria-selected="true">Resum</a></li>
+                  <li class="nav-item" role="presentation"><a href="#tab-table" class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false"><span class="d-none d-sm-inline">Taula d'amortització</span><span class="d-sm-none">Amortització</span></a></li>
+                  <li class="nav-item" role="presentation"><a href="#tab-movements" class="nav-link" data-bs-toggle="tab" role="tab" aria-selected="false">Moviments</a></li>
+                </ul>
+              </div>
+              <div class="tab-content">
+
+                <!-- Summary tab -->
+                <div class="tab-pane active show" id="tab-summary" role="tabpanel">
+                  <div class="card-body">
+                    <h2 class="card-title">Capital pendent</h2>
+                    <div class="card-subtitle mt-1 est-chart-unit">Euros · de 03/2024 a 02/2029 · línia contínua: pagat · línia discontínua: previsió</div>
+                    <div id="chart-balance" class="mt-3" style="min-height:280px"></div>
+                  </div>
+                  <div class="card-body">
+                    <h2 class="card-title mb-3">Condicions del préstec</h2>
+                    <div class="datagrid">
+                      <div class="datagrid-item"><div class="datagrid-title">Sistema d'amortització</div><div class="datagrid-content">Francès (quota constant)</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Tipus d'interès</div><div class="datagrid-content">Fix</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Termini</div><div class="datagrid-content num">60 mesos</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Capital inicial</div><div class="datagrid-content num">14.000,00 €</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Primera quota</div><div class="datagrid-content num">05/03/2024</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Dia de càrrec</div><div class="datagrid-content num">5 de cada mes</div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Compte de càrrec</div><div class="datagrid-content">CaixaBank <span class="num">···· 4521</span></div></div>
+                      <div class="datagrid-item"><div class="datagrid-title">Origen de les dades</div><div class="datagrid-content"><span class="badge bg-secondary-lt"><i class="ti ti-pencil" aria-hidden="true"></i> Manual</span></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Amortisation table tab -->
+                <div class="tab-pane" id="tab-table" role="tabpanel">
+                  <div class="card-body d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                    <div>
+                      <h2 class="card-title">Taula d'amortització</h2>
+                      <div class="card-subtitle mt-1" id="amort-caption">Quotes al voltant de la propera</div>
+                    </div>
+                    <button type="button" class="btn btn-sm" id="amort-toggle" aria-expanded="false" aria-controls="amort-table">Mostra-les totes</button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-vcenter card-table" id="amort-table">
+                      <thead>
+                        <tr>
+                          <th class="w-1">Núm.</th>
+                          <th>Data</th>
+                          <th class="text-end d-none d-md-table-cell">Quota</th>
+                          <th class="text-end d-none d-sm-table-cell">Interessos</th>
+                          <th class="text-end"><span class="d-sm-none">Amort.</span><span class="d-none d-sm-inline">Amortització</span></th>
+                          <th class="text-end"><span class="d-sm-none">Pendent</span><span class="d-none d-sm-inline">Capital pendent</span></th>
+                          <th class="d-none d-sm-table-cell">Estat</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                  <div class="card-footer small text-secondary">
+                    Imports en euros. En pantalles petites s'amaguen les columnes «Interessos» i «Quota»; la quota és sempre de <span class="num">276,90 €</span> (l'última s'ajusta per l'arrodoniment).
+                  </div>
+                </div>
+
+                <!-- Movements tab -->
+                <div class="tab-pane" id="tab-movements" role="tabpanel">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                      <div class="row g-2 align-items-center">
+                        <div class="col"><div class="fw-medium">Quota 33 · Préstec cotxe</div><div class="small text-secondary"><span class="num">05/11/2026</span> · CaixaBank <span class="num">···· 4521</span> · <i class="ti ti-repeat" aria-hidden="true"></i> Recurrent</div></div>
+                        <div class="col-auto num fw-medium">−276,90 €</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="row g-2 align-items-center">
+                        <div class="col"><div class="fw-medium">Quota 32 · Préstec cotxe</div><div class="small text-secondary"><span class="num">05/10/2026</span> · CaixaBank <span class="num">···· 4521</span> · <i class="ti ti-repeat" aria-hidden="true"></i> Recurrent</div></div>
+                        <div class="col-auto num fw-medium">−276,90 €</div>
+                      </div>
+                    </div>
+                    <div class="list-group-item">
+                      <div class="row g-2 align-items-center">
+                        <div class="col"><div class="fw-medium">Quota 31 · Préstec cotxe</div><div class="small text-secondary"><span class="num">05/09/2026</span> · CaixaBank <span class="num">···· 4521</span> · <i class="ti ti-repeat" aria-hidden="true"></i> Recurrent</div></div>
+                        <div class="col-auto num fw-medium">−276,90 €</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer"><a href="transactions.html">Veure tots els moviments d'aquest préstec<i class="ti ti-chevron-right" aria-hidden="true"></i></a></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Side column -->
+          <div class="col-12 col-lg-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <span class="avatar bg-primary-lt"><i class="ti ti-calculator" aria-hidden="true"></i></span>
+                  <h2 class="card-title mb-0">Simula una amortització anticipada</h2>
+                </div>
+                <p class="text-secondary">Mira quants interessos t'estalviaries avançant capital, i si et convé més reduir la quota o el termini. Els càlculs els fa el motor d'Estalvia amb les condicions d'aquest préstec.</p>
+                <a href="simulators.html" class="btn btn-primary w-100"><i class="ti ti-calculator icon" aria-hidden="true"></i>Obre el simulador</a>
+              </div>
+            </div>
+
+            <div class="card mb-3">
+              <div class="card-body">
+                <h2 class="card-title">Abans d'avançar capital</h2>
+                <p class="text-secondary mb-2">Ara ets a l'<strong class="text-body">etapa 2 · Deute car</strong>. La targeta revolving (TAE <span class="num">21,84 %</span>) et costa força més que aquest préstec (TAE <span class="num">7,45 %</span>): val més liquidar-la primer.</p>
+                <a href="advisor-plan.html">Veure el pla d'acció<i class="ti ti-chevron-right" aria-hidden="true"></i></a>
+              </div>
+            </div>
+
+            <div class="alert alert-info mb-0" role="note">
+              <div class="d-flex">
+                <div class="pe-2"><i class="ti ti-info-circle icon alert-icon" aria-hidden="true"></i></div>
+                <div>
+                  <h4 class="alert-title">I si el tipus fos variable?</h4>
+                  <div class="text-secondary">En hipoteques i préstecs a tipus variable, la taula es recalcula a cada revisió amb l'Euríbor vigent més el diferencial. Les quotes posteriors a la propera revisió són sempre una estimació.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+  // French amortisation schedule computed from the loan's real parameters.
+  (function () {
+    var PRINCIPAL = 14000, TIN = 0.0695, MONTHS = 60, PAID = 33;
+    var START_YEAR = 2024, START_MONTH = 3, CHARGE_DAY = 5; // first instalment 05/03/2024
+    var r = TIN / 12;
+    var round2 = function (v) { return Math.round(v * 100) / 100; };
+    // Contractual instalment; the annuity formula gives 276,89 € and the lender rounds up.
+    var quota = Math.max(276.90, round2(PRINCIPAL * r / (1 - Math.pow(1 + r, -MONTHS))));
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+
+    var rows = [], balance = PRINCIPAL;
+    for (var n = 1; n <= MONTHS; n++) {
+      var interest = round2(balance * r);
+      var principal = n === MONTHS ? balance : round2(quota - interest); // last one absorbs rounding
+      var m = START_MONTH - 1 + (n - 1);
+      balance = round2(balance - principal);
+      rows.push({
+        n: n, year: START_YEAR + Math.floor(m / 12), month: m % 12 + 1,
+        quota: round2(principal + interest), interest: interest, principal: principal, balance: balance
+      });
+    }
+
+    // Estimated interest still to pay.
+    var pending = rows.slice(PAID).reduce(function (s, x) { return s + x.interest; }, 0);
+    document.getElementById('fig-interest').textContent = Estalvia.num(pending, 2);
+
+    // Table: a window around the next payment, or every row.
+    var tbody = document.querySelector('#amort-table tbody');
+    var toggle = document.getElementById('amort-toggle');
+    var caption = document.getElementById('amort-caption');
+    var showAll = false;
+    function render() {
+      var list = showAll ? rows : rows.filter(function (x) { return x.n >= PAID - 3 && x.n <= PAID + 6; });
+      tbody.innerHTML = list.map(function (x) {
+        var paid = x.n <= PAID, next = x.n === PAID + 1;
+        var state = paid ? '<span class="text-success"><i class="ti ti-check" aria-hidden="true"></i> Pagada</span>'
+          : next ? '<span class="badge bg-azure-lt"><i class="ti ti-calendar-event" aria-hidden="true"></i> Propera</span>'
+          : '<span class="text-secondary">Prevista</span>';
+        var mark = paid ? '<i class="ti ti-check text-success d-sm-none ms-1" aria-hidden="true"></i><span class="visually-hidden d-sm-none"> pagada</span>'
+          : next ? '<i class="ti ti-calendar-event text-azure d-sm-none ms-1" aria-hidden="true"></i><span class="visually-hidden d-sm-none"> propera</span>' : '';
+        return '<tr class="' + (paid ? 'is-paid' : next ? 'is-next' : '') + '"' + (next ? ' aria-current="true"' : '') + '>' +
+          '<td class="text-nowrap">' + x.n + mark + '</td>' +
+          '<td class="text-nowrap">' + pad(CHARGE_DAY) + '/' + pad(x.month) + '/' + x.year + '</td>' +
+          '<td class="text-end text-nowrap d-none d-md-table-cell">' + Estalvia.num(x.quota, 2) + '</td>' +
+          '<td class="text-end text-nowrap d-none d-sm-table-cell">' + Estalvia.num(x.interest, 2) + '</td>' +
+          '<td class="text-end text-nowrap">' + Estalvia.num(x.principal, 2) + '</td>' +
+          '<td class="text-end text-nowrap">' + Estalvia.num(x.balance, 2) + '</td>' +
+          '<td class="text-nowrap d-none d-sm-table-cell">' + state + '</td></tr>';
+      }).join('');
+      toggle.textContent = showAll ? 'Mostra només les properes' : 'Mostra-les totes';
+      toggle.setAttribute('aria-expanded', showAll ? 'true' : 'false');
+      caption.textContent = showAll ? 'Les 60 quotes · ' + PAID + ' pagades' : 'Quotes ' + (PAID - 3) + ' a ' + (PAID + 6) + ' de 60 · al voltant de la propera';
+    }
+    toggle.addEventListener('click', function () { showAll = !showAll; render(); });
+    render();
+
+    // Chart: outstanding principal, paid (solid) vs projected (dashed).
+    var ts = function (x) { return Date.UTC(x.year, x.month - 1, CHARGE_DAY); };
+    var points = [{ x: Date.UTC(START_YEAR, START_MONTH - 2, CHARGE_DAY), y: PRINCIPAL }]
+      .concat(rows.map(function (x) { return { x: ts(x), y: x.balance }; }));
+    var past = points.slice(0, PAID + 1);
+    var future = points.slice(PAID);
+    Estalvia.chart('#chart-balance', function (c) {
+      return {
+        chart: { type: 'line', height: 280 },
+        series: [{ name: 'Pagat', data: past }, { name: 'Previsió', data: future }],
+        colors: [c.colors[0], c.colors[0]],
+        stroke: { width: 2, dashArray: [0, 5] },
+        legend: { show: false },
+        xaxis: {
+          type: 'datetime', tickAmount: 5,
+          labels: { datetimeUTC: true, format: 'yyyy' },
+          min: Date.UTC(2024, 0, 1), max: Date.UTC(2029, 2, 1)
+        },
+        yaxis: { min: 0, max: 16000, tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } },
+        tooltip: { x: { format: 'MM/yyyy' }, y: { formatter: function (v) { return c.eur(v, 2); } } },
+        annotations: {
+          xaxis: [{
+            x: Date.UTC(2026, 10, 18), borderColor: c.text, strokeDashArray: 2,
+            label: { text: 'Avui', orientation: 'horizontal', borderColor: 'transparent', style: { background: 'transparent', color: c.text, fontSize: '12px' } }
+          }]
+        }
+      };
+    });
+  })();
+</script>
+</body>
+</html>
