@@ -397,7 +397,7 @@ body {
 .est-bars { display: grid; gap: 0.75rem; }
 .est-bars-row {
   display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, min(11rem, 40%)) minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.25rem 0.75rem;
 }

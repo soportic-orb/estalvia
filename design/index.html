@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Proposta gràfica · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+</head>
+<body>
+<div class="page">
+  <header class="navbar navbar-expand-md d-print-none">
+    <div class="container-xl">
+      <div class="navbar-brand"><script>document.write(Estalvia.logo({ href: 'index.html' }));</script></div>
+      <div class="navbar-nav flex-row align-items-center ms-auto gap-2">
+        <span class="badge bg-primary-lt d-none d-sm-inline-flex">Proposta gràfica v1</span>
+        <script>document.write(Estalvia.themeButton());</script>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrapper" id="content">
+    <div class="page-header">
+      <div class="container-xl">
+        <div class="page-pretitle">Pas 1 · Disseny</div>
+        <h1 class="page-title">Proposta gràfica d'Estalvia</h1>
+        <p class="text-secondary mt-2 mb-0" style="max-width:46rem">Maquetes en HTML estàtic sobre Tabler, amb dades fictícies d'una usuària (Marta Vila, Girona). Totes les pantalles funcionen en mòbil i en mode fosc: prova el commutador <i class="ti ti-moon" aria-hidden="true"></i> de la capçalera.</p>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl" id="sections"></div>
+    </div>
+
+    <footer class="footer footer-transparent">
+      <div class="container-xl text-secondary small">Tabler <span class="num">1.4.0</span> (MIT) · Tabler Icons · ApexCharts · carregats des de CDN només en aquesta proposta.</div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  // Screen catalogue: one source for the whole index.
+  var SECTIONS = [
+    { title: 'Fonaments', items: [
+      ['style-guide.html', 'palette', 'Guia d\'estil', 'Logotip, paleta, tipografia, components i contrastos WCAG en mode clar i fosc.']
+    ] },
+    { title: 'Web pública', items: [
+      ['landing.html', 'world', 'Pàgina pública', 'Hero, com funciona, funcionalitats, preus, FAQ i peu legal.']
+    ] },
+    { title: 'Accés i primers passos', items: [
+      ['auth-login.html', 'login-2', 'Inici de sessió', 'Correu i contrasenya, amb estat d\'error.'],
+      ['auth-register.html', 'user-plus', 'Registre', 'Contrasenya forta i consentiments granulars.'],
+      ['auth-2fa.html', 'shield-lock', 'Verificació en dos passos', 'Codi TOTP, configuració i codis de recuperació.'],
+      ['onboarding.html', 'route', 'Onboarding', 'Idioma, perfil, primer compte, primera importació.']
+    ] },
+    { title: 'Aplicació', items: [
+      ['dashboard.html', 'home', 'Inici', 'Índex de salut, piràmide, KPI, gràfics, accions i alertes.'],
+      ['accounts.html', 'building-bank', 'Comptes', 'Comptes, targetes, préstecs i hipoteques.'],
+      ['account-detail.html', 'table', 'Detall de préstec', 'Condicions, evolució i taula d\'amortització.'],
+      ['transactions.html', 'arrows-exchange', 'Moviments', 'Filtres, categoria editable i safata de revisió.'],
+      ['import.html', 'file-import', 'Importació', 'Pujada, format, mapatge, previsualització i informe.'],
+      ['import-pdf-review.html', 'file-type-pdf', 'Revisió de PDF', 'Moviments extrets amb IA i validació de saldos.'],
+      ['budgets-goals.html', 'target-arrow', 'Pressupostos i objectius', 'Pressupost mensual i objectius d\'estalvi.'],
+      ['simulators.html', 'calculator', 'Simuladors', 'Amortització, deutes, fons d\'emergència i objectius.'],
+      ['billing.html', 'credit-card', 'Subscripció', 'Pla actual, ús de quotes i millora de pla.']
+    ] },
+    { title: 'Diagnòstic i assessor', items: [
+      ['diagnosis.html', 'heart-rate-monitor', 'Diagnòstic', 'Les 5 dimensions i l\'explicació de cada indicador.'],
+      ['advisor-plan.html', 'list-check', 'Pla d\'acció', 'Accions amb impacte en €/mes i €/any, dificultat i estat.'],
+      ['advisor-chat.html', 'message-chatbot', 'Xat amb l\'assessor', 'Conversa amb l\'avís permanent d\'IA.']
+    ] },
+    { title: 'Administració', items: [
+      ['admin-dashboard.html', 'settings', 'Panell d\'administració', 'Usuaris, consum d\'IA, marge per usuari i OTA.']
+    ] }
+  ];
+
+  document.getElementById('sections').innerHTML = SECTIONS.map(function (s) {
+    return '<h2 class="subheader mt-4 mb-3">' + s.title + '</h2><div class="row row-cards">' +
+      s.items.map(function (it) {
+        return '<div class="col-12 col-sm-6 col-lg-4"><a class="card card-link" href="' + it[0] + '"><div class="card-body d-flex gap-3 align-items-start">' +
+          '<span class="avatar bg-primary-lt flex-shrink-0"><i class="ti ti-' + it[1] + '" aria-hidden="true"></i></span>' +
+          '<div class="min-w-0"><div class="fw-semibold">' + it[2] + '</div>' +
+          '<div class="text-secondary small mt-1">' + it[3] + '</div>' +
+          '<div class="small text-secondary mt-2"><code>' + it[0] + '</code></div></div></div></a></div>';
+      }).join('') + '</div>';
+  }).join('');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+</body>
+</html>

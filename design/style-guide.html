@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guia d'estil · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Style-guide scaffolding only (not part of the product theme). */
+    .sg-pair { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+    @media (min-width: 992px) { .sg-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .sg-panel { background: var(--tblr-body-bg); color: var(--tblr-body-color); border: 1px solid var(--tblr-border-color); border-radius: var(--tblr-border-radius-lg); padding: 1.25rem; min-width: 0; }
+    .sg-panel-label { font-size: .6875rem; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; color: var(--tblr-secondary); margin-bottom: 1rem; }
+    .sg-swatch { border-radius: var(--tblr-border-radius); border: 1px solid var(--tblr-border-color); overflow: hidden; background: var(--tblr-bg-surface); }
+    .sg-swatch-color { height: 3.5rem; }
+    .sg-swatch-body { padding: .5rem .625rem; font-size: .75rem; line-height: 1.35; }
+    .sg-swatches { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); }
+    .sg-section { scroll-margin-top: 1rem; }
+    .sg-sample-src { display: none; }
+    .sg-chip { display: inline-block; padding: .125rem .5rem; border-radius: 4px; font-weight: 600; font-size: .8125rem; border: 1px solid var(--tblr-border-color); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="navbar navbar-expand-md d-print-none">
+    <div class="container-xl">
+      <div class="navbar-brand"><script>document.write(Estalvia.logo({ href: 'index.html' }));</script></div>
+      <div class="navbar-nav flex-row align-items-center ms-auto gap-2">
+        <a href="index.html" class="btn btn-sm"><i class="ti ti-layout-grid icon" aria-hidden="true"></i>Índex</a>
+        <script>document.write(Estalvia.themeButton());</script>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrapper" id="content">
+    <div class="page-header">
+      <div class="container-xl">
+        <div class="page-pretitle">Sistema de disseny</div>
+        <h1 class="page-title">Guia d'estil</h1>
+        <p class="text-secondary mt-2 mb-0" style="max-width:48rem">Tot el que es veu aquí surt d'un únic fitxer, <code>assets/estalvia-theme.css</code>, que personalitza les variables CSS de Tabler. Cada mostra es presenta alhora en <strong>mode clar</strong> i en <strong>mode fosc</strong>.</p>
+        <nav class="mt-3 d-flex flex-wrap gap-2" aria-label="Seccions de la guia">
+          <a class="btn btn-sm" href="#logo">Logotip</a><a class="btn btn-sm" href="#color">Color</a><a class="btn btn-sm" href="#type">Tipografia</a><a class="btn btn-sm" href="#buttons">Botons</a><a class="btn btn-sm" href="#forms">Formularis</a><a class="btn btn-sm" href="#cards">Targetes</a><a class="btn btn-sm" href="#badges">Insígnies</a><a class="btn btn-sm" href="#alerts">Alertes</a><a class="btn btn-sm" href="#tables">Taules</a><a class="btn btn-sm" href="#empty">Estats buits</a><a class="btn btn-sm" href="#components">Components propis</a><a class="btn btn-sm" href="#charts">Gràfics</a><a class="btn btn-sm" href="#contrast">Contrast</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- LOGO -->
+        <section class="sg-section mb-5" id="logo">
+          <h2 class="h2 mb-1">Logotip provisional</h2>
+          <p class="text-secondary">Wordmark «estalvia» en minúscules (Inter 700, interlletratge −3 %) amb un símbol senzill. Tres opcions; la <strong>A</strong> és la que fan servir les maquetes.</p>
+          <div class="sg-sample-src">
+            <div class="row g-3">
+              <div class="col-12"><div class="card"><div class="card-body d-flex align-items-center gap-4 flex-wrap"><div data-logo="pyramid"></div><div class="flex-fill" style="min-width:12rem"><div class="fw-medium">A · Piràmide</div><div class="small text-secondary">Els graons de la piràmide de l'estalvi: la metodologia del producte.</div></div></div></div></div>
+              <div class="col-12"><div class="card"><div class="card-body d-flex align-items-center gap-4 flex-wrap"><div data-logo="coin"></div><div class="flex-fill" style="min-width:12rem"><div class="fw-medium">B · Moneda</div><div class="small text-secondary">Una moneda que cau a la guardiola: estalvi en el sentit més directe.</div></div></div></div></div>
+              <div class="col-12"><div class="card"><div class="card-body d-flex align-items-center gap-4 flex-wrap"><div data-logo="steps"></div><div class="flex-fill" style="min-width:12rem"><div class="fw-medium">C · Progrés</div><div class="small text-secondary">Barres creixents dins un cercle: evolució i constància.</div></div></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COLOR -->
+        <section class="sg-section mb-5" id="color">
+          <h2 class="h2 mb-1">Color</h2>
+          <p class="text-secondary">El violeta és <strong>marca i acció</strong> (botons, enllaços, navegació activa). L'estat financer es comunica només amb els semàntics: <span class="text-success fw-medium">verd</span> positiu o estalvi, <span class="text-warning fw-medium">groc</span> atenció, <span class="text-danger fw-medium">vermell</span> deute car o alerta, <span class="text-info fw-medium">blau</span> informació; sempre acompanyats d'icona o text. Els semàntics de Tabler s'han enfosquit en mode clar (i aclarit en fosc) perquè passin AA també com a text.</p>
+          <div class="sg-sample-src">
+            <h3 class="subheader mb-2">Primari i derivats</h3>
+            <div class="sg-swatches mb-4" data-swatches="--tblr-primary|Primari,--tblr-primary-darken|Hover / actiu,--tblr-primary-lt|Fons suau (primary-lt),--tblr-primary-fg|Text sobre primari"></div>
+            <h3 class="subheader mb-2">Semàntics</h3>
+            <div class="sg-swatches mb-4" data-swatches="--tblr-success|Verd · positiu,--tblr-success-lt|Verd suau,--tblr-warning|Groc · atenció,--tblr-warning-lt|Groc suau,--tblr-danger|Vermell · alerta,--tblr-danger-lt|Vermell suau,--tblr-info|Blau · informació,--tblr-info-lt|Blau suau"></div>
+            <h3 class="subheader mb-2">Neutres</h3>
+            <div class="sg-swatches mb-4" data-swatches="--tblr-body-color|Text,--tblr-secondary|Text secundari,--tblr-border-color|Vores,--tblr-bg-surface|Superfície (targetes),--tblr-body-bg|Fons de pàgina"></div>
+            <h3 class="subheader mb-2">Gràfics (categòrica, ordre fix)</h3>
+            <div class="sg-swatches" data-swatches="--est-chart-1|Sèrie 1,--est-chart-2|Sèrie 2,--est-chart-3|Sèrie 3,--est-chart-4|Sèrie 4,--est-chart-5|Sèrie 5,--est-chart-6|Sèrie 6"></div>
+          </div>
+        </section>
+
+        <!-- TYPE -->
+        <section class="sg-section mb-5" id="type">
+          <h2 class="h2 mb-1">Tipografia</h2>
+          <p class="text-secondary">Inter (la de Tabler). Totes les xifres amb <code>font-variant-numeric: tabular-nums</code> perquè quadrin en columna. Les xifres clau són grans (<code>.est-figure</code>) i la unitat va en petit al costat.</p>
+          <div class="sg-sample-src">
+            <div class="card"><div class="card-body">
+              <div class="row g-4">
+                <div class="col-12 col-md-6">
+                  <div class="h1 mb-2">Títol de pàgina · 24/32</div>
+                  <div class="h2 mb-2">Títol de secció · 20/28</div>
+                  <div class="h3 mb-2">Títol de targeta · 16/24</div>
+                  <p class="mb-2">Text de cos · 14/20. T'ajudem a entendre on van els teus diners i a decidir el pas següent.</p>
+                  <p class="text-secondary small mb-2">Text secundari · 12/16. Dades d'agost a octubre de 2026.</p>
+                  <div class="subheader">Subcapçalera · 11 majúscules</div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="est-figure est-figure-xl mb-2">62 <span class="unit">de 100</span></div>
+                  <div class="est-figure est-figure-lg mb-2">1.842,37 <span class="unit">€</span></div>
+                  <div class="est-figure mb-3">11,4 <span class="unit">%</span></div>
+                  <div class="num text-secondary small">Formats: 1.234,56 € · −84,20 € · 21,84 % · 18/11/2026</div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </section>
+
+        <!-- BUTTONS -->
+        <section class="sg-section mb-5" id="buttons">
+          <h2 class="h2 mb-1">Botons</h2>
+          <p class="text-secondary">Una sola acció primària per pantalla. Alçada mínima tàctil de 44 px a les accions principals en mòbil.</p>
+          <div class="sg-sample-src">
+            <div class="card"><div class="card-body">
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <button class="btn btn-primary">Primari</button>
+                <button class="btn btn-primary"><i class="ti ti-file-import icon" aria-hidden="true"></i>Amb icona</button>
+                <button class="btn">Secundari</button>
+                <button class="btn btn-outline-primary">Contorn</button>
+                <button class="btn btn-ghost-primary">Fantasma</button>
+                <button class="btn btn-primary" disabled>Desactivat</button>
+              </div>
+              <div class="d-flex flex-wrap gap-2 align-items-center">
+                <button class="btn btn-success"><i class="ti ti-check icon" aria-hidden="true"></i>Marca com a feta</button>
+                <button class="btn btn-outline-danger">Elimina el compte</button>
+                <button class="btn btn-sm">Petit</button>
+                <button class="btn btn-lg btn-primary">Gran</button>
+                <button class="btn btn-icon" aria-label="Més opcions"><i class="ti ti-dots-vertical" aria-hidden="true"></i></button>
+                <button class="btn btn-primary btn-loading">Carregant</button>
+              </div>
+            </div></div>
+          </div>
+        </section>
+
+        <!-- FORMS -->
+        <section class="sg-section mb-5" id="forms">
+          <h2 class="h2 mb-1">Formularis</h2>
+          <p class="text-secondary">Etiqueta sempre visible, ajuda sota el camp, error amb text (no només color).</p>
+          <div class="sg-sample-src">
+            <div class="card"><div class="card-body">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Nom del compte</label>
+                  <input class="form-control" value="Compte nòmina">
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Saldo inicial</label>
+                  <div class="input-group"><input class="form-control text-end num" inputmode="decimal" value="1.842,37"><span class="input-group-text">€</span></div>
+                  <div class="form-hint">Format 1.234,56</div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">Entitat</label>
+                  <select class="form-select"><option>CaixaBank</option><option>BBVA</option><option>ING</option></select>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-label">IBAN <span class="form-label-description">Opcional</span></label>
+                  <input class="form-control is-invalid" value="ES12 3456">
+                  <div class="invalid-feedback">L'IBAN ha de tenir 24 caràcters.</div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-label">Mètode per pagar deutes</div>
+                  <div class="form-selectgroup">
+                    <label class="form-selectgroup-item"><input type="radio" class="form-selectgroup-input" checked><span class="form-selectgroup-label">Allau</span></label>
+                    <label class="form-selectgroup-item"><input type="radio" class="form-selectgroup-input"><span class="form-selectgroup-label">Bola de neu</span></label>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label class="form-check"><input class="form-check-input" type="checkbox" checked><span class="form-check-label">Accepto el tractament amb IA</span></label>
+                  <label class="form-check form-switch mb-0"><input class="form-check-input" type="checkbox" checked><span class="form-check-label">Alertes per correu</span></label>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </section>
+
+        <!-- CARDS -->
+        <section class="sg-section mb-5" id="cards">
+          <h2 class="h2 mb-1">Targetes</h2>
+          <p class="text-secondary">Targeta KPI: etiqueta, xifra gran i estat amb icona i text. Targeta de contingut: títol, subtítol amb període i unitats.</p>
+          <div class="sg-sample-src">
+            <div class="row g-3">
+              <div class="col-6 col-md-4"><div class="card card-sm"><div class="card-body"><div class="subheader">Taxa d'estalvi</div><div class="est-figure mt-2">11,4 <span class="unit">%</span></div><div class="mt-2 small"><span class="text-success fw-medium"><i class="ti ti-arrow-up" aria-hidden="true"></i> +2,1 pp</span></div></div></div></div>
+              <div class="col-6 col-md-4"><div class="card card-sm"><div class="card-body"><div class="subheader">Fons d'emergència</div><div class="est-figure mt-2">1,8 <span class="unit">mesos</span></div><div class="mt-2 small"><span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Curt</span></div></div></div></div>
+              <div class="col-12 col-md-4"><div class="card card-sm"><div class="card-body"><div class="subheader">Deute car</div><div class="est-figure mt-2">2.340,00 <span class="unit">€</span></div><div class="mt-2 small"><span class="text-danger fw-medium"><i class="ti ti-flame" aria-hidden="true"></i> TAE 21,84 %</span></div></div></div></div>
+              <div class="col-12"><div class="card"><div class="card-header"><div><h3 class="card-title">Títol de la targeta</h3><div class="card-subtitle mt-1">Subtítol amb període i unitats</div></div><div class="card-actions"><a href="#" class="btn btn-sm">Acció</a></div></div><div class="card-body"><p class="mb-0 text-secondary">Contingut amb molt d'aire. Les targetes tenen radi de 8 px i vora fina, sense ombres fortes.</p></div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BADGES -->
+        <section class="sg-section mb-5" id="badges">
+          <h2 class="h2 mb-1">Insígnies i estats</h2>
+          <div class="sg-sample-src">
+            <div class="card"><div class="card-body">
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Fet</span>
+                <span class="badge bg-azure-lt"><i class="ti ti-progress" aria-hidden="true"></i> En curs</span>
+                <span class="badge bg-secondary-lt">Pendent</span>
+                <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Millorable</span>
+                <span class="badge bg-red-lt"><i class="ti ti-flame" aria-hidden="true"></i> Deute car</span>
+                <span class="badge bg-primary-lt">Premium</span>
+              </div>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-green text-green-fg">Importat</span>
+                <span class="badge bg-yellow text-yellow-fg">Duplicat</span>
+                <span class="badge bg-red text-red-fg">Error</span>
+                <span class="badge bg-azure text-azure-fg">Nou</span>
+                <span class="badge bg-primary text-primary-fg">Recomanat</span>
+              </div>
+              <div class="d-flex flex-wrap gap-3">
+                <span class="status status-green"><span class="status-dot"></span>Sincronitzat</span>
+                <span class="status status-yellow"><span class="status-dot"></span>Sense token</span>
+                <span class="status status-red"><span class="status-dot status-dot-animated"></span>Ha fallat</span>
+              </div>
+            </div></div>
+          </div>
+        </section>
+
+        <!-- ALERTS -->
+        <section class="sg-section mb-5" id="alerts">
+          <h2 class="h2 mb-1">Alertes</h2>
+          <div class="sg-sample-src">
+            <div class="alert alert-success" role="alert"><div class="d-flex"><div><i class="ti ti-circle-check icon alert-icon" aria-hidden="true"></i></div><div><h4 class="alert-title">Importació completada</h4><div class="text-secondary">38 moviments nous i 3 duplicats omesos.</div></div></div></div>
+            <div class="alert alert-info" role="alert"><div class="d-flex"><div><i class="ti ti-info-circle icon alert-icon" aria-hidden="true"></i></div><div><h4 class="alert-title">Diagnòstic provisional</h4><div class="text-secondary">Amb menys de 3 mesos de dades, els indicadors són orientatius.</div></div></div></div>
+            <div class="alert alert-warning" role="alert"><div class="d-flex"><div><i class="ti ti-alert-triangle icon alert-icon" aria-hidden="true"></i></div><div><h4 class="alert-title">Pressupost de restauració al 86 %</h4><div class="text-secondary">Queden 12 dies de mes.</div></div></div></div>
+            <div class="alert alert-danger mb-0" role="alert"><div class="d-flex"><div><i class="ti ti-alert-circle icon alert-icon" aria-hidden="true"></i></div><div><h4 class="alert-title">Els saldos no quadren</h4><div class="text-secondary">Hi ha una diferència de 12,40 € entre el saldo final i la suma de moviments.</div></div></div></div>
+          </div>
+        </section>
+
+        <!-- TABLES -->
+        <section class="sg-section mb-5" id="tables">
+          <h2 class="h2 mb-1">Taules</h2>
+          <p class="text-secondary">Imports alineats a la dreta amb xifres tabulars. Les despeses van en tinta normal; només els ingressos es marquen en verd i amb signe +. En mòbil, les columnes secundàries s'amaguen o la fila es converteix en llista.</p>
+          <div class="sg-sample-src">
+            <div class="card"><div class="table-responsive"><table class="table table-vcenter card-table">
+              <thead><tr><th>Data</th><th>Descripció</th><th class="d-none d-sm-table-cell">Categoria</th><th class="text-end">Import</th></tr></thead>
+              <tbody>
+                <tr><td class="text-secondary">28/10/2026</td><td>Nòmina Innova Girona</td><td class="d-none d-sm-table-cell"><span class="badge bg-secondary-lt">Ingressos</span></td><td class="text-end est-amount-in">+1.890,00 €</td></tr>
+                <tr><td class="text-secondary">02/11/2026</td><td>Lloguer</td><td class="d-none d-sm-table-cell"><span class="badge bg-secondary-lt">Habitatge</span></td><td class="text-end">−870,00 €</td></tr>
+                <tr><td class="text-secondary">04/11/2026</td><td>Mercadona</td><td class="d-none d-sm-table-cell"><span class="badge bg-secondary-lt">Alimentació</span></td><td class="text-end">−64,18 €</td></tr>
+              </tbody>
+            </table></div></div>
+          </div>
+        </section>
+
+        <!-- EMPTY -->
+        <section class="sg-section mb-5" id="empty">
+          <h2 class="h2 mb-1">Estats buits</h2>
+          <div class="sg-sample-src">
+            <div class="card"><div class="empty">
+              <div class="empty-icon"><i class="ti ti-file-import" aria-hidden="true" style="font-size:2.5rem"></i></div>
+              <p class="empty-title">Encara no hi ha moviments</p>
+              <p class="empty-subtitle text-secondary">Importa un extracte del teu banc o afegeix el primer moviment a mà.</p>
+              <div class="empty-action"><a href="import.html" class="btn btn-primary"><i class="ti ti-file-import icon" aria-hidden="true"></i>Importa moviments</a></div>
+            </div></div>
+          </div>
+        </section>
+
+        <!-- COMPONENTS -->
+        <section class="sg-section mb-5" id="components">
+          <h2 class="h2 mb-1">Components propis</h2>
+          <p class="text-secondary">Les poques peces que Tabler no porta, definides al mateix fitxer de tema amb el prefix <code>est-</code>.</p>
+          <div class="sg-sample-src">
+            <div class="row g-3">
+              <div class="col-12"><div class="card"><div class="card-body">
+                <div class="subheader mb-3">Mesurador · <code>.est-meter</code></div>
+                <div class="vstack gap-3">
+                  <div><div class="d-flex justify-content-between mb-1"><span>Liquiditat</span><span class="num fw-semibold">71</span></div><div class="est-meter est-meter-success"><span style="width:71%"></span></div></div>
+                  <div><div class="d-flex justify-content-between mb-1"><span>Estalvi</span><span class="num fw-semibold">66</span></div><div class="est-meter est-meter-warning"><span style="width:66%"></span></div></div>
+                  <div><div class="d-flex justify-content-between mb-1"><span>Resiliència</span><span class="num fw-semibold">44</span></div><div class="est-meter est-meter-danger"><span style="width:44%"></span></div></div>
+                  <div><div class="d-flex justify-content-between mb-1"><span>Quota de xat</span><span class="num fw-semibold">37 / 100</span></div><div class="est-meter"><span style="width:37%"></span></div></div>
+                </div>
+              </div></div></div>
+              <div class="col-12"><div class="card"><div class="card-body">
+                <div class="subheader mb-3">Piràmide de l'estalvi · <code>.est-pyramid</code></div>
+                <ol class="est-pyramid">
+                  <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>0 · Estabilitzar</li>
+                  <li class="is-done"><i class="ti ti-check" aria-hidden="true"></i>1 · Coixí inicial</li>
+                  <li class="is-current"><i class="ti ti-map-pin" aria-hidden="true"></i>2 · Deute car</li>
+                  <li>3 · Fons d'emergència</li><li>4 · Objectius</li><li>5 · Llarg termini</li>
+                </ol>
+              </div></div></div>
+              <div class="col-12"><div class="card"><div class="card-body">
+                <div class="subheader mb-3">Llista de barres · <code>.est-bars</code></div>
+                <div class="est-bars">
+                  <div class="est-bars-row"><span class="est-bars-label">Habitatge</span><span class="est-bars-track"><span style="width:100%"></span></span><span class="est-bars-value num">870 €</span></div>
+                  <div class="est-bars-row"><span class="est-bars-label">Alimentació</span><span class="est-bars-track"><span style="width:56%"></span></span><span class="est-bars-value num">485 €</span></div>
+                  <div class="est-bars-row"><span class="est-bars-label">Transport</span><span class="est-bars-track"><span style="width:25%"></span></span><span class="est-bars-value num">215 €</span></div>
+                </div>
+              </div></div></div>
+              <div class="col-12"><div class="card"><div class="card-body">
+                <div class="subheader mb-3">Assessor · avís d'IA i bombolles</div>
+                <div class="est-ai-notice mb-3"><i class="ti ti-robot" aria-hidden="true"></i>Estàs parlant amb una IA. No és assessorament d'inversió.</div>
+                <div class="est-bubble est-bubble-user mb-2"><p>Quan acabaré de pagar la targeta?</p></div>
+                <div class="est-bubble"><p>Amb la quota actual de <span class="num">95,00 €</span>, en uns 33 mesos. Si hi afegeixes <span class="num">150 €</span> al mes, en 10.</p></div>
+              </div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHARTS -->
+        <section class="sg-section mb-5" id="charts">
+          <h2 class="h2 mb-1">Gràfics</h2>
+          <p class="text-secondary">ApexCharts amb la paleta d'Estalvia. Regles: cap gràfic sense títol i unitats; un sol eix; el color segueix l'entitat (ordre fix, no es recicla); línies de 2 px; llegenda quan hi ha dues sèries o més; sense pastissos ni dònuts (per a parts d'un tot, la llista de barres); els colors d'estat no es fan servir com a sèrie. La paleta està validada per a daltonisme i té ≥ 3:1 contra la superfície en els dos modes.</p>
+          <div class="row row-cards">
+            <div class="col-12 col-lg-6"><div class="card"><div class="card-header"><div><h3 class="card-title">Ingressos i despeses</h3><div class="card-subtitle mt-1 est-chart-unit">Euros per mes · maig–octubre de 2026</div></div></div><div class="card-body"><div id="sg-chart-bars" style="min-height:260px"></div></div></div></div>
+            <div class="col-12 col-lg-6"><div class="card"><div class="card-header"><div><h3 class="card-title">Deute total segons el mètode</h3><div class="card-subtitle mt-1 est-chart-unit">Euros · projecció a 12 mesos</div></div></div><div class="card-body"><div id="sg-chart-lines" style="min-height:260px"></div></div></div></div>
+          </div>
+          <p class="small text-secondary mt-2 mb-0">Aquests dos gràfics segueixen el mode actiu de la pàgina: canvia'l amb el commutador de la capçalera.</p>
+        </section>
+
+        <!-- CONTRAST -->
+        <section class="sg-section mb-5" id="contrast">
+          <h2 class="h2 mb-1">Contrast WCAG 2.1 AA</h2>
+          <p class="text-secondary">Ràtios calculades en viu a partir de les variables del tema. Llindars: <strong>4,5:1</strong> per a text normal, <strong>3:1</strong> per a text gran (≥ 24 px o ≥ 18,66 px en negreta) i per a elements gràfics.</p>
+          <div class="sg-pair">
+            <div class="card" data-bs-theme="light"><div class="card-header"><h3 class="card-title">Mode clar</h3></div><div class="table-responsive"><table class="table table-vcenter card-table table-sm"><thead><tr><th>Combinació</th><th>Mostra</th><th class="text-end">Ràtio</th><th>AA</th></tr></thead><tbody id="contrast-light"></tbody></table></div></div>
+            <div class="card" data-bs-theme="dark"><div class="card-header"><h3 class="card-title">Mode fosc</h3></div><div class="table-responsive"><table class="table table-vcenter card-table table-sm"><thead><tr><th>Combinació</th><th>Mostra</th><th class="text-end">Ràtio</th><th>AA</th></tr></thead><tbody id="contrast-dark"></tbody></table></div></div>
+          </div>
+          <div id="contrast-summary" class="mt-3"></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ---- Resolve any CSS colour (incl. var() and color-mix) to [r,g,b] within a theme scope ---- */
+  var cv = document.createElement('canvas'); cv.width = cv.height = 1;
+  var ctx = cv.getContext('2d', { willReadFrequently: true });
+  function probe(theme) {
+    var el = document.createElement('div');
+    el.setAttribute('data-bs-theme', theme);
+    el.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    document.body.appendChild(el);
+    return el;
+  }
+  var probes = { light: probe('light'), dark: probe('dark') };
+  function rgb(theme, cssVar) {
+    var el = probes[theme];
+    el.style.color = 'var(' + cssVar + ')';
+    ctx.clearRect(0, 0, 1, 1);
+    ctx.fillStyle = '#000'; ctx.fillStyle = getComputedStyle(el).color; ctx.fillRect(0, 0, 1, 1);
+    var d = ctx.getImageData(0, 0, 1, 1).data;
+    return [d[0], d[1], d[2]];
+  }
+  function hex(c) { return '#' + c.map(function (v) { return v.toString(16).padStart(2, '0'); }).join('').toUpperCase(); }
+  function lum(c) {
+    var a = c.map(function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+    return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+  }
+  function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+
+  /* ---- Render every sample twice: light and dark ---- */
+  document.querySelectorAll('.sg-sample-src').forEach(function (src) {
+    var pair = document.createElement('div');
+    pair.className = 'sg-pair';
+    ['light', 'dark'].forEach(function (theme) {
+      var panel = document.createElement('div');
+      panel.className = 'sg-panel';
+      panel.setAttribute('data-bs-theme', theme);
+      panel.innerHTML = '<div class="sg-panel-label">' + (theme === 'light' ? 'Mode clar' : 'Mode fosc') + '</div>' + src.innerHTML;
+      pair.appendChild(panel);
+      panel.querySelectorAll('[data-logo]').forEach(function (el) {
+        el.innerHTML = Estalvia.logo({ mark: el.getAttribute('data-logo'), size: 'lg', href: '#logo' });
+      });
+      panel.querySelectorAll('[data-swatches]').forEach(function (el) {
+        el.innerHTML = el.getAttribute('data-swatches').split(',').map(function (item) {
+          var p = item.split('|');
+          return '<div class="sg-swatch"><div class="sg-swatch-color" style="background:var(' + p[0] + ')"></div>' +
+            '<div class="sg-swatch-body"><div class="fw-medium">' + p[1] + '</div><div class="num text-secondary">' + hex(rgb(theme, p[0])) + '</div><code class="small">' + p[0].replace('--tblr-', '').replace('--est-', 'est-') + '</code></div></div>';
+        }).join('');
+      });
+    });
+    src.replaceWith(pair);
+  });
+
+  /* ---- Contrast table ---- */
+  // [label, foreground var, background var, threshold]
+  var PAIRS = [
+    ['Text sobre targeta', '--tblr-body-color', '--tblr-bg-surface', 4.5],
+    ['Text sobre fons de pàgina', '--tblr-body-color', '--tblr-body-bg', 4.5],
+    ['Text secundari sobre targeta', '--tblr-secondary', '--tblr-bg-surface', 4.5],
+    ['Text secundari sobre fons de pàgina', '--tblr-secondary', '--tblr-body-bg', 4.5],
+    ['Enllaç / primari sobre targeta', '--tblr-primary', '--tblr-bg-surface', 4.5],
+    ['Enllaç / primari sobre fons de pàgina', '--tblr-primary', '--tblr-body-bg', 4.5],
+    ['Primari sobre fons suau (primary-lt)', '--tblr-primary', '--tblr-primary-lt', 4.5],
+    ['Text del botó primari', '--tblr-primary-fg', '--tblr-primary', 4.5],
+    ['Text del botó primari (hover)', '--tblr-primary-fg', '--tblr-primary-darken', 4.5],
+    ['Verd sobre targeta', '--tblr-success', '--tblr-bg-surface', 4.5],
+    ['Verd sobre verd suau', '--tblr-success', '--tblr-success-lt', 4.5],
+    ['Text sobre verd sòlid', '--tblr-success-fg', '--tblr-success', 4.5],
+    ['Groc sobre targeta', '--tblr-warning', '--tblr-bg-surface', 4.5],
+    ['Groc sobre groc suau', '--tblr-warning', '--tblr-warning-lt', 4.5],
+    ['Text sobre groc sòlid', '--tblr-warning-fg', '--tblr-warning', 4.5],
+    ['Vermell sobre targeta', '--tblr-danger', '--tblr-bg-surface', 4.5],
+    ['Vermell sobre vermell suau', '--tblr-danger', '--tblr-danger-lt', 4.5],
+    ['Text sobre vermell sòlid', '--tblr-danger-fg', '--tblr-danger', 4.5],
+    ['Blau sobre targeta', '--tblr-info', '--tblr-bg-surface', 4.5],
+    ['Blau sobre blau suau', '--tblr-info', '--tblr-info-lt', 4.5],
+    ['Text sobre blau sòlid', '--tblr-info-fg', '--tblr-info', 4.5],
+    ['Gràfic · sèrie 1 (no text)', '--est-chart-1', '--tblr-bg-surface', 3],
+    ['Gràfic · sèrie 2 (no text)', '--est-chart-2', '--tblr-bg-surface', 3],
+    ['Gràfic · sèrie 3 (no text)', '--est-chart-3', '--tblr-bg-surface', 3],
+    ['Gràfic · sèrie 4 (no text)', '--est-chart-4', '--tblr-bg-surface', 3],
+    ['Gràfic · sèrie 5 (no text)', '--est-chart-5', '--tblr-bg-surface', 3],
+    ['Gràfic · sèrie 6 (no text)', '--est-chart-6', '--tblr-bg-surface', 3]
+  ];
+  var fails = 0;
+  ['light', 'dark'].forEach(function (theme) {
+    document.getElementById('contrast-' + theme).innerHTML = PAIRS.map(function (p) {
+      var fg = rgb(theme, p[1]), bg = rgb(theme, p[2]), r = ratio(fg, bg), ok = r >= p[3];
+      if (!ok) { fails++; }
+      return '<tr><td>' + p[0] + '<div class="small text-secondary num">' + hex(fg) + ' / ' + hex(bg) + '</div></td>' +
+        '<td><span class="sg-chip" style="color:' + hex(fg) + ';background:' + hex(bg) + '">Aa 123</span></td>' +
+        '<td class="text-end fw-medium">' + r.toFixed(2).replace('.', ',') + ':1</td>' +
+        '<td>' + (ok ? '<span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Passa</span>' : '<span class="badge bg-red-lt"><i class="ti ti-x" aria-hidden="true"></i> Falla</span>') +
+        '<span class="small text-secondary ms-1 d-none d-xl-inline">≥ ' + String(p[3]).replace('.', ',') + '</span></td></tr>';
+    }).join('');
+  });
+  document.getElementById('contrast-summary').innerHTML = fails === 0
+    ? '<div class="alert alert-success mb-0" role="status"><div class="d-flex"><div><i class="ti ti-circle-check icon alert-icon" aria-hidden="true"></i></div><div>Les ' + (PAIRS.length * 2) + ' combinacions comprovades (clar i fosc) compleixen WCAG 2.1 AA.</div></div></div>'
+    : '<div class="alert alert-danger mb-0" role="alert">' + fails + ' combinacions no compleixen AA.</div>';
+  window.__contrastFails = fails;
+
+  /* ---- Charts ---- */
+  Estalvia.chart('#sg-chart-bars', function (c) {
+    return {
+      chart: { type: 'bar', height: 260 },
+      series: [{ name: 'Ingressos', data: [3180, 4420, 3180, 3180, 3215, 3215] }, { name: 'Despeses', data: [2905, 3310, 3240, 3065, 2790, 2660] }],
+      colors: [c.colors[0], c.colors[2]],
+      stroke: { show: true, width: 2, colors: ['transparent'] },
+      xaxis: { categories: ['Maig', 'Juny', 'Jul.', 'Ag.', 'Set.', 'Oct.'] },
+      yaxis: { tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } }
+    };
+  });
+  Estalvia.chart('#sg-chart-lines', function (c) {
+    return {
+      chart: { type: 'line', height: 260 },
+      series: [
+        { name: 'Allau', data: [11274, 10760, 10240, 9715, 9185, 8650, 8110, 7565, 7015, 6460, 5900, 5335, 4765] },
+        { name: 'Només quotes', data: [11274, 10945, 10615, 10280, 9945, 9605, 9265, 8920, 8575, 8225, 7875, 7520, 7165] }
+      ],
+      colors: [c.colors[0], c.colors[1]],
+      stroke: { width: 2, dashArray: [0, 5] },
+      xaxis: { categories: ['Nov.', 'Des.', 'Gen.', 'Febr.', 'Març', 'Abr.', 'Maig', 'Juny', 'Jul.', 'Ag.', 'Set.', 'Oct.', 'Nov.'], tickAmount: 6, labels: { rotate: 0, hideOverlappingLabels: true } },
+      yaxis: { min: 4000, max: 12000, tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } }
+    };
+  });
+})();
+</script>
+</body>
+</html>
