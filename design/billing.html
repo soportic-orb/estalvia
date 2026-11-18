@@ -12,6 +12,10 @@
   <style>
     /* Page-specific: marks the design-variant card as not part of this user's screen. */
     .est-variant { border-style: dashed; }
+    @media (max-width: 575.98px) {
+      .est-plans th, .est-plans td { padding-left: 0.5rem; padding-right: 0.5rem; }
+      .est-plans tr > :first-child { padding-left: 1rem; }
+    }
     .est-legend-meter { width: 2.5rem; display: inline-block; vertical-align: middle; }
   </style>
 </head>
@@ -187,7 +191,7 @@
                 </div>
               </div>
               <div class="table-responsive border-top">
-                <table class="table table-vcenter card-table">
+                <table class="table table-vcenter card-table est-plans">
                   <caption class="visually-hidden">Límits de cada pla</caption>
                   <thead>
                     <tr>
@@ -200,7 +204,7 @@
                   <tbody>
                     <tr><th scope="row" class="fw-normal text-secondary">Comptes</th><td>3</td><td class="fw-medium">Il·limitats</td><td>Il·limitats</td></tr>
                     <tr><th scope="row" class="fw-normal text-secondary">PDF amb IA</th><td>2 al mes</td><td class="fw-medium">30 al mes</td><td>60 al mes</td></tr>
-                    <tr><th scope="row" class="fw-normal text-secondary">Xat amb l'assessor</th><td><span aria-hidden="true">—</span><span class="visually-hidden">No inclòs</span></td><td class="fw-medium">100 missatges/mes</td><td>200 missatges/mes</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Xat amb l'assessor</th><td><span aria-hidden="true">—</span><span class="visually-hidden">No inclòs</span></td><td class="fw-medium">100 missatges al mes</td><td>200 missatges al mes</td></tr>
                     <tr><th scope="row" class="fw-normal text-secondary">Pla d'acció</th><td>Resum (1 acció)</td><td class="fw-medium">Complet</td><td>Complet</td></tr>
                     <tr><th scope="row" class="fw-normal text-secondary">Simuladors</th><td>1</td><td class="fw-medium">Tots</td><td>Tots</td></tr>
                     <tr><th scope="row" class="fw-normal text-secondary">Membres de la llar</th><td>1</td><td class="fw-medium">1</td><td>Fins a 5</td></tr>

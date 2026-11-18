@@ -446,6 +446,9 @@ body {
 }
 .est-bubble p:last-child { margin-bottom: 0; }
 
+/* 4.7b Small Tabler 1.4 fixes for webfont icons and nested steps */
+.alert .alert-icon { margin-right: 0.5rem; }
+
 /* 4.8 Calm spacing on larger screens */
 @media (min-width: 992px) {
   .page-body { margin-top: 1.75rem; }

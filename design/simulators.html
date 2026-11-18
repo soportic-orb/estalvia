@@ -86,7 +86,7 @@
                 </div>
                 <div class="card-body">
                   <div class="datagrid mb-4" style="--tblr-datagrid-item-width:8rem">
-                    <div class="datagrid-item"><div class="datagrid-title">Capital pendent</div><div class="datagrid-content num">8.615,40 €</div></div>
+                    <div class="datagrid-item"><div class="datagrid-title">Capital pendent</div><div class="datagrid-content num">6.901,79 €</div></div>
                     <div class="datagrid-item"><div class="datagrid-title">Quota actual</div><div class="datagrid-content num">276,90 €/mes</div></div>
                     <div class="datagrid-item"><div class="datagrid-title">TIN · TAE</div><div class="datagrid-content num">6,95 % · 7,45 %</div></div>
                     <div class="datagrid-item"><div class="datagrid-title">Quotes restants</div><div class="datagrid-content num" id="a-current-term">—</div></div>
@@ -95,11 +95,11 @@
                   <div class="mb-3">
                     <label class="form-label" for="a-amount">Import a amortitzar</label>
                     <div class="input-group">
-                      <input type="number" class="form-control num" id="a-amount" value="1500" min="0" max="8600" step="50" inputmode="decimal">
+                      <input type="number" class="form-control num" id="a-amount" value="1500" min="0" max="6900" step="50" inputmode="decimal">
                       <span class="input-group-text">€</span>
                     </div>
-                    <input type="range" class="form-range mt-3" id="a-amount-range" value="1500" min="0" max="8600" step="50" aria-label="Import a amortitzar, selector lliscant">
-                    <div class="d-flex justify-content-between small text-secondary num"><span>0 €</span><span>8.600 €</span></div>
+                    <input type="range" class="form-range mt-3" id="a-amount-range" value="1500" min="0" max="6900" step="50" aria-label="Import a amortitzar, selector lliscant">
+                    <div class="d-flex justify-content-between small text-secondary num"><span>0 €</span><span>6.900 €</span></div>
                   </div>
 
                   <fieldset class="mb-3">
@@ -221,7 +221,7 @@
                         <div class="fw-medium">Préstec cotxe</div>
                         <div class="small text-secondary num">TAE 7,45 % · quota 276,90 €/mes</div>
                       </div>
-                      <div class="col-auto num fw-semibold">8.615,40 €</div>
+                      <div class="col-auto num fw-semibold">6.901,79 €</div>
                     </div>
                   </div>
                   <div class="list-group-item">
@@ -554,7 +554,7 @@
   }
 
   /* ---------------- (a) Early repayment, French system ---------------- */
-  var LOAN = { capital: 8615.40, rate: 0.0695 / 12, quota: 276.90 };
+  var LOAN = { capital: 6901.79, rate: 0.0695 / 12, quota: 276.90 };
 
   // Month-by-month schedule; the last instalment may be smaller.
   function schedule(capital, rate, quota) {
@@ -620,7 +620,7 @@
   /* ---------------- (b) Debt payoff: avalanche vs snowball ---------------- */
   var DEBTS = [
     { name: 'WiZink', balance: 2340.00, rate: Math.pow(1.2184, 1 / 12) - 1, tae: 21.84, quota: 95.00 },
-    { name: 'Préstec cotxe', balance: 8615.40, rate: 0.0695 / 12, tae: 7.45, quota: 276.90 }
+    { name: 'Préstec cotxe', balance: 6901.79, rate: 0.0695 / 12, tae: 7.45, quota: 276.90 }
   ];
   // order: array of debt indexes (priority) or null for "instalments only" (no extra, no roll-over).
   function payoff(order, extra) {

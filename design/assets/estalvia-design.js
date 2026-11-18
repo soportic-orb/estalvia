@@ -281,6 +281,7 @@
     entry.draw = draw;
     charts.push(entry);
     draw();
+    return { redraw: draw };
   }
   document.addEventListener('estalvia:themechange', function () {
     charts.forEach(function (c) { c.draw(); });
