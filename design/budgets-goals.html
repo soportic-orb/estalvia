@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pressupostos i objectius · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Section heading with its action on the right. */
+    .bg-section { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .bg-section h2 { font-size: 1.25rem; font-weight: 600; margin: 0; }
+    /* Neutral meter for fixed costs and paused goals (no status implied). */
+    .est-meter-neutral { --est-meter-color: var(--tblr-secondary); }
+  </style>
+</head>
+<body data-page="budgets-goals">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Novembre de 2026</div>
+            <h1 class="page-title">Pressupostos i objectius</h1>
+          </div>
+          <div class="col-12 col-md-auto ms-auto">
+            <nav class="btn-list" aria-label="Seccions de la pàgina">
+              <a href="#pressupost" class="btn"><i class="ti ti-chart-bar icon" aria-hidden="true"></i>Pressupost</a>
+              <a href="#objectius" class="btn"><i class="ti ti-target-arrow icon" aria-hidden="true"></i>Objectius</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- ============================ Budget ============================ -->
+        <section id="pressupost" aria-labelledby="budget-title">
+          <div class="bg-section">
+            <div>
+              <h2 id="budget-title">Pressupost de novembre de 2026</h2>
+              <div class="text-secondary mt-1"><i class="ti ti-calendar-event" aria-hidden="true"></i> <span class="num">Dia 18 de 30</span> · ha passat el <span class="num">60 %</span> del mes</div>
+            </div>
+            <button type="button" class="btn"><i class="ti ti-wand icon" aria-hidden="true"></i>Proposa'm un pressupost</button>
+          </div>
+
+          <div class="row row-cards">
+            <!-- 50/30/20 adapted -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">Regla 50/30/20 adaptada a tu</h3>
+                    <div class="card-subtitle mt-1">Sobre uns ingressos nets de la llar de <span class="num">3.215,00 €</span> · gastat <span class="num">2.317,97 €</span> de <span class="num">3.214,90 €</span> pressupostats</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row g-4">
+                    <div class="col-12 col-md-4">
+                      <div class="d-flex justify-content-between align-items-baseline">
+                        <div class="fw-semibold"><i class="ti ti-home text-secondary me-1" aria-hidden="true"></i>Necessitats</div>
+                        <div class="small text-secondary num">62 % · referència 50 %</div>
+                      </div>
+                      <div class="est-figure mt-2">1.449,17 <span class="unit">€ de 1.985,00 €</span></div>
+                      <div class="est-meter est-meter-success mt-2" role="img" aria-label="73 % del pressupost de necessitats"><span style="width:73%"></span></div>
+                      <div class="small mt-2"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> <span class="num">73 %</span> · dins del previst</span></div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="d-flex justify-content-between align-items-baseline">
+                        <div class="fw-semibold"><i class="ti ti-confetti text-secondary me-1" aria-hidden="true"></i>Desitjos</div>
+                        <div class="small text-secondary num">17 % · referència 30 %</div>
+                      </div>
+                      <div class="est-figure mt-2">346,90 <span class="unit">€ de 548,00 €</span></div>
+                      <div class="est-meter est-meter-success mt-2" role="img" aria-label="63 % del pressupost de desitjos"><span style="width:63.3%"></span></div>
+                      <div class="small mt-2"><span class="text-success fw-medium"><i class="ti ti-check" aria-hidden="true"></i> <span class="num">63 %</span> · dins del previst</span> <span class="text-secondary">· vigila la restauració</span></div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="d-flex justify-content-between align-items-baseline">
+                        <div class="fw-semibold"><i class="ti ti-pig-money text-secondary me-1" aria-hidden="true"></i>Estalvi i deute</div>
+                        <div class="small text-secondary num">21 % · referència 20 %</div>
+                      </div>
+                      <div class="est-figure mt-2">521,90 <span class="unit">€ de 681,90 €</span></div>
+                      <div class="est-meter est-meter-info mt-2" role="img" aria-label="77 % de l'estalvi i deute previst ja aportat"><span style="width:76.5%"></span></div>
+                      <div class="small mt-2"><span class="text-info fw-medium"><i class="ti ti-clock" aria-hidden="true"></i> <span class="num">77 %</span> aportat</span> <span class="text-secondary">· la resta, el <span class="num">28/11</span></span></div>
+                    </div>
+                  </div>
+                  <p class="small text-secondary mt-4 mb-0"><i class="ti ti-info-circle" aria-hidden="true"></i> Amb un lloguer de <span class="num">870,00 €</span>, les necessitats superen el 50 % de referència. El pressupost ho compensa amb menys desitjos i manté l'estalvi i el deute per sobre del 20 %.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Per-category lines (rendered below) -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">Pressupost per categoria</h3>
+                    <div class="card-subtitle mt-1 est-chart-unit">Euros · gastat fins al 18/11/2026 respecte del pressupostat · previsió segons el ritme actual i els rebuts recurrents</div>
+                  </div>
+                  <div class="card-actions d-none d-sm-block"><a href="#" class="btn btn-sm"><i class="ti ti-pencil icon" aria-hidden="true"></i>Edita</a></div>
+                </div>
+                <div id="budget-lines"></div>
+                <div class="card-footer small text-secondary d-flex flex-wrap column-gap-3 row-gap-1">
+                  <span class="text-nowrap"><span class="text-success"><i class="ti ti-check" aria-hidden="true"></i></span> Menys del 80 %</span>
+                  <span class="text-nowrap"><span class="text-warning"><i class="ti ti-alert-circle" aria-hidden="true"></i></span> Entre el 80 % i el 100 %</span>
+                  <span class="text-nowrap"><span class="text-danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i></span> Superat</span>
+                  <span class="text-nowrap"><i class="ti ti-lock" aria-hidden="true"></i> Despesa fixa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================ Goals ============================ -->
+        <section id="objectius" class="mt-5" aria-labelledby="goals-title">
+          <div class="bg-section">
+            <div>
+              <h2 id="goals-title">Objectius d'estalvi</h2>
+              <div class="text-secondary mt-1">Ordenats per prioritat, segons la teva etapa a la piràmide de l'estalvi</div>
+            </div>
+            <button type="button" class="btn btn-primary"><i class="ti ti-plus icon" aria-hidden="true"></i>Nou objectiu</button>
+          </div>
+
+          <div class="row row-deck row-cards">
+
+            <!-- Emergency fund -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-start gap-3">
+                    <span class="avatar bg-primary-lt flex-shrink-0"><i class="ti ti-shield" aria-hidden="true"></i></span>
+                    <div class="flex-fill">
+                      <h3 class="h3 mb-1">Fons d'emergència de 3 mesos</h3>
+                      <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge bg-secondary-lt">Prioritat 1</span>
+                        <span class="badge bg-green-lt"><i class="ti ti-check" aria-hidden="true"></i> Al dia</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="est-figure mt-4">3.905,27 <span class="unit">€ de 6.510,00 €</span></div>
+                  <div class="est-meter est-meter-lg est-meter-success mt-2" role="img" aria-label="60 % de l'objectiu"><span style="width:60%"></span></div>
+                  <div class="d-flex justify-content-between small mt-1"><span class="num fw-medium">60 %</span><span class="text-secondary num">Falten 2.604,73 €</span></div>
+                  <div class="row g-3 mt-2">
+                    <div class="col-6"><div class="subheader">Aportació necessària</div><div class="num fw-semibold mt-1">144,71 €/mes</div></div>
+                    <div class="col-6"><div class="subheader">Data objectiu</div><div class="num fw-semibold mt-1">05/2028</div></div>
+                  </div>
+                  <p class="small text-secondary mt-3 mb-0">Hi aportes <span class="num">150,00 €/mes</span>. Equival a <span class="num">1,8</span> mesos de despesa essencial (<span class="num">2.170 €</span>/mes).</p>
+                </div>
+                <div class="card-footer small text-secondary"><i class="ti ti-link" aria-hidden="true"></i> Vinculat als comptes líquids · estalvi a <a href="accounts.html">ING <span class="num">···· 8830</span></a></div>
+              </div>
+            </div>
+
+            <!-- Japan trip -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-start gap-3">
+                    <span class="avatar bg-primary-lt flex-shrink-0"><i class="ti ti-plane" aria-hidden="true"></i></span>
+                    <div class="flex-fill">
+                      <h3 class="h3 mb-1">Viatge al Japó 2027</h3>
+                      <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge bg-secondary-lt">Prioritat 2</span>
+                        <span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Endarrerit</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="est-figure mt-4">850,00 <span class="unit">€ de 3.200,00 €</span></div>
+                  <div class="est-meter est-meter-lg est-meter-warning mt-2" role="img" aria-label="27 % de l'objectiu"><span style="width:26.6%"></span></div>
+                  <div class="d-flex justify-content-between small mt-1"><span class="num fw-medium">27 %</span><span class="text-secondary num">Falten 2.350,00 €</span></div>
+                  <div class="row g-3 mt-2">
+                    <div class="col-6"><div class="subheader">Aportació necessària</div><div class="num fw-semibold mt-1">235,00 €/mes</div></div>
+                    <div class="col-6"><div class="subheader">Data objectiu</div><div class="num fw-semibold mt-1">09/2027</div></div>
+                  </div>
+                  <p class="small text-secondary mt-3 mb-0">Hi aportes <span class="num">50,00 €/mes</span>: al setembre tindries <span class="num">1.350,00 €</span>. Pots apujar l'aportació, ajustar l'import o moure la data.</p>
+                </div>
+                <div class="card-footer small text-secondary"><i class="ti ti-pencil" aria-hidden="true"></i> Seguiment manual · guardiola compartida amb en Jordi</div>
+              </div>
+            </div>
+
+            <!-- Flat deposit (paused) -->
+            <div class="col-12 col-md-6 col-xl-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex align-items-start gap-3">
+                    <span class="avatar flex-shrink-0"><i class="ti ti-home" aria-hidden="true"></i></span>
+                    <div class="flex-fill">
+                      <h3 class="h3 mb-1">Entrada del pis</h3>
+                      <div class="d-flex gap-2 flex-wrap">
+                        <span class="badge bg-secondary-lt">Prioritat 3</span>
+                        <span class="badge bg-secondary-lt"><i class="ti ti-player-pause" aria-hidden="true"></i> En pausa</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="est-figure mt-4">0,00 <span class="unit">€ de 30.000,00 €</span></div>
+                  <div class="est-meter est-meter-lg est-meter-neutral mt-2" role="img" aria-label="0 % de l'objectiu"><span style="width:0%"></span></div>
+                  <div class="d-flex justify-content-between small mt-1"><span class="num fw-medium">0 %</span><span class="text-secondary num">Falten 30.000,00 €</span></div>
+                  <div class="row g-3 mt-2">
+                    <div class="col-6"><div class="subheader">Aportació necessària</div><div class="fw-semibold mt-1 text-secondary">Es calcularà en reprendre'l</div></div>
+                    <div class="col-6"><div class="subheader">Data objectiu</div><div class="fw-semibold mt-1 text-secondary">Per definir</div></div>
+                  </div>
+                  <p class="small text-secondary mt-3 mb-0">Es reprèn a l'etapa 4. Abans convé liquidar el deute car i completar el fons d'emergència: és on cada euro et rendeix més ara.</p>
+                </div>
+                <div class="card-footer small text-secondary"><i class="ti ti-stairs-up" aria-hidden="true"></i> Ara ets a l'etapa 2 · <a href="diagnosis.html">Veure la piràmide</a></div>
+              </div>
+            </div>
+
+            <!-- Emergency fund projection -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h3 class="card-title">Previsió del fons d'emergència</h3>
+                    <div class="card-subtitle mt-1 est-chart-unit">Euros · saldo previst a final de mes · novembre de 2026 – novembre de 2027 · aportant 150 €/mes</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div id="chart-emergency" style="min-height:280px"></div>
+                  <p class="small text-secondary mt-3 mb-0"><i class="ti ti-info-circle" aria-hidden="true"></i> Al ritme actual arribaries a <span class="num">5.705 €</span> d'aquí a 12 mesos i a l'objectiu de <span class="num">6.510 €</span> al maig de 2028. Quan liquidis la targeta revolving podràs redirigir-hi la seva quota i escurçar el termini. <a href="simulators.html">Prova-ho al simulador</a></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+  // Budget lines. Static prototype data: [category, icon, budgeted, spent, forecast note, flags]
+  (function () {
+    var GROUPS = [
+      { name: 'Necessitats', lines: [
+        ['Habitatge', 'home', 870, 870, 'Lloguer pagat el 02/11', 'fixed'],
+        ['Alimentació', 'shopping-cart', 480, 245.59, 'Previsió a final de mes: 409 €'],
+        ['Subministraments', 'bolt', 270, 112.78, 'Previsió a final de mes: 262 € · falta el rebut del gas'],
+        ['Transport', 'car', 200, 65.80, 'Previsió a final de mes: 150 €'],
+        ['Assegurances i comunicacions', 'shield', 105, 100.20, 'Rebuts del mes ja carregats', 'fixed'],
+        ['Salut', 'heartbeat', 60, 54.80, 'Previsió a final de mes: 55 €']
+      ] },
+      { name: 'Desitjos', lines: [
+        ['Oci i restauració', 'tools-kitchen-2', 200, 172, 'Previsió a final de mes: 287 € · superaria el pressupost en 87 €'],
+        ['Subscripcions i oci digital', 'device-tv', 148, 36.97, 'Previsió a final de mes: 148 € · falten 5 càrrecs recurrents'],
+        ['Llar i equipament', 'armchair', 50, 64.89, 'Previsió a final de mes: 65 € · 14,89 € per sobre'],
+        ['Roba i cura personal', 'shirt', 60, 5.04, 'Previsió a final de mes: 35 € · inclou una devolució de 29,95 €'],
+        ['Altres i imprevistos', 'dots', 90, 68, 'Previsió a final de mes: 90 €']
+      ] },
+      { name: 'Estalvi i deute', lines: [
+        ['Quotes de deute', 'credit-card', 371.90, 371.90, 'Préstec cotxe 276,90 € + WiZink 95,00 €, pagades el 05/11', 'fixed'],
+        ['Fons d\'emergència', 'pig-money', 150, 150, 'Traspàs a ING fet el 10/11', 'saving'],
+        ['Amortització extra de la revolving', 'flame', 110, 0, 'Previst el 28/11, en cobrar la nòmina', 'saving'],
+        ['Viatge al Japó', 'plane', 50, 0, 'Previst el 28/11, en cobrar la nòmina', 'saving']
+      ] }
+    ];
+    var eur = function (v) { return Estalvia.eur(v); };
+    var icon = function (n) { return '<i class="ti ti-' + n + '" aria-hidden="true"></i>'; };
+
+    function status(pct, flag, spent) {
+      if (flag === 'fixed') { return ['neutral', '<span class="text-secondary fw-medium text-nowrap">' + icon('lock') + ' Fix · pagat</span>']; }
+      if (flag === 'saving') {
+        return spent > 0
+          ? ['success', '<span class="text-success fw-medium text-nowrap">' + icon('check') + ' Aportat</span>']
+          : ['info', '<span class="text-info fw-medium text-nowrap">' + icon('clock') + ' Pendent</span>'];
+      }
+      if (pct > 100) { return ['danger', '<span class="text-danger fw-medium text-nowrap">' + icon('alert-triangle') + ' Superat</span>']; }
+      if (pct >= 80) { return ['warning', '<span class="text-warning fw-medium text-nowrap">' + icon('alert-circle') + ' ' + Math.round(pct) + ' %</span>']; }
+      return ['success', '<span class="text-success fw-medium text-nowrap">' + icon('check') + ' ' + Math.round(pct) + ' %</span>'];
+    }
+
+    document.getElementById('budget-lines').innerHTML = GROUPS.map(function (g) {
+      var budget = 0, spent = 0;
+      g.lines.forEach(function (l) { budget += l[2]; spent += l[3]; });
+      return '<div class="d-flex justify-content-between align-items-baseline gap-2 px-3 py-2 border-bottom bg-surface-secondary">' +
+        '<h4 class="subheader m-0">' + g.name + '</h4>' +
+        '<div class="small text-secondary num">' + eur(spent) + ' de ' + eur(budget) + '</div></div>' +
+        '<div class="list-group list-group-flush border-bottom">' + g.lines.map(function (l) {
+          var pct = l[2] ? l[3] / l[2] * 100 : 0;
+          var st = status(pct, l[5], l[3]);
+          return '<div class="list-group-item">' +
+            '<div class="row g-2 align-items-center">' +
+            '<div class="col-12 col-md-4 d-flex align-items-center gap-2">' +
+            '<span class="avatar avatar-sm flex-shrink-0">' + icon(l[1]) + '</span>' +
+            '<span class="fw-medium">' + l[0] + '</span></div>' +
+            '<div class="col-12 col-md-8">' +
+            '<div class="d-flex justify-content-between align-items-baseline gap-2 mb-1">' +
+            '<span class="num"><span class="fw-semibold">' + eur(l[3]) + '</span> <span class="text-secondary">de ' + eur(l[2]) + '</span></span>' +
+            '<span class="small num">' + st[1] + '</span></div>' +
+            '<div class="est-meter est-meter-' + st[0] + '" role="img" aria-label="' + Math.round(pct) + ' % del pressupost de ' + l[0] + '"><span style="width:' + Math.min(pct, 100).toFixed(1) + '%"></span></div>' +
+            '<div class="small text-secondary mt-1 num">' + l[4] + '</div>' +
+            '</div></div></div>';
+        }).join('') + '</div>';
+    }).join('');
+  })();
+
+  // Emergency fund projection: current balance + 150 €/month, target as an annotation line.
+  Estalvia.chart('#chart-emergency', function (c) {
+    var months = ['Nov.', 'Des.', 'Gen.', 'Febr.', 'Març', 'Abr.', 'Maig', 'Juny', 'Jul.', 'Ag.', 'Set.', 'Oct.', 'Nov.'];
+    var data = months.map(function (m, i) { return Math.round((3905.27 + 150 * i) * 100) / 100; });
+    return {
+      chart: { type: 'line', height: 280 },
+      series: [{ name: 'Saldo previst', data: data }],
+      colors: [c.colors[0]],
+      legend: { show: false },
+      markers: { size: 3 },
+      xaxis: { categories: months, tickAmount: 6, labels: { rotate: 0, hideOverlappingLabels: true } },
+      yaxis: { min: 3000, max: 7000, tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } },
+      tooltip: { y: { formatter: function (v) { return c.eur(v, 2); } } },
+      annotations: {
+        yaxis: [{
+          y: 6510, borderColor: c.text, strokeDashArray: 4,
+          label: { text: 'Objectiu: 6.510 €', position: 'left', textAnchor: 'start', offsetX: 8, borderColor: 'transparent', style: { background: 'transparent', color: c.text, fontSize: '12px' } }
+        }]
+      }
+    };
+  });
+</script>
+</body>
+</html>

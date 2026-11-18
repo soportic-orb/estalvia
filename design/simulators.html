@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Simuladors · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+</head>
+<body data-page="simulators">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Estalviar</div>
+            <h1 class="page-title">Simuladors</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+
+        <!-- Simulator selector -->
+        <fieldset class="mb-2">
+          <legend class="visually-hidden">Tria un simulador</legend>
+          <div class="form-selectgroup-boxes row g-2 g-lg-3" id="sim-selector">
+            <div class="col-6 col-lg-3">
+              <label class="form-selectgroup-item d-block m-0 h-100">
+                <input type="radio" name="sim" value="a" class="form-selectgroup-input" checked>
+                <span class="form-selectgroup-label d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 p-3 h-100 text-start">
+                  <span class="avatar avatar-sm bg-primary-lt flex-shrink-0"><i class="ti ti-car" aria-hidden="true"></i></span>
+                  <span><span class="d-block fw-medium text-body">Amortització anticipada</span><span class="d-none d-sm-block small text-secondary">Préstec del cotxe</span></span>
+                </span>
+              </label>
+            </div>
+            <div class="col-6 col-lg-3">
+              <label class="form-selectgroup-item d-block m-0 h-100">
+                <input type="radio" name="sim" value="b" class="form-selectgroup-input">
+                <span class="form-selectgroup-label d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 p-3 h-100 text-start">
+                  <span class="avatar avatar-sm bg-primary-lt flex-shrink-0"><i class="ti ti-credit-card-off" aria-hidden="true"></i></span>
+                  <span><span class="d-block fw-medium text-body">Pla de pagament de deutes</span><span class="d-none d-sm-block small text-secondary">Allau o bola de neu</span></span>
+                </span>
+              </label>
+            </div>
+            <div class="col-6 col-lg-3">
+              <label class="form-selectgroup-item d-block m-0 h-100">
+                <input type="radio" name="sim" value="c" class="form-selectgroup-input">
+                <span class="form-selectgroup-label d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 p-3 h-100 text-start">
+                  <span class="avatar avatar-sm bg-primary-lt flex-shrink-0"><i class="ti ti-shield" aria-hidden="true"></i></span>
+                  <span><span class="d-block fw-medium text-body">Fons d'emergència</span><span class="d-none d-sm-block small text-secondary">Quan arribes a 3 mesos</span></span>
+                </span>
+              </label>
+            </div>
+            <div class="col-6 col-lg-3">
+              <label class="form-selectgroup-item d-block m-0 h-100">
+                <input type="radio" name="sim" value="d" class="form-selectgroup-input">
+                <span class="form-selectgroup-label d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 p-3 h-100 text-start">
+                  <span class="avatar avatar-sm bg-primary-lt flex-shrink-0"><i class="ti ti-target-arrow" aria-hidden="true"></i></span>
+                  <span><span class="d-block fw-medium text-body">Objectiu d'estalvi</span><span class="d-none d-sm-block small text-secondary">Quant cal apartar al mes</span></span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <p class="small text-secondary mt-3 mb-4"><i class="ti ti-lock-open" aria-hidden="true"></i> Amb Premium tens tots els simuladors. Al pla Gratuït només tens 1 simulador. <a href="billing.html">Veure els plans</a></p>
+
+        <!-- ================= (a) Early repayment ================= -->
+        <section data-sim="a" aria-labelledby="sim-a-title">
+          <div class="row row-cards">
+            <div class="col-12 col-lg-5">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h2 class="card-title" id="sim-a-title">Amortització anticipada</h2>
+                    <div class="card-subtitle mt-1">Préstec cotxe · Santander Consumer · sistema francès, tipus fix</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="datagrid mb-4" style="--tblr-datagrid-item-width:8rem">
+                    <div class="datagrid-item"><div class="datagrid-title">Capital pendent</div><div class="datagrid-content num">8.615,40 €</div></div>
+                    <div class="datagrid-item"><div class="datagrid-title">Quota actual</div><div class="datagrid-content num">276,90 €/mes</div></div>
+                    <div class="datagrid-item"><div class="datagrid-title">TIN · TAE</div><div class="datagrid-content num">6,95 % · 7,45 %</div></div>
+                    <div class="datagrid-item"><div class="datagrid-title">Quotes restants</div><div class="datagrid-content num" id="a-current-term">—</div></div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label" for="a-amount">Import a amortitzar</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="a-amount" value="1500" min="0" max="8600" step="50" inputmode="decimal">
+                      <span class="input-group-text">€</span>
+                    </div>
+                    <input type="range" class="form-range mt-3" id="a-amount-range" value="1500" min="0" max="8600" step="50" aria-label="Import a amortitzar, selector lliscant">
+                    <div class="d-flex justify-content-between small text-secondary num"><span>0 €</span><span>8.600 €</span></div>
+                  </div>
+
+                  <fieldset class="mb-3">
+                    <legend class="form-label">Què vols reduir?</legend>
+                    <div class="form-selectgroup w-100">
+                      <label class="form-selectgroup-item flex-fill">
+                        <input type="radio" name="a-mode" value="quota" class="form-selectgroup-input">
+                        <span class="form-selectgroup-label">Reduir quota</span>
+                      </label>
+                      <label class="form-selectgroup-item flex-fill">
+                        <input type="radio" name="a-mode" value="term" class="form-selectgroup-input" checked>
+                        <span class="form-selectgroup-label">Reduir termini</span>
+                      </label>
+                    </div>
+                  </fieldset>
+
+                  <div>
+                    <label class="form-label" for="a-fee">Comissió per amortització anticipada</label>
+                    <select class="form-select" id="a-fee">
+                      <option value="0" selected>Sense comissió (0 %)</option>
+                      <option value="0.005">0,5 %</option>
+                      <option value="0.01">1 %</option>
+                    </select>
+                    <div class="form-hint">Mira-ho al contracte. El màxim legal és l'1 % (0,5 % si queda menys d'un any).</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-7">
+              <div class="row row-cards" aria-live="polite">
+                <div class="col-12 col-sm-6">
+                  <div class="card h-100" id="a-card-quota">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                        <h3 class="card-title mb-0">Reduir la quota</h3>
+                        <span class="badge bg-primary-lt d-none" data-choice>La teva tria</span>
+                      </div>
+                      <div class="subheader">Nova quota</div>
+                      <div class="est-figure est-figure-lg mt-1"><span id="a-q-quota">—</span> <span class="unit">€/mes</span></div>
+                      <div class="small text-secondary mt-1">abans <span class="num">276,90 €</span> · <span class="num fw-medium text-body" id="a-q-delta">—</span> menys cada mes</div>
+                      <hr class="my-3">
+                      <dl class="row g-2 mb-0">
+                        <dt class="col-7 fw-normal text-secondary">Termini</dt><dd class="col-5 text-end num mb-0" id="a-q-term">—</dd>
+                        <dt class="col-7 fw-normal text-secondary">Última quota</dt><dd class="col-5 text-end num mb-0" id="a-q-end">—</dd>
+                        <dt class="col-7 fw-normal text-secondary">Interessos estalviats</dt><dd class="col-5 text-end num mb-0 text-success fw-semibold" id="a-q-saved">—</dd>
+                        <dt class="col-7 fw-normal text-secondary a-fee-row">Comissió</dt><dd class="col-5 text-end num mb-0 a-fee-row" id="a-q-fee">—</dd>
+                        <dt class="col-7 fw-medium a-fee-row">Estalvi net</dt><dd class="col-5 text-end num mb-0 fw-semibold a-fee-row" id="a-q-net">—</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="card h-100" id="a-card-term">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                        <h3 class="card-title mb-0">Reduir el termini</h3>
+                        <span class="badge bg-primary-lt d-none" data-choice>La teva tria</span>
+                      </div>
+                      <div class="subheader">Nou termini</div>
+                      <div class="est-figure est-figure-lg mt-1"><span id="a-t-term">—</span> <span class="unit">quotes</span></div>
+                      <div class="small text-secondary mt-1">abans <span class="num" id="a-t-before">—</span> · acabes <span class="num fw-medium text-body" id="a-t-delta">—</span> abans</div>
+                      <hr class="my-3">
+                      <dl class="row g-2 mb-0">
+                        <dt class="col-7 fw-normal text-secondary">Quota</dt><dd class="col-5 text-end num mb-0">276,90 €</dd>
+                        <dt class="col-7 fw-normal text-secondary">Última quota</dt><dd class="col-5 text-end num mb-0" id="a-t-end">—</dd>
+                        <dt class="col-7 fw-normal text-secondary">Interessos estalviats</dt><dd class="col-5 text-end num mb-0 text-success fw-semibold" id="a-t-saved">—</dd>
+                        <dt class="col-7 fw-normal text-secondary a-fee-row">Comissió</dt><dd class="col-5 text-end num mb-0 a-fee-row" id="a-t-fee">—</dd>
+                        <dt class="col-7 fw-medium a-fee-row">Estalvi net</dt><dd class="col-5 text-end num mb-0 fw-semibold a-fee-row" id="a-t-net">—</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="d-flex gap-3">
+                        <span class="avatar avatar-sm bg-azure-lt flex-shrink-0"><i class="ti ti-info-circle" aria-hidden="true"></i></span>
+                        <div>
+                          <div class="fw-medium">Com llegir-ho</div>
+                          <div class="text-secondary" id="a-summary">—</div>
+                          <div class="small text-secondary mt-2">Sense amortitzar, pagaries <span class="num" id="a-base-interest">—</span> d'interessos fins a <span id="a-base-end">—</span>. Abans d'amortitzar, comprova que mantens el coixí d'emergència: ara tens <span class="num">1,8 mesos</span> de despesa essencial.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= (b) Debt payoff plan ================= -->
+        <section data-sim="b" aria-labelledby="sim-b-title" class="d-none">
+          <div class="row row-cards">
+            <div class="col-12 col-lg-5">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h2 class="card-title" id="sim-b-title">Pla de pagament de deutes</h2>
+                    <div class="card-subtitle mt-1">Què passa si hi poses un extra cada mes</div>
+                  </div>
+                </div>
+                <div class="list-group list-group-flush">
+                  <div class="list-group-item">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-auto"><span class="avatar avatar-sm bg-red-lt"><i class="ti ti-credit-card" aria-hidden="true"></i></span></div>
+                      <div class="col">
+                        <div class="fw-medium">WiZink <span class="text-secondary fw-normal">···· 3377</span></div>
+                        <div class="small text-secondary num">TAE 21,84 % · quota 95,00 €/mes</div>
+                      </div>
+                      <div class="col-auto num fw-semibold">2.340,00 €</div>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-auto"><span class="avatar avatar-sm bg-secondary-lt"><i class="ti ti-car" aria-hidden="true"></i></span></div>
+                      <div class="col">
+                        <div class="fw-medium">Préstec cotxe</div>
+                        <div class="small text-secondary num">TAE 7,45 % · quota 276,90 €/mes</div>
+                      </div>
+                      <div class="col-auto num fw-semibold">8.615,40 €</div>
+                    </div>
+                  </div>
+                  <div class="list-group-item">
+                    <div class="row g-2 align-items-center">
+                      <div class="col-auto"><span class="avatar avatar-sm bg-secondary-lt"><i class="ti ti-credit-card" aria-hidden="true"></i></span></div>
+                      <div class="col">
+                        <div class="fw-medium text-secondary">Visa CaixaBank <span class="fw-normal">···· 9012</span></div>
+                        <div class="small text-secondary">Pagament total cada mes, sense interessos · no entra al pla</div>
+                      </div>
+                      <div class="col-auto num text-secondary">318,45 €</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label" for="b-extra">Extra mensual</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="b-extra" value="150" min="0" max="1000" step="10" inputmode="decimal">
+                      <span class="input-group-text">€/mes</span>
+                    </div>
+                    <input type="range" class="form-range mt-3" id="b-extra-range" value="150" min="0" max="500" step="10" aria-label="Extra mensual, selector lliscant">
+                    <div class="form-hint">A més de les quotes (<span class="num">371,90 €/mes</span>). Quan liquides un deute, la seva quota passa al següent.</div>
+                  </div>
+                  <fieldset>
+                    <legend class="form-label">Mètode</legend>
+                    <div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+                      <label class="form-selectgroup-item flex-fill">
+                        <input type="radio" name="b-method" value="avalanche" class="form-selectgroup-input" checked>
+                        <span class="form-selectgroup-label d-flex align-items-center p-3">
+                          <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                          <span class="text-start"><span class="d-block fw-medium text-body">Allau</span><span class="d-block small text-secondary">Primer el deute amb l'interès més alt. Pagues menys interessos.</span></span>
+                        </span>
+                      </label>
+                      <label class="form-selectgroup-item flex-fill">
+                        <input type="radio" name="b-method" value="snowball" class="form-selectgroup-input">
+                        <span class="form-selectgroup-label d-flex align-items-center p-3">
+                          <span class="me-3"><span class="form-selectgroup-check"></span></span>
+                          <span class="text-start"><span class="d-block fw-medium text-body">Bola de neu</span><span class="d-block small text-secondary">Primer el deute més petit. Veus resultats abans.</span></span>
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-7">
+              <div class="row row-cards" aria-live="polite">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row g-3">
+                        <div class="col-6 col-md-4">
+                          <div class="subheader">Lliure de deutes</div>
+                          <div class="est-figure mt-1" id="b-free">—</div>
+                          <div class="small text-success mt-1"><i class="ti ti-arrow-down" aria-hidden="true"></i> <span id="b-months-saved">—</span></div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                          <div class="subheader">Interessos totals</div>
+                          <div class="est-figure mt-1"><span id="b-interest">—</span> <span class="unit">€</span></div>
+                          <div class="small text-secondary mt-1">només quotes: <span class="num" id="b-base-interest">—</span></div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                          <div class="subheader">Estalvi vs. pagar només quotes</div>
+                          <div class="est-figure mt-1 text-success"><span id="b-saving">—</span> <span class="unit">€</span></div>
+                          <div class="small text-secondary mt-1">en interessos</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                  <div class="card h-100" id="b-card-avalanche">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                        <h3 class="card-title mb-0">Allau</h3>
+                        <span class="badge bg-primary-lt d-none" data-choice>La teva tria</span>
+                      </div>
+                      <ol class="list-unstyled vstack gap-2 mb-3" id="b-av-order"></ol>
+                      <dl class="row g-2 mb-0">
+                        <dt class="col-7 fw-normal text-secondary">Interessos totals</dt><dd class="col-5 text-end num mb-0" id="b-av-interest">—</dd>
+                        <dt class="col-7 fw-normal text-secondary">Estalvi</dt><dd class="col-5 text-end num mb-0 text-success fw-semibold" id="b-av-saving">—</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="card h-100" id="b-card-snowball">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                        <h3 class="card-title mb-0">Bola de neu</h3>
+                        <span class="badge bg-primary-lt d-none" data-choice>La teva tria</span>
+                      </div>
+                      <ol class="list-unstyled vstack gap-2 mb-3" id="b-sn-order"></ol>
+                      <dl class="row g-2 mb-0">
+                        <dt class="col-7 fw-normal text-secondary">Interessos totals</dt><dd class="col-5 text-end num mb-0" id="b-sn-interest">—</dd>
+                        <dt class="col-7 fw-normal text-secondary">Estalvi</dt><dd class="col-5 text-end num mb-0 text-success fw-semibold" id="b-sn-saving">—</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 d-none" id="b-same">
+                  <div class="alert alert-info mb-0" role="status">
+                    <div class="d-flex">
+                      <div class="me-2"><i class="ti ti-info-circle icon alert-icon" aria-hidden="true"></i></div>
+                      <div>
+                        <h4 class="alert-title">En el teu cas, tots dos mètodes donen el mateix pla</h4>
+                        <div class="text-secondary">La WiZink és alhora el deute més car i el més petit, així que tant l'allau com la bola de neu comencen per ella.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <div>
+                        <h2 class="card-title">Deute total en el temps</h2>
+                        <div class="card-subtitle mt-1 est-chart-unit">Euros pendents a final de mes · WiZink + préstec cotxe</div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div id="chart-debt" style="min-height:280px"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= (c) Emergency fund ================= -->
+        <section data-sim="c" aria-labelledby="sim-c-title" class="d-none">
+          <div class="row row-cards">
+            <div class="col-12 col-lg-5">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h2 class="card-title" id="sim-c-title">Fons d'emergència</h2>
+                    <div class="card-subtitle mt-1">Quant trigues a tenir el coixí complet</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label" for="c-essential">Despesa essencial mensual</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="c-essential" value="2170" min="0" step="10" inputmode="decimal">
+                      <span class="input-group-text">€/mes</span>
+                    </div>
+                    <div class="form-hint">Habitatge, subministraments, alimentació, transport i quotes de deute (mitjana agost–octubre).</div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="c-months">Mesos que vols cobrir</label>
+                    <select class="form-select" id="c-months">
+                      <option value="3" selected>3 mesos (recomanat amb contracte indefinit)</option>
+                      <option value="6">6 mesos</option>
+                      <option value="9">9 mesos</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="c-current">Estalvi líquid actual</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="c-current" value="3905.27" min="0" step="0.01" inputmode="decimal">
+                      <span class="input-group-text">€</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="form-label" for="c-monthly">Aportació mensual</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="c-monthly" value="365" min="0" step="5" inputmode="decimal">
+                      <span class="input-group-text">€/mes</span>
+                    </div>
+                    <div class="form-hint">El teu flux de caixa mitjà és de <span class="num">+365 €/mes</span>.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="row row-cards" aria-live="polite">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="subheader">Hi arribes en</div>
+                      <div class="est-figure est-figure-lg mt-1"><span id="c-time">—</span> <span class="unit" id="c-time-unit">mesos</span></div>
+                      <div class="text-secondary mt-1" id="c-date">—</div>
+                      <div class="d-flex justify-content-between small mt-4 mb-1"><span>Ara cobreixes <span class="num fw-medium" id="c-cover">—</span></span><span class="num text-secondary" id="c-target-months">—</span></div>
+                      <div class="est-meter est-meter-lg" id="c-meter" role="img" aria-label="Cobertura actual del fons d'emergència"><span style="width:0%"></span></div>
+                      <div class="small mt-2" id="c-state">—</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-sm"><div class="card-body">
+                    <div class="subheader">Objectiu</div>
+                    <div class="est-figure mt-2"><span id="c-target">—</span> <span class="unit">€</span></div>
+                  </div></div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-sm"><div class="card-body">
+                    <div class="subheader">Et falten</div>
+                    <div class="est-figure mt-2"><span id="c-missing">—</span> <span class="unit">€</span></div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= (d) Savings goal ================= -->
+        <section data-sim="d" aria-labelledby="sim-d-title" class="d-none">
+          <div class="row row-cards">
+            <div class="col-12 col-lg-5">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <h2 class="card-title" id="sim-d-title">Objectiu d'estalvi</h2>
+                    <div class="card-subtitle mt-1">Quant cal apartar cada mes per arribar-hi a temps</div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label" for="d-name">Nom de l'objectiu</label>
+                    <input type="text" class="form-control" id="d-name" value="Viatge al Japó">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="d-amount">Import de l'objectiu</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="d-amount" value="3000" min="0" step="50" inputmode="decimal">
+                      <span class="input-group-text">€</span>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label" for="d-saved">Ja hi tens estalviat</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control num" id="d-saved" value="450" min="0" step="10" inputmode="decimal">
+                      <span class="input-group-text">€</span>
+                    </div>
+                  </div>
+                  <div>
+                    <fieldset>
+                      <legend class="form-label">Data objectiu</legend>
+                      <div class="row g-2">
+                        <div class="col-7"><select class="form-select" id="d-month" aria-label="Mes"><option value="1">Gener</option><option value="2">Febrer</option><option value="3">Març</option><option value="4">Abril</option><option value="5">Maig</option><option value="6">Juny</option><option value="7">Juliol</option><option value="8" selected>Agost</option><option value="9">Setembre</option><option value="10">Octubre</option><option value="11">Novembre</option><option value="12">Desembre</option></select></div>
+                        <div class="col-5"><select class="form-select num" id="d-year" aria-label="Any"><option>2026</option><option selected>2027</option><option>2028</option><option>2029</option><option>2030</option><option>2031</option></select></div>
+                      </div>
+                    </fieldset>
+                    <div class="form-hint">Comptem una aportació cada mes, de desembre de 2026 fins al mes que triïs.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="row row-cards" aria-live="polite">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="subheader">Aportació mensual necessària</div>
+                      <div class="est-figure est-figure-lg mt-1"><span id="d-monthly">—</span> <span class="unit">€/mes</span></div>
+                      <div class="text-secondary mt-1" id="d-detail">—</div>
+                      <div class="mt-3" id="d-state">—</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-sm"><div class="card-body">
+                    <div class="subheader">Et falten</div>
+                    <div class="est-figure mt-2"><span id="d-missing">—</span> <span class="unit">€</span></div>
+                  </div></div>
+                </div>
+                <div class="col-6">
+                  <div class="card card-sm"><div class="card-body">
+                    <div class="subheader">Aportacions</div>
+                    <div class="est-figure mt-2"><span id="d-count">—</span> <span class="unit">mesos</span></div>
+                  </div></div>
+                </div>
+                <div class="col-12">
+                  <a href="budgets-goals.html" class="btn"><i class="ti ti-target-arrow icon" aria-hidden="true"></i>Desa'l com a objectiu</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <p class="small text-secondary mt-4 mb-0"><i class="ti ti-calculator" aria-hidden="true"></i> Càlculs deterministes fets per Estalvia; resultats orientatius. No tenen en compte canvis futurs en els teus ingressos o despeses, i no són una recomanació de cap producte financer.</p>
+
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.54.1/dist/apexcharts.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var eur = Estalvia.eur, num = Estalvia.num;
+  var MONTHS = ['gen.', 'febr.', 'març', 'abr.', 'maig', 'juny', 'jul.', 'ag.', 'set.', 'oct.', 'nov.', 'des.'];
+  var MONTHS_LONG = ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'setembre', 'octubre', 'novembre', 'desembre'];
+  // Today is 18/11/2026: the first future instalment is December 2026 (index 0).
+  var START_YEAR = 2026, START_MONTH = 11;
+  function monthLabel(i, long) {
+    var m = START_MONTH + i;
+    return (long ? MONTHS_LONG : MONTHS)[m % 12] + (long ? ' de ' : ' ') + (START_YEAR + Math.floor(m / 12));
+  }
+  // Compact mm/aa label for narrow chart axes.
+  function shortLabel(i) { var m = START_MONTH + i; return ('0' + (m % 12 + 1)).slice(-2) + '/' + String(START_YEAR + Math.floor(m / 12)).slice(-2); }
+  function $(id) { return document.getElementById(id); }
+  function set(id, text) { $(id).textContent = text; }
+  function val(id) { var v = parseFloat($(id).value); return isNaN(v) ? 0 : v; }
+  function plural(n, one, many) { return num(n) + ' ' + (n === 1 ? one : many); }
+  function markChoice(cards, chosen) {
+    Object.keys(cards).forEach(function (k) {
+      var card = $(cards[k]);
+      card.classList.toggle('border-primary', k === chosen);
+      card.querySelector('[data-choice]').classList.toggle('d-none', k !== chosen);
+    });
+  }
+  // Keep a number input and its range slider in sync.
+  function link(numberId, rangeId, onChange) {
+    $(numberId).addEventListener('input', function () { $(rangeId).value = this.value; onChange(); });
+    $(rangeId).addEventListener('input', function () { $(numberId).value = this.value; onChange(); });
+  }
+
+  /* ---------------- (a) Early repayment, French system ---------------- */
+  var LOAN = { capital: 8615.40, rate: 0.0695 / 12, quota: 276.90 };
+
+  // Month-by-month schedule; the last instalment may be smaller.
+  function schedule(capital, rate, quota) {
+    var n = 0, interest = 0;
+    while (capital > 0.005 && n < 600) {
+      var i = capital * rate;
+      interest += i;
+      capital = capital + i - Math.min(quota, capital + i);
+      n++;
+    }
+    return { n: n, interest: interest };
+  }
+  function calcA() {
+    var amount = Math.min(Math.max(val('a-amount'), 0), LOAN.capital);
+    var feeRate = parseFloat($('a-fee').value);
+    var mode = document.querySelector('[name="a-mode"]:checked').value;
+    var r = LOAN.rate;
+
+    var base = schedule(LOAN.capital, r, LOAN.quota);
+    var rest = LOAN.capital - amount;
+    // Exact remaining term implied by the current instalment, so that amount 0 returns the same instalment.
+    var nExact = -Math.log(1 - LOAN.capital * r / LOAN.quota) / Math.log(1 + r);
+    var newQuota = rest > 0 ? rest * r / (1 - Math.pow(1 + r, -nExact)) : 0;
+    var byQuota = rest > 0 ? schedule(rest, r, newQuota) : { n: 0, interest: 0 };
+    var byTerm = schedule(rest, r, LOAN.quota);
+    var fee = amount * feeRate;
+    var savedQ = base.interest - byQuota.interest;
+    var savedT = base.interest - byTerm.interest;
+
+    set('a-current-term', base.n + ' (fins ' + monthLabel(base.n - 1) + ')');
+    set('a-base-interest', eur(base.interest));
+    set('a-base-end', monthLabel(base.n - 1, true));
+
+    set('a-q-quota', num(newQuota, 2));
+    set('a-q-delta', eur(LOAN.quota - newQuota));
+    set('a-q-term', plural(byQuota.n, 'quota', 'quotes'));
+    set('a-q-end', byQuota.n ? monthLabel(byQuota.n - 1) : '—');
+    set('a-q-saved', eur(savedQ));
+    set('a-q-fee', '−' + eur(fee));
+    set('a-q-net', eur(savedQ - fee));
+
+    set('a-t-term', byTerm.n);
+    set('a-t-before', base.n + ' quotes');
+    set('a-t-delta', plural(base.n - byTerm.n, 'mes', 'mesos'));
+    set('a-t-end', byTerm.n ? monthLabel(byTerm.n - 1) : '—');
+    set('a-t-saved', eur(savedT));
+    set('a-t-fee', '−' + eur(fee));
+    set('a-t-net', eur(savedT - fee));
+
+    document.querySelectorAll('.a-fee-row').forEach(function (el) { el.classList.toggle('d-none', feeRate === 0); });
+    markChoice({ quota: 'a-card-quota', term: 'a-card-term' }, mode);
+
+    $('a-summary').innerHTML = amount <= 0
+      ? 'Indica un import per veure’n l’efecte.'
+      : 'Amortitzant <span class="num fw-medium text-body">' + eur(amount) + '</span>, reduir el termini t’estalvia <span class="num fw-medium text-body">' +
+        eur(savedT - savedQ) + '</span> més en interessos que reduir la quota. Reduir la quota, en canvi, t’allibera <span class="num fw-medium text-body">' +
+        eur(LOAN.quota - newQuota) + '</span> cada mes des d’ara.';
+  }
+  link('a-amount', 'a-amount-range', calcA);
+  $('a-fee').addEventListener('change', calcA);
+  document.querySelectorAll('[name="a-mode"]').forEach(function (el) { el.addEventListener('change', calcA); });
+
+  /* ---------------- (b) Debt payoff: avalanche vs snowball ---------------- */
+  var DEBTS = [
+    { name: 'WiZink', balance: 2340.00, rate: Math.pow(1.2184, 1 / 12) - 1, tae: 21.84, quota: 95.00 },
+    { name: 'Préstec cotxe', balance: 8615.40, rate: 0.0695 / 12, tae: 7.45, quota: 276.90 }
+  ];
+  // order: array of debt indexes (priority) or null for "instalments only" (no extra, no roll-over).
+  function payoff(order, extra) {
+    var bal = DEBTS.map(function (d) { return d.balance; });
+    var done = DEBTS.map(function () { return null; });
+    var interest = 0, series = [], month = 0;
+    var budget = DEBTS.reduce(function (s, d) { return s + d.quota; }, 0) + extra;
+    while (bal.some(function (b) { return b > 0.005; }) && month < 600) {
+      var left = order ? budget : 0;
+      DEBTS.forEach(function (d, i) {
+        if (bal[i] <= 0.005) { return; }
+        var it = bal[i] * d.rate; interest += it; bal[i] += it;
+        var pay = Math.min(d.quota, bal[i]); bal[i] -= pay; left -= pay;
+      });
+      if (order) {
+        order.forEach(function (i) {
+          if (left <= 0 || bal[i] <= 0.005) { return; }
+          var pay = Math.min(left, bal[i]); bal[i] -= pay; left -= pay;
+        });
+      }
+      bal.forEach(function (b, i) { if (b <= 0.005 && done[i] === null) { done[i] = month; bal[i] = 0; } });
+      series.push(Math.round(bal[0] + bal[1]));
+      month++;
+    }
+    return { months: month, interest: interest, done: done, series: series };
+  }
+  var debtState = { series: [], categories: [] };
+  function orderList(id, order, res) {
+    $(id).innerHTML = order.map(function (i, pos) {
+      return '<li class="d-flex align-items-center gap-2"><span class="badge bg-secondary-lt num">' + (pos + 1) + '</span>' +
+        '<span class="flex-fill">' + DEBTS[i].name + '</span><span class="num fw-medium">' + monthLabel(res.done[i]) + '</span></li>';
+    }).join('');
+  }
+  function calcB() {
+    var extra = Math.max(val('b-extra'), 0);
+    var method = document.querySelector('[name="b-method"]:checked').value;
+    var idx = DEBTS.map(function (d, i) { return i; });
+    var avOrder = idx.slice().sort(function (a, b) { return DEBTS[b].tae - DEBTS[a].tae; });
+    var snOrder = idx.slice().sort(function (a, b) { return DEBTS[a].balance - DEBTS[b].balance; });
+    var base = payoff(null, 0);
+    var av = payoff(avOrder, extra);
+    var sn = payoff(snOrder, extra);
+    var chosen = method === 'avalanche' ? av : sn;
+    var same = avOrder.join() === snOrder.join();
+
+    set('b-free', monthLabel(chosen.months - 1));
+    set('b-months-saved', plural(base.months - chosen.months, 'mes', 'mesos') + ' abans');
+    set('b-interest', num(chosen.interest, 2));
+    set('b-base-interest', eur(base.interest));
+    set('b-saving', num(base.interest - chosen.interest, 2));
+    orderList('b-av-order', avOrder, av); orderList('b-sn-order', snOrder, sn);
+    set('b-av-interest', eur(av.interest)); set('b-av-saving', eur(base.interest - av.interest));
+    set('b-sn-interest', eur(sn.interest)); set('b-sn-saving', eur(base.interest - sn.interest));
+    $('b-same').classList.toggle('d-none', !same);
+    markChoice({ avalanche: 'b-card-avalanche', snowball: 'b-card-snowball' }, method);
+
+    // Chart data: start point (today) + end-of-month balances, padded to the longest plan.
+    var start = Math.round(DEBTS[0].balance + DEBTS[1].balance);
+    function pad(s) { var out = [start].concat(s); while (out.length < base.months + 1) { out.push(0); } return out; }
+    debtState.series = same
+      ? [{ name: 'Només quotes', data: pad(base.series) }, { name: 'Allau i bola de neu (mateix pla)', data: pad(av.series) }]
+      : [{ name: 'Només quotes', data: pad(base.series) }, { name: 'Allau', data: pad(av.series) }, { name: 'Bola de neu', data: pad(sn.series) }];
+    redrawChart();
+  }
+  var chartReady = false;
+  function redrawChart() {
+    if ($('chart-debt').offsetParent === null) { return; }   // panel hidden: draw when shown
+    if (!chartReady) {
+      chartReady = true;
+      Estalvia.chart('#chart-debt', function (c) {
+        return {
+          chart: { type: 'line', height: 280 },
+          series: debtState.series.map(function (s) {
+            return { name: s.name, data: s.data.map(function (y, x) { return { x: x, y: y }; }) };
+          }),
+          // Baseline in neutral grey; plans keep their categorical colours.
+          colors: [c.neutral, c.colors[0], c.colors[1]],
+          xaxis: { type: 'numeric', tickAmount: window.innerWidth < 576 ? 3 : 4, labels: { rotate: 0, formatter: function (v) { var i = Math.round(v); return i <= 0 ? 'avui' : (window.innerWidth < 576 ? shortLabel(i - 1) : monthLabel(i - 1)); } } },
+          yaxis: { min: 0, max: Math.ceil(debtState.series[0].data[0] / 4000) * 4000, tickAmount: 4, labels: { formatter: function (v) { return c.num(v) + ' €'; } } },
+          tooltip: { x: { formatter: function (v) { var i = Math.round(v); return i <= 0 ? 'Avui' : monthLabel(i - 1, true); } } }
+        };
+      });
+    } else {
+      // Estalvia.chart re-renders registered charts on this event.
+      document.dispatchEvent(new CustomEvent('estalvia:themechange'));
+    }
+  }
+  link('b-extra', 'b-extra-range', calcB);
+  document.querySelectorAll('[name="b-method"]').forEach(function (el) { el.addEventListener('change', calcB); });
+
+  /* ---------------- (c) Emergency fund ---------------- */
+  function calcC() {
+    var essential = val('c-essential'), months = parseInt($('c-months').value, 10);
+    var current = val('c-current'), monthly = val('c-monthly');
+    var target = essential * months;
+    var missing = Math.max(target - current, 0);
+    var cover = essential > 0 ? current / essential : 0;
+    var pct = target > 0 ? Math.min(current / target * 100, 100) : 100;
+    set('c-target', num(target, 2)); set('c-missing', num(missing, 2));
+    set('c-cover', num(cover, 1) + ' mesos'); set('c-target-months', 'objectiu ' + months + ' mesos');
+    $('c-meter').firstElementChild.style.width = pct + '%';
+    var meterClass = pct >= 100 ? 'est-meter-success' : (pct >= 50 ? 'est-meter-warning' : 'est-meter-danger');
+    $('c-meter').className = 'est-meter est-meter-lg ' + meterClass;
+    if (missing === 0) {
+      set('c-time', '0'); set('c-time-unit', 'mesos'); set('c-date', 'Ja tens el fons complet.');
+      $('c-state').innerHTML = '<span class="text-success fw-medium"><i class="ti ti-circle-check" aria-hidden="true"></i> Complet</span>';
+    } else if (monthly <= 0) {
+      set('c-time', '—'); set('c-time-unit', ''); set('c-date', 'Indica una aportació mensual per calcular-ho.');
+      $('c-state').innerHTML = '<span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Sense aportació no hi arribes</span>';
+    } else {
+      var n = Math.ceil(missing / monthly - 1e-9);
+      set('c-time', n); set('c-time-unit', n === 1 ? 'mes' : 'mesos');
+      set('c-date', 'Fons complet el ' + monthLabel(n - 1, true) + ', aportant ' + eur(monthly) + ' cada mes.');
+      $('c-state').innerHTML = pct >= 50
+        ? '<span class="text-warning fw-medium"><i class="ti ti-alert-circle" aria-hidden="true"></i> Curt</span> <span class="text-secondary">· ja en tens el ' + num(pct) + ' %</span>'
+        : '<span class="text-danger fw-medium"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Molt curt</span> <span class="text-secondary">· en tens el ' + num(pct) + ' %</span>';
+    }
+  }
+  ['c-essential', 'c-months', 'c-current', 'c-monthly'].forEach(function (id) { $(id).addEventListener('input', calcC); });
+
+  /* ---------------- (d) Savings goal ---------------- */
+  var CASH_FLOW = 365;
+  function calcD() {
+    var missing = Math.max(val('d-amount') - val('d-saved'), 0);
+    var count = (parseInt($('d-year').value, 10) - START_YEAR) * 12 + (parseInt($('d-month').value, 10) - 1 - START_MONTH) + 1;
+    set('d-missing', num(missing, 2));
+    if (count < 1) {
+      set('d-monthly', '—'); set('d-count', '—'); set('d-detail', 'Tria una data a partir de desembre de 2026.');
+      $('d-state').innerHTML = ''; return;
+    }
+    var monthly = missing / count;
+    set('d-monthly', num(monthly, 2)); set('d-count', count);
+    set('d-detail', plural(count, 'aportació', 'aportacions') + ', de ' + monthLabel(0, true) + ' a ' + monthLabel(count - 1, true) + '. Sense comptar interessos ni rendiments.');
+    $('d-state').innerHTML = monthly <= CASH_FLOW
+      ? '<span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Assumible</span> <span class="small text-secondary ms-1">Hi cap dins el teu flux de caixa mitjà (<span class="num">+365 €/mes</span>).</span>'
+      : '<span class="badge bg-yellow-lt"><i class="ti ti-alert-circle" aria-hidden="true"></i> Ajustat</span> <span class="small text-secondary ms-1">Supera el teu flux de caixa mitjà (<span class="num">+365 €/mes</span>). Prova amb una data més llunyana.</span>';
+  }
+  ['d-amount', 'd-saved', 'd-month', 'd-year'].forEach(function (id) { $(id).addEventListener('input', calcD); });
+
+  /* ---------------- Simulator switch (?sim=a|b|c|d) ---------------- */
+  function show(sim) {
+    document.querySelectorAll('[data-sim]').forEach(function (s) { s.classList.toggle('d-none', s.getAttribute('data-sim') !== sim); });
+    if (sim === 'b') { redrawChart(); }
+  }
+  document.querySelectorAll('[name="sim"]').forEach(function (el) { el.addEventListener('change', function () { show(this.value); }); });
+
+  calcA(); calcB(); calcC(); calcD();
+  var initial = new URLSearchParams(location.search).get('sim');
+  if (initial && document.querySelector('[name="sim"][value="' + initial + '"]')) {
+    document.querySelector('[name="sim"][value="' + initial + '"]').checked = true;
+    show(initial);
+  }
+})();
+</script>
+</body>
+</html>

@@ -11,7 +11,7 @@
   <script src="assets/estalvia-design.js"></script>
   <style>
     /* Page-specific: the chat card fills the viewport; only the message list scrolls. */
-    .est-chat { display: flex; flex-direction: column; height: calc(100dvh - 15.5rem); min-height: 24rem; overflow: hidden; }
+    .est-chat { display: flex; flex-direction: column; height: calc(100dvh - 14rem); min-height: 24rem; overflow: hidden; }
     @media (min-width: 992px) { .est-chat { height: calc(100dvh - 12.5rem); min-height: 32rem; } }
     .est-chat-top { flex: none; padding: 0.75rem; border-bottom: 1px solid var(--tblr-border-color); }
     .est-chat-log { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; overscroll-behavior: contain; }
@@ -46,7 +46,7 @@
             <h1 class="page-title">Xat amb l'assessor</h1>
           </div>
           <div class="col-auto ms-auto d-flex gap-2">
-            <button type="button" class="btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#chat-side" aria-controls="chat-side"><i class="ti ti-layout-sidebar-right icon" aria-hidden="true"></i>Context</button>
+            <button type="button" class="btn d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#chat-side" aria-controls="chat-side" aria-label="Context i converses"><i class="ti ti-layout-sidebar-right icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Context</span></button>
             <button type="button" class="btn btn-primary"><i class="ti ti-plus icon" aria-hidden="true"></i><span class="d-none d-sm-inline">Conversa nova</span><span class="d-sm-none">Nova</span></button>
           </div>
         </div>
@@ -80,8 +80,8 @@
 
                 <div>
                   <div class="d-flex flex-wrap gap-1 mb-2" aria-label="Dades consultades">
-                    <span class="badge bg-secondary-lt fw-normal"><i class="ti ti-database" aria-hidden="true"></i> Consultat: els teus deutes</span>
-                    <span class="badge bg-secondary-lt fw-normal"><i class="ti ti-calculator" aria-hidden="true"></i> Simulació: allau vs bola de neu</span>
+                    <span class="badge bg-secondary-lt fw-normal text-wrap text-start"><i class="ti ti-database" aria-hidden="true"></i> Consultat: els teus deutes</span>
+                    <span class="badge bg-secondary-lt fw-normal text-wrap text-start"><i class="ti ti-calculator" aria-hidden="true"></i> Simulació: allau vs bola de neu</span>
                   </div>
                   <div class="est-bubble est-bubble-wide">
                     <span class="visually-hidden">Assessor: </span>
@@ -135,7 +135,7 @@
                     <p>Quan hi arribis, per triar un producte concret el millor és parlar amb un assessor financer autoritzat per la CNMV. En pots comprovar el registre a cnmv.es.</p>
                   </div>
                   <div class="d-flex flex-wrap gap-1 mt-2">
-                    <span class="badge bg-azure-lt fw-normal"><i class="ti ti-info-circle" aria-hidden="true"></i> L'assessor no recomana productes financers concrets</span>
+                    <span class="badge bg-azure-lt fw-normal text-wrap text-start"><i class="ti ti-info-circle" aria-hidden="true"></i> L'assessor no recomana productes financers concrets</span>
                   </div>
                 </div>
 
@@ -146,11 +146,11 @@
                 <!-- Streaming state -->
                 <div>
                   <div class="d-flex flex-wrap gap-1 mb-2">
-                    <span class="badge bg-secondary-lt fw-normal"><span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Consultant: moviments d'octubre i setembre…</span>
+                    <span class="badge bg-secondary-lt fw-normal text-wrap text-start"><span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span> Consultant: moviments d'octubre i setembre…</span>
                   </div>
                   <div class="est-bubble" aria-busy="true">
                     <span class="visually-hidden">L'assessor està escrivint: </span>
-                    Vas millor. A l'octubre vas gastar <span class="num">2.660 €</span>, <span class="num">130 €</span> menys que al setembre, i
+                    Vas millor. A l'octubre vas gastar <span class="num text-nowrap">2.660 €</span>, <span class="num text-nowrap">130 €</span> menys que al setembre, i
                     <span class="est-typing ms-1" aria-hidden="true"><span></span><span></span><span></span></span>
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                 <form class="est-composer d-flex align-items-end gap-2" onsubmit="return false">
                   <div class="flex-fill">
                     <label class="visually-hidden" for="chat-input">Escriu la teva pregunta</label>
-                    <textarea id="chat-input" class="form-control" rows="1" placeholder="Pregunta sobre les teves finances…"></textarea>
+                    <textarea id="chat-input" class="form-control" rows="1" placeholder="Escriu la teva pregunta…"></textarea>
                   </div>
                   <button type="submit" class="btn btn-primary btn-icon est-send" aria-label="Envia el missatge"><i class="ti ti-send" aria-hidden="true"></i></button>
                 </form>

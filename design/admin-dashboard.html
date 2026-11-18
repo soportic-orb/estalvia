@@ -41,7 +41,7 @@
       <div class="container-xl">
         <div class="row row-deck row-cards">
 
-          <!-- KPI row -->
+          <!-- KPI row: its own row, so auto-width columns never share a line with the next cards -->
           <div class="col-6 col-md-4 col-xl">
             <div class="card card-sm">
               <div class="card-body">
@@ -88,8 +88,11 @@
             </div>
           </div>
 
+        </div>
+        <div class="row row-deck row-cards mt-0">
+
           <!-- AI cost chart -->
-          <div class="col-12 col-lg-7" id="ai">
+          <div class="col-12 col-lg-6" id="ai">
             <div class="card">
               <div class="card-header">
                 <div>
@@ -104,7 +107,7 @@
           </div>
 
           <!-- AI by model -->
-          <div class="col-12 col-lg-5">
+          <div class="col-12 col-lg-6">
             <div class="card">
               <div class="card-header">
                 <div>
@@ -119,19 +122,19 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><code class="text-body">claude-haiku-5-5</code><div class="small text-secondary">Categorització</div></td>
+                      <td><code class="text-body text-nowrap">claude-haiku-5-5</code><div class="small text-secondary">Categorització</div></td>
                       <td class="text-end">48.210</td>
                       <td class="text-end d-none d-sm-table-cell text-nowrap">61,2 M / 7,4 M</td>
                       <td class="text-end text-nowrap">58,90 €</td>
                     </tr>
                     <tr>
-                      <td><code class="text-body">claude-sonnet-5-5</code><div class="small text-secondary">PDF, pla d'acció i xat</div></td>
+                      <td><code class="text-body text-nowrap">claude-sonnet-5-5</code><div class="small text-secondary">PDF, pla d'acció i xat</div></td>
                       <td class="text-end">9.640</td>
                       <td class="text-end d-none d-sm-table-cell text-nowrap">38,5 M / 6,1 M</td>
                       <td class="text-end text-nowrap">171,30 €</td>
                     </tr>
                     <tr>
-                      <td><code class="text-body">claude-opus-5-5</code><div class="small text-secondary">Revisió mensual</div></td>
+                      <td><code class="text-body text-nowrap">claude-opus-5-5</code><div class="small text-secondary">Revisió mensual</div></td>
                       <td class="text-end">412</td>
                       <td class="text-end d-none d-sm-table-cell text-nowrap">1,9 M / 0,4 M</td>
                       <td class="text-end text-nowrap">38,20 €</td>
@@ -189,7 +192,7 @@
                       <th class="text-end d-none d-lg-table-cell">Ingrés mensual</th>
                       <th class="text-end d-none d-md-table-cell">Cost d'IA</th>
                       <th class="text-end">Marge</th>
-                      <th class="w-1"><span class="visually-hidden">Accions</span></th>
+                      <th class="w-1" aria-label="Accions"></th>
                     </tr>
                   </thead>
                   <tbody id="users-body"></tbody>
@@ -488,7 +491,7 @@
       if (paying && margin < 0) {
         // Paying user that costs more than they pay: flagged with colour + icon + label.
         marginCell = '<div class="text-danger fw-semibold text-nowrap"><i class="ti ti-alert-triangle" aria-hidden="true"></i> ' + eur(margin) + '</div>' +
-          '<div class="small text-danger text-nowrap">' + pct + ' · marge negatiu</div>';
+          '<div class="small text-danger">' + pct + ' <span class="text-nowrap">· marge negatiu</span></div>';
       } else if (paying) {
         marginCell = '<div class="fw-medium text-nowrap">' + eur(margin) + '</div><div class="small text-secondary">' + pct + '</div>';
       } else {
@@ -497,7 +500,7 @@
       var plan = '<span class="badge ' + planBadge[u.plan] + '">' + u.plan + '</span>' + (u.note ? ' <span class="small text-secondary">' + u.note + '</span>' : '');
       return '<tr>' +
         '<td><div class="d-flex align-items-center gap-2"><span class="avatar avatar-sm bg-secondary-lt" aria-hidden="true">' + initials(u.n) + '</span>' +
-        '<div class="text-truncate" style="max-width:14rem"><div class="fw-medium text-truncate">' + u.n + '</div><div class="small text-secondary text-truncate">' + u.e + '</div>' +
+        '<div class="text-truncate" style="max-width:min(14rem, 36vw)"><div class="fw-medium text-truncate">' + u.n + '</div><div class="small text-secondary text-truncate">' + u.e + '</div>' +
         '<div class="d-sm-none mt-1">' + plan + '</div></div></div></td>' +
         '<td class="d-none d-sm-table-cell text-nowrap">' + plan + '</td>' +
         '<td class="d-none d-md-table-cell">' + states[u.state] + '</td>' +
