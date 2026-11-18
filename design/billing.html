@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Subscripció · Estalvia</title>
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="assets/estalvia-theme.css">
+  <script src="assets/estalvia-design.js"></script>
+  <style>
+    /* Page-specific: marks the design-variant card as not part of this user's screen. */
+    .est-variant { border-style: dashed; }
+    .est-legend-meter { width: 2.5rem; display: inline-block; vertical-align: middle; }
+  </style>
+</head>
+<body data-page="billing">
+<div class="page">
+  <script>Estalvia.renderNav();</script>
+  <div class="page-wrapper" id="content">
+
+    <div class="page-header d-print-none">
+      <div class="container-xl">
+        <div class="row g-2 align-items-center">
+          <div class="col">
+            <div class="page-pretitle">Compte</div>
+            <h1 class="page-title">Subscripció</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-body">
+      <div class="container-xl">
+        <div class="row row-deck row-cards">
+
+          <!-- Current plan -->
+          <div class="col-12 col-lg-5">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">El teu pla</h2>
+                <div class="card-actions"><span class="badge bg-green-lt"><i class="ti ti-circle-check" aria-hidden="true"></i> Actiu</span></div>
+              </div>
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                  <span class="avatar avatar-lg bg-primary-lt"><i class="ti ti-star" aria-hidden="true"></i></span>
+                  <div>
+                    <div class="h2 mb-0">Premium</div>
+                    <div class="est-figure mt-1">4,99 <span class="unit">€/mes</span></div>
+                  </div>
+                </div>
+                <div class="datagrid" style="--tblr-datagrid-item-width:9rem">
+                  <div class="datagrid-item"><div class="datagrid-title">Propera renovació</div><div class="datagrid-content num">02/12/2026</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Facturació</div><div class="datagrid-content">Mensual</div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Mètode de pagament</div><div class="datagrid-content"><i class="ti ti-credit-card text-secondary" aria-hidden="true"></i> Visa <span class="num">···· 9012</span></div></div>
+                  <div class="datagrid-item"><div class="datagrid-title">Client des de</div><div class="datagrid-content num">02/08/2026</div></div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <div class="d-grid gap-2">
+                  <a href="#" class="btn btn-primary"><i class="ti ti-external-link icon" aria-hidden="true"></i>Gestiona la subscripció</a>
+                  <a href="#plans" class="btn"><i class="ti ti-calendar-repeat icon" aria-hidden="true"></i>Canvia a anual i estalvia <span class="num ms-1">9,98 €</span></a>
+                </div>
+                <div class="small text-secondary mt-2"><i class="ti ti-lock" aria-hidden="true"></i> La gestió i els pagaments es fan al portal segur de Stripe. Estalvia no desa les dades de la targeta.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quota usage -->
+          <div class="col-12 col-lg-7">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Ús de les quotes</h2>
+                  <div class="card-subtitle mt-1">Període del <span class="num">02/11/2026</span> a l'<span class="num">01/12/2026</span> · es reinicien el <span class="num">02/12/2026</span></div>
+                </div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-baseline gap-3 mb-2">
+                    <span><i class="ti ti-file-type-pdf text-secondary me-1" aria-hidden="true"></i>Lectura de PDF amb IA</span>
+                    <span class="num text-nowrap"><span class="fw-semibold">4</span> de 30</span>
+                  </div>
+                  <div class="est-meter est-meter-info" role="img" aria-label="4 de 30 lectures de PDF, 13 %"><span style="width:13.3%"></span></div>
+                  <div class="small text-secondary mt-1">En queden <span class="num">26</span> aquest mes.</div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-baseline gap-3 mb-2">
+                    <span><i class="ti ti-message-chatbot text-secondary me-1" aria-hidden="true"></i>Xat amb l'assessor</span>
+                    <span class="num text-nowrap"><span class="fw-semibold">37</span> de 100 missatges</span>
+                  </div>
+                  <div class="est-meter est-meter-info" role="img" aria-label="37 de 100 missatges, 37 %"><span style="width:37%"></span></div>
+                  <div class="small text-secondary mt-1">En queden <span class="num">63</span> aquest mes.</div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-baseline gap-3">
+                    <span><i class="ti ti-building-bank text-secondary me-1" aria-hidden="true"></i>Comptes</span>
+                    <span class="num text-nowrap"><span class="fw-semibold">6</span> · il·limitats</span>
+                  </div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-baseline gap-3">
+                    <span><i class="ti ti-users text-secondary me-1" aria-hidden="true"></i>Membres de la llar</span>
+                    <span class="num text-nowrap"><span class="fw-semibold">1</span> de 1</span>
+                  </div>
+                  <div class="small text-secondary mt-1">Amb el pla Família, fins a 5 membres. <a href="#plans">Veure el pla Família</a></div>
+                </div>
+                <div class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-baseline gap-3">
+                    <span><i class="ti ti-calculator text-secondary me-1" aria-hidden="true"></i>Simuladors</span>
+                    <span class="text-nowrap fw-semibold">Tots</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer small text-secondary">
+                <div class="d-flex flex-wrap gap-2 gap-sm-4 align-items-center">
+                  <span><span class="est-meter est-meter-info est-legend-meter me-1" aria-hidden="true"><span style="width:50%"></span></span> Menys del 80 % de la quota</span>
+                  <span><span class="est-meter est-meter-warning est-legend-meter me-1" aria-hidden="true"><span style="width:85%"></span></span> <i class="ti ti-alert-triangle text-warning" aria-hidden="true"></i> 80 % o més: t'avisem</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan comparison -->
+          <div class="col-12" id="plans">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Compara els plans</h2>
+                  <div class="card-subtitle mt-1">Preus amb IVA inclòs</div>
+                </div>
+                <div class="card-actions">
+                  <fieldset>
+                    <legend class="visually-hidden">Període de facturació</legend>
+                    <div class="form-selectgroup">
+                      <label class="form-selectgroup-item">
+                        <input type="radio" name="period" value="monthly" class="form-selectgroup-input" checked>
+                        <span class="form-selectgroup-label">Mensual</span>
+                      </label>
+                      <label class="form-selectgroup-item">
+                        <input type="radio" name="period" value="annual" class="form-selectgroup-input">
+                        <span class="form-selectgroup-label">Anual <span class="d-none d-sm-inline">· 2 mesos gratis</span></span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-12 col-md-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h3 class="card-title mb-1">Gratuït</h3>
+                        <div class="text-secondary small mb-3">Per començar a posar ordre.</div>
+                        <div class="est-figure est-figure-lg">0 <span class="unit">€</span></div>
+                        <div class="small text-secondary mt-1 mb-3">Per sempre</div>
+                        <a href="#downgrade-note" class="btn btn-ghost-secondary w-100 mt-auto">Canvia a Gratuït</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="card h-100 border-primary">
+                      <div class="card-body d-flex flex-column">
+                        <div class="d-flex align-items-center justify-content-between gap-2 mb-1">
+                          <h3 class="card-title mb-0">Premium</h3>
+                          <span class="badge bg-primary-lt"><i class="ti ti-check" aria-hidden="true"></i> El teu pla</span>
+                        </div>
+                        <div class="text-secondary small mb-3">Diagnòstic complet i assessor.</div>
+                        <div class="est-figure est-figure-lg"><span data-monthly="4,99" data-annual="49,90">4,99</span> <span class="unit" data-monthly="€/mes" data-annual="€/any">€/mes</span></div>
+                        <div class="small text-secondary mt-1 mb-3" data-monthly="o 49,90 €/any" data-annual="equival a 4,16 €/mes · estalvies 9,98 €">o 49,90 €/any</div>
+                        <button type="button" class="btn w-100 mt-auto" disabled data-monthly="Pla actual" data-annual="Canvia a anual">Pla actual</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h3 class="card-title mb-1">Família</h3>
+                        <div class="text-secondary small mb-3"><i class="ti ti-users" aria-hidden="true"></i> Fins a 5 membres de la llar.</div>
+                        <div class="est-figure est-figure-lg"><span data-monthly="7,99" data-annual="79,90">7,99</span> <span class="unit" data-monthly="€/mes" data-annual="€/any">€/mes</span></div>
+                        <div class="small text-secondary mt-1 mb-3" data-monthly="o 79,90 €/any" data-annual="equival a 6,66 €/mes · estalvies 15,98 €">o 79,90 €/any</div>
+                        <a href="#" class="btn btn-primary w-100 mt-auto">Millora a Família</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="table-responsive border-top">
+                <table class="table table-vcenter card-table">
+                  <caption class="visually-hidden">Límits de cada pla</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Què inclou</th>
+                      <th scope="col">Gratuït</th>
+                      <th scope="col">Premium <span class="visually-hidden">(el teu pla)</span></th>
+                      <th scope="col">Família</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row" class="fw-normal text-secondary">Comptes</th><td>3</td><td class="fw-medium">Il·limitats</td><td>Il·limitats</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">PDF amb IA</th><td>2 al mes</td><td class="fw-medium">30 al mes</td><td>60 al mes</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Xat amb l'assessor</th><td><span aria-hidden="true">—</span><span class="visually-hidden">No inclòs</span></td><td class="fw-medium">100 missatges/mes</td><td>200 missatges/mes</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Pla d'acció</th><td>Resum (1 acció)</td><td class="fw-medium">Complet</td><td>Complet</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Simuladors</th><td>1</td><td class="fw-medium">Tots</td><td>Tots</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Membres de la llar</th><td>1</td><td class="fw-medium">1</td><td>Fins a 5</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Historial</th><td>12 mesos</td><td class="fw-medium">Il·limitat</td><td>Il·limitat</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Diagnòstic</th><td>Mensual bàsic</td><td class="fw-medium">Complet i a demanda</td><td>Complet i a demanda</td></tr>
+                    <tr><th scope="row" class="fw-normal text-secondary">Alertes</th><td>Bàsiques</td><td class="fw-medium">Totes</td><td>Totes</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer" id="downgrade-note">
+                <div class="d-flex gap-2 small text-secondary">
+                  <i class="ti ti-info-circle mt-1" aria-hidden="true"></i>
+                  <div><span class="fw-medium text-body">Si baixes de pla:</span> les dades es conserven; les funcions Premium queden bloquejades fins que tornis a millorar. El canvi s'aplica al final del període ja pagat (<span class="num">02/12/2026</span>). Tots els preus són amb IVA inclòs.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoices -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Factures</h2>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                  <thead>
+                    <tr>
+                      <th>Data</th>
+                      <th>Concepte</th>
+                      <th class="d-none d-md-table-cell">Número</th>
+                      <th class="text-end">Import</th>
+                      <th class="w-1"><span class="visually-hidden">Descàrrega</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-nowrap">02/11/2026</td>
+                      <td>Estalvia Premium <span class="text-secondary d-none d-sm-inline">· mensual</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">EST-2026-004187</td>
+                      <td class="text-end text-nowrap">4,99 €</td>
+                      <td><a href="#" class="btn btn-icon btn-ghost-secondary" aria-label="Baixa la factura del 02/11/2026 en PDF"><i class="ti ti-download" aria-hidden="true"></i></a></td>
+                    </tr>
+                    <tr>
+                      <td class="text-nowrap">02/10/2026</td>
+                      <td>Estalvia Premium <span class="text-secondary d-none d-sm-inline">· mensual</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">EST-2026-003502</td>
+                      <td class="text-end text-nowrap">4,99 €</td>
+                      <td><a href="#" class="btn btn-icon btn-ghost-secondary" aria-label="Baixa la factura del 02/10/2026 en PDF"><i class="ti ti-download" aria-hidden="true"></i></a></td>
+                    </tr>
+                    <tr>
+                      <td class="text-nowrap">02/09/2026</td>
+                      <td>Estalvia Premium <span class="text-secondary d-none d-sm-inline">· mensual</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">EST-2026-002844</td>
+                      <td class="text-end text-nowrap">4,99 €</td>
+                      <td><a href="#" class="btn btn-icon btn-ghost-secondary" aria-label="Baixa la factura del 02/09/2026 en PDF"><i class="ti ti-download" aria-hidden="true"></i></a></td>
+                    </tr>
+                    <tr>
+                      <td class="text-nowrap">02/08/2026</td>
+                      <td>Estalvia Premium <span class="text-secondary d-none d-sm-inline">· mensual</span></td>
+                      <td class="d-none d-md-table-cell text-secondary">EST-2026-002231</td>
+                      <td class="text-end text-nowrap">4,99 €</td>
+                      <td><a href="#" class="btn btn-icon btn-ghost-secondary" aria-label="Baixa la factura del 02/08/2026 en PDF"><i class="ti ti-download" aria-hidden="true"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Design variant: what a free-plan user sees instead of the plan card -->
+          <div class="col-12">
+            <div class="card est-variant">
+              <div class="card-header">
+                <div>
+                  <span class="badge bg-secondary-lt mb-2"><i class="ti ti-layout" aria-hidden="true"></i> Variant de disseny</span>
+                  <h2 class="card-title">Variant: usuari del pla Gratuït</h2>
+                  <div class="card-subtitle mt-1">Així es veu la part superior d'aquesta pantalla per a qui encara no és Premium. No forma part del compte de la Marta.</div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row g-3">
+                  <div class="col-12 col-lg-7">
+                    <div class="card bg-primary-lt border-0 h-100">
+                      <div class="card-body">
+                        <h3 class="h2 mb-1">Millora a Premium — 14 dies de prova sense targeta</h3>
+                        <p class="mb-3">Després, <span class="num">4,99 €/mes</span> o <span class="num">49,90 €/any</span>, IVA inclòs. Cancel·la quan vulguis.</p>
+                        <ul class="list-unstyled vstack gap-2 mb-4">
+                          <li class="d-flex gap-2"><i class="ti ti-list-check mt-1" aria-hidden="true"></i><span><span class="fw-medium">Pla d'acció complet</span>: totes les accions d'estalvi, no només la primera.</span></li>
+                          <li class="d-flex gap-2"><i class="ti ti-message-chatbot mt-1" aria-hidden="true"></i><span><span class="fw-medium">Xat amb l'assessor</span>: <span class="num">100</span> missatges al mes sobre les teves finances.</span></li>
+                          <li class="d-flex gap-2"><i class="ti ti-building-bank mt-1" aria-hidden="true"></i><span><span class="fw-medium">Comptes il·limitats</span> i <span class="num">30</span> extractes en PDF llegits amb IA cada mes.</span></li>
+                        </ul>
+                        <a href="#" class="btn btn-primary"><i class="ti ti-sparkles icon" aria-hidden="true"></i>Comença la prova gratuïta</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-lg-5">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h3 class="card-title">Ús del pla Gratuït</h3>
+                        <div class="vstack gap-3">
+                          <div>
+                            <div class="d-flex justify-content-between align-items-baseline gap-3 mb-2">
+                              <span>Comptes</span>
+                              <span class="num text-nowrap"><span class="fw-semibold">3</span> de 3</span>
+                            </div>
+                            <div class="est-meter est-meter-warning" role="img" aria-label="3 de 3 comptes, 100 %"><span style="width:100%"></span></div>
+                            <div class="small text-warning mt-1"><i class="ti ti-alert-triangle" aria-hidden="true"></i> Has arribat al límit de comptes.</div>
+                          </div>
+                          <div>
+                            <div class="d-flex justify-content-between align-items-baseline gap-3 mb-2">
+                              <span>Lectura de PDF amb IA</span>
+                              <span class="num text-nowrap"><span class="fw-semibold">1</span> de 2</span>
+                            </div>
+                            <div class="est-meter est-meter-info" role="img" aria-label="1 de 2 lectures de PDF, 50 %"><span style="width:50%"></span></div>
+                          </div>
+                          <div class="d-flex justify-content-between align-items-baseline gap-3">
+                            <span class="text-secondary"><i class="ti ti-lock me-1" aria-hidden="true"></i>Xat amb l'assessor</span>
+                            <span class="small text-secondary text-nowrap">Només a Premium</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer footer-transparent d-print-none">
+      <div class="container-xl">
+        <div class="text-secondary small">Estalvia t'ajuda a entendre i millorar les teves finances. No és assessorament d'inversió. · <a href="landing.html#legal" class="link-secondary">Avís legal</a> · <a href="landing.html#legal" class="link-secondary">Privacitat</a></div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js"></script>
+<script>
+  // Monthly / annual toggle: every element carrying both data attributes swaps its text.
+  (function () {
+    function apply(period) {
+      document.querySelectorAll('[data-monthly][data-annual]').forEach(function (el) {
+        el.textContent = el.getAttribute('data-' + period);
+        if (el.tagName === 'BUTTON') {
+          el.disabled = period === 'monthly';
+          el.classList.toggle('btn-primary', period === 'annual');
+        }
+      });
+    }
+    document.querySelectorAll('[name="period"]').forEach(function (el) {
+      el.addEventListener('change', function () { apply(this.value); });
+    });
+    var initial = new URLSearchParams(location.search).get('period');
+    if (initial === 'annual') { document.querySelector('[name="period"][value="annual"]').checked = true; apply('annual'); }
+  })();
+</script>
+</body>
+</html>
